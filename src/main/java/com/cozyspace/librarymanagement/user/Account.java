@@ -1,0 +1,43 @@
+package com.cozyspace.librarymanagement.user;
+
+import com.cozyspace.librarymanagement.datasource.AccountDatasource;
+
+import java.util.List;
+
+public class Account {
+
+    private String id;
+    private String password;
+    private final Person person;
+
+    public Account() {
+        person = Person.getInstance();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setInfo(List<String> info) {
+        this.id = info.get(AccountDatasource.INDEX_COLUMN_ID - 1);
+        this.password = info.get(AccountDatasource.INDEX_COLUMN_PASSWORD - 1);
+        this.person.setName(info.get(AccountDatasource.INDEX_COLUMN_NAME - 1));
+        this.person.setAddress(info.get(AccountDatasource.INDEX_COLUMN_ADDRESS - 1));
+        this.person.setEmail(info.get(AccountDatasource.INDEX_COLUMN_EMAIL - 1));
+        this.person.setPhone(info.get(AccountDatasource.INDEX_COLUMN_PHONE - 1));
+    }
+
+
+}
