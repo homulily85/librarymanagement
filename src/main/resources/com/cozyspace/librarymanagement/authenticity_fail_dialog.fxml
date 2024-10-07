@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cozyspace.librarymanagement.AuthenticityFailDialogController"
+            prefHeight="100.0" prefWidth="500.0">
+    <content>
+        <VBox alignment="CENTER">
+            <padding>
+                <Insets top="40"/>
+            </padding>
+            <Label text="Tên đăng nhập hoặc mật khảu không chính xác.">
+                <font>
+                    <Font size="15"/>
+                </font>
+            </Label>
+        </VBox>
+    </content>
+</DialogPane>

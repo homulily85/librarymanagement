@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
-<VBox alignment="TOP_CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml"
+<VBox fx:id="loginVbox" alignment="TOP_CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.cozyspace.librarymanagement.MainController">
     <padding>
         <Insets top="150"/>
@@ -25,7 +25,7 @@
         <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <HBox alignment="CENTER" GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <Button onAction="#validateAccount" text="Đăng nhập"/>
+            <Button fx:id="loginButton" onAction="#handleLoginAction" text="Đăng nhập"/>
         </HBox>
     </GridPane>
 </VBox>
