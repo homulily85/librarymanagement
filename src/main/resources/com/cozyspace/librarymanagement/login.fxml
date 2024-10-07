@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextField?>
+<VBox alignment="TOP_CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.cozyspace.librarymanagement.MainController">
+    <padding>
+        <Insets top="150"/>
+    </padding>
+    <Label text="Đăng nhập vào hệ thống">
+        <font>
+            <Font size="30"/>
+        </font>
+    </Label>
+    <GridPane alignment="CENTER" vgap="10" hgap="10">
+        <Label text="Tên đăng nhập" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <Label text="Mật khẩu" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+</VBox>
