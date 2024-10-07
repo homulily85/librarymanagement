@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement;
 
+import com.cozyspace.librarymanagement.datasource.AccountDatasource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +16,18 @@ public class Main extends Application {
         stage.setTitle("Library Management System");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        AccountDatasource.openConection();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        AccountDatasource.closeConnection();
     }
 
     public static void main(String[] args) {

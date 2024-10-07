@@ -1,6 +1,9 @@
 package com.cozyspace.librarymanagement;
 
+import com.cozyspace.librarymanagement.datasource.AccountDatasource;
 import com.cozyspace.librarymanagement.user.Account;
+import com.cozyspace.librarymanagement.user.Librarian;
+import com.cozyspace.librarymanagement.user.Member;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class LoginController {
@@ -25,8 +29,6 @@ public class LoginController {
     @FXML
     private TextField idField;
 
-    Account admin = new Account("admin", "admin");
-
     public void initialize() {
         // Tắt nút đăng nhăp khi trường tên đăng nhập và mật khẩu rỗng
         loginButton.disableProperty()
@@ -34,25 +36,15 @@ public class LoginController {
     }
 
     /**
-     * Kiểm tra thông tin đăng nhập của người dùng.
-     * Phương thức được gọi khi người dúng ấn vào nút "Đăng nhập".
-     *
-     * @return true nếu thông tin khớp với một tài khoản trong CSDL
-     */
-    private boolean validateAccount() {
-        return idField.getText().equals(admin.getId())
-                && passwordField.getText().equals(admin.getPassword());
-    }
-
-    /**
      * Xử lí màn hình sau khi người dùng ấn vào nút "Đăng nhập"
      */
     public void handleLoginAction() {
-        if (!validateAccount()) {
+        List<String> userInfor = AccountDatasource.getAccountInfo(idField.getText(), passwordField.getText());
+        if (userInfor.isEmpty()) {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(loginVbox.getScene().getWindow());
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Objects.requireNonNull(getClass().getResource("authenticity_fail_dialog.fxml")));
+            fxmlLoader.setLocation(Objects.requireNonNull(getClass().getResource("authenticate_fail_dialog.fxml")));
             try {
                 dialog.getDialogPane().setContent(fxmlLoader.load());
             } catch (IOException e) {
@@ -63,6 +55,11 @@ public class LoginController {
             dialog.showAndWait();
         } else {
 
+            if (userInfor.get(AccountDatasource.INDEX_COLUMN_ROLE - 1).equals("Member")) {
+                Member.getInstance().setInfo(userInfor);
+            } else {
+                Librarian.getInstance().setInfo(userInfor);
+            }
             Stage stage = (Stage) loginButton.getScene().getWindow();
 
             try {
