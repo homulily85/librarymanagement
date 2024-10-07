@@ -1,17 +1,21 @@
 package com.cozyspace.librarymanagement;
 
 import com.cozyspace.librarymanagement.user.Account;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class MainController {
+public class LoginController {
     @FXML
     private Button loginButton;
     @FXML
@@ -40,6 +44,9 @@ public class MainController {
                 && passwordField.getText().equals(admin.getPassword());
     }
 
+    /**
+     * Xử lí màn hình sau khi người dùng ấn vào nút "Đăng nhập"
+     */
     public void handleLoginAction() {
         if (!validateAccount()) {
             Dialog<ButtonType> dialog = new Dialog<>();
@@ -54,6 +61,23 @@ public class MainController {
             dialog.setTitle("Lỗi");
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
+        } else {
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+
+            try {
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main_screen.fxml")));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+                stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
         }
     }
 
