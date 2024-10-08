@@ -1,5 +1,8 @@
 package com.cozyspace.librarymanagement.datasource;
 
+import com.password4j.Hash;
+import com.password4j.Password;
+
 import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
@@ -53,11 +56,12 @@ public class AccountDatasource {
     }
 
     public static List<String> getAccountInfo(String id, String password) {
+        Hash hash = Password.hash(password).addSalt("1").withArgon2();
         try {
-            PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ? and %s = ?"
-                    .formatted(TABLE_ACCOUNT, COLUMN_ID, COLUMN_PASSWORD));
+            PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ?"
+                    .formatted(TABLE_ACCOUNT, COLUMN_ID));
             query.setString(1, id);
-            query.setString(2, password);
+            System.out.println(query);
             ResultSet resultSet = query.executeQuery();
             List<String> result = new ArrayList<>();
             while (resultSet.next()) {
@@ -69,7 +73,8 @@ public class AccountDatasource {
                 result.add(resultSet.getString(INDEX_COLUMN_PHONE));
                 result.add(resultSet.getString(INDEX_COLUMN_ROLE));
             }
-            return result;
+            if (hash.getResult().equals(result.get(INDEX_COLUMN_PASSWORD - 1))) return result;
+            else return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;

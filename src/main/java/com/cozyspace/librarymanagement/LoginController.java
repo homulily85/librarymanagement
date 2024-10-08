@@ -40,7 +40,7 @@ public class LoginController {
      */
     public void handleLoginAction() {
         List<String> userInfor = AccountDatasource.getAccountInfo(idField.getText(), passwordField.getText());
-        if (userInfor.isEmpty()) {
+        if (userInfor==null) {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(loginVbox.getScene().getWindow());
             FXMLLoader fxmlLoader = new FXMLLoader();
