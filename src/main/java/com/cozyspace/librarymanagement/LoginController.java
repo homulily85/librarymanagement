@@ -1,7 +1,6 @@
 package com.cozyspace.librarymanagement;
 
-import com.cozyspace.librarymanagement.datasource.AccountDatasource;
-import com.cozyspace.librarymanagement.user.Account;
+import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
 import javafx.beans.binding.Bindings;
@@ -39,8 +38,8 @@ public class LoginController {
      * Xử lí màn hình sau khi người dùng ấn vào nút "Đăng nhập"
      */
     public void handleLoginAction() {
-        List<String> userInfor = AccountDatasource.getAccountInfo(idField.getText(), passwordField.getText());
-        if (userInfor.isEmpty()) {
+        List<String> userInfor = Datasource.getAccountInfo(idField.getText(), passwordField.getText());
+        if (userInfor==null) {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(loginVbox.getScene().getWindow());
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -55,7 +54,7 @@ public class LoginController {
             dialog.showAndWait();
         } else {
 
-            if (userInfor.get(AccountDatasource.INDEX_COLUMN_ROLE - 1).equals("Member")) {
+            if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
                 Member.getInstance().setInfo(userInfor);
             } else {
                 Librarian.getInstance().setInfo(userInfor);
