@@ -75,7 +75,7 @@ public class Datasource {
      * @param id       tên đăng nhập
      * @param password mật khẩu
      * @return null nếu tên đăng nhập hoặc mật khẩu không đúng,
-     * List chứa thông tin người duùng nếu thông tin đăng nhập khớp với một bản ghi trong CSDL
+     * List chứa thông tin người dùng nếu thông tin đăng nhập khớp với một bản ghi trong CSDL
      */
     public static List<String> getAccountInfo(String id, String password) {
         Hash hash = Password.hash(password).addSalt("1").withArgon2();

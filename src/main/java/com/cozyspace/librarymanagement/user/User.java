@@ -4,13 +4,13 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 
 import java.util.List;
 
-public class Account {
+public class User {
 
     private String id;
     private String password;
     private final Person person;
 
-    public Account() {
+    public User() {
         person = Person.getInstance();
     }
 
@@ -37,6 +37,27 @@ public class Account {
         this.person.setAddress(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
         this.person.setEmail(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
         this.person.setPhone(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1));
+    }
+
+    /**
+     * Tìm kiếm tài liệu theo tên
+     */
+    public void searchDocumentByTitle() {
+
+    }
+
+    /**
+     * Tìm kiếm tài liệu theo tác giả
+     */
+    public void searchDocumentByAuthor() {
+
+    }
+
+    /**
+     * Xem tất cả các tài liệu có trong cơ sở dữ liệu
+     */
+    public void viewAllAvailableDocument() {
+
     }
 
 
