@@ -15,4 +15,53 @@ public class Librarian extends Account {
         return instance;
     }
 
+    /**
+     * Xem tất cả các tài liệu có trong cơ sở dữ liệu
+     */
+    public void viewAllAvailableBook() {
+
+    }
+
+    /**
+     * Thêm tài liệu mới vào cơ sở dữ liệu
+     */
+    public void addDocument() {
+
+    }
+
+    /**
+     * Xóa tài liệu ra khỏi cơ sở dữ liệu.
+     *
+     */
+    public void removeDocument(){
+
+    }
+
+    /**
+     * Thay đổi thông tin của tài liệu
+     */
+    public void editABook(){
+
+    }
+
+    public void searchForMember(){
+
+    }
+
+    public void addMember(){
+
+    }
+
+    public void removeMember(){
+
+    }
+
+    public void editMemberInfo(){
+
+    }
+
+    public void viewAllMember(){
+
+    }
+
 }
