@@ -53,26 +53,35 @@ public class LoginController {
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
         } else {
-            if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
-                Member.getInstance().setInfo(userInfor);
-            } else {
-                Librarian.getInstance().setInfo(userInfor);
-            }
-
+            Parent root = null;
             Stage stage = (Stage) loginButton.getScene().getWindow();
 
-            try {
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main_screen.fxml")));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+            if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
+                Member.getInstance().setInfo(userInfor);
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass().
+                            getResource("member_main_screen.fxml")));
 
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-                stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
-                stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                Librarian.getInstance().setInfo(userInfor);
+
+                try {
+                    root = FXMLLoader.load(Objects.requireNonNull(getClass()
+                            .getResource("librarian_main_screen.fxml")));
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX((screenBounds.getWidth() - stage.getWidth()) / 2);
+            stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
         }
     }
 

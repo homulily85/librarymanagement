@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="720" prefWidth="1111.0" spacing="40" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cozyspace.librarymanagement.SearchScreenController">
+    <padding>
+        <Insets top="30"/>
+    </padding>
+    <GridPane alignment="CENTER">
+        <Label text="Tìm kiếm tài liệu">
+            <font>
+                <Font size="40"/>
+            </font>
+        </Label>
+        <columnConstraints>
+            <ColumnConstraints/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+    <GridPane alignment="TOP_CENTER" hgap="30" vgap="30">
+        <ComboBox fx:id="searchType" GridPane.columnIndex="0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tìm kiếm theo tên tài liệu"/>
+                    <String fx:value="Tìm kiếm theo tác giả"/>
+                </FXCollections>
+            </items>
+            <value>
+                <String fx:value="Tìm kiếm theo tên tài liệu"/>
+            </value>
+        </ComboBox>
+        <TextField fx:id="searchField" prefWidth="500" GridPane.columnIndex="1"/>
+        <Button fx:id="searchButton" defaultButton="true" GridPane.columnIndex="2" onAction="#search">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="20">
+                    <Image url="@search_icon.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <TableView fx:id="table" prefHeight="500" prefWidth="100" GridPane.columnSpan="3" GridPane.rowIndex="1"
+                   visible="false">
+            <columns>
+                <TableColumn prefWidth="500" text="Tên tài liệu"/>
+                <TableColumn prefWidth="200" text="Tác giả"/>
+                <TableColumn prefWidth="76.8" text="Loại"/>
+            </columns>
+        </TableView>
+        <Label fx:id="documentNotFound" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"
+               text="      Không tìm thấy tài liệu!" visible="false">
+            <font>
+                <Font size="30"/>
+            </font>
+        </Label>
+    </GridPane>
+</VBox>
