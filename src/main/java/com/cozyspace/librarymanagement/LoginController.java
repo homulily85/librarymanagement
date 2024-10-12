@@ -39,7 +39,7 @@ public class LoginController {
      */
     public void handleLoginAction() {
         List<String> userInfor = Datasource.getAccountInfo(idField.getText(), passwordField.getText());
-        if (userInfor==null) {
+        if (userInfor == null) {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(loginVbox.getScene().getWindow());
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -53,12 +53,12 @@ public class LoginController {
             dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
             dialog.showAndWait();
         } else {
-
             if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
                 Member.getInstance().setInfo(userInfor);
             } else {
                 Librarian.getInstance().setInfo(userInfor);
             }
+
             Stage stage = (Stage) loginButton.getScene().getWindow();
 
             try {
@@ -73,7 +73,6 @@ public class LoginController {
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-
         }
     }
 
