@@ -21,9 +21,15 @@ public class Member extends User {
 
     }
 
+    /**
+     * Trả tài liệu
+     */
     public void returnDocument() {
     }
 
+    /**
+     * Hiển thị thông tin thành viên.
+     */
     public void showMemberInfo(){
 
     }

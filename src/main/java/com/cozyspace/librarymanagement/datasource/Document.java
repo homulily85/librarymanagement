@@ -24,6 +24,9 @@ public class Document {
         this.quantity = quantity;
     }
 
+    /**
+     * Hiển thị thông tin tài liệu
+     */
     public void showDocumentInfo() {
 
     }
