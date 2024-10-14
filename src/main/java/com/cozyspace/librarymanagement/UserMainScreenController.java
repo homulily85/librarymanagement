@@ -16,6 +16,9 @@ public class UserMainScreenController {
     @FXML
     private Label search;
 
+    /**
+     * Xử lí khi người dùng ấn vào nút "Tìm kiếm"
+     */
     public void search() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("search_screen.fxml"));
         Pane searchView = null;

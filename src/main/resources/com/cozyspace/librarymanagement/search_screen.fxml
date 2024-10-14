@@ -49,9 +49,9 @@
         <TableView fx:id="table" prefHeight="500" prefWidth="100" GridPane.columnSpan="3" GridPane.rowIndex="1"
                    visible="false">
             <columns>
-                <TableColumn prefWidth="500" text="Tên tài liệu"/>
-                <TableColumn prefWidth="200" text="Tác giả"/>
-                <TableColumn prefWidth="76.8" text="Loại"/>
+                <TableColumn fx:id="titleColumn" prefWidth="500" text="Tên tài liệu"/>
+                <TableColumn fx:id="authorColumn" prefWidth="200" text="Tác giả"/>
+                <TableColumn fx:id="typeColumn" prefWidth="76.8" text="Loại"/>
             </columns>
         </TableView>
         <Label fx:id="documentNotFound" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"

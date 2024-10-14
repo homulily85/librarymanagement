@@ -1,6 +1,8 @@
 package com.cozyspace.librarymanagement.user;
 
 import com.cozyspace.librarymanagement.datasource.Datasource;
+import com.cozyspace.librarymanagement.datasource.Document;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -42,21 +44,21 @@ public class User {
     /**
      * Tìm kiếm tài liệu theo tên
      */
-    public void searchDocumentByTitle() {
-
+    public static ObservableList<Document> searchDocumentByTitle(String title) {
+        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE,title);
     }
 
     /**
      * Tìm kiếm tài liệu theo tác giả
      */
-    public void searchDocumentByAuthor() {
-
+    public static ObservableList<Document> searchDocumentByAuthor(String author) {
+        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR,author);
     }
 
     /**
      * Xem tất cả các tài liệu có trong cơ sở dữ liệu
      */
-    public void viewAllAvailableDocument() {
+    public static void viewAllAvailableDocument() {
 
     }
 
