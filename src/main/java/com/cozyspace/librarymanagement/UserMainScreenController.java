@@ -10,6 +10,8 @@ import java.io.IOException;
 
 public class UserMainScreenController {
     @FXML
+    private Label showAllAvailableDocument;
+    @FXML
     private Label home;
     @FXML
     private BorderPane mainBorderPane;
@@ -29,5 +31,17 @@ public class UserMainScreenController {
         }
         BorderPane homePane = (BorderPane) home.getScene().getRoot();
         homePane.setCenter(searchView);
+    }
+
+    public void showAllAvailableDocument(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("available_document_screen.fxml"));
+        Pane view = null;
+        try {
+            view = loader.load();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        BorderPane homePane = (BorderPane) home.getScene().getRoot();
+        homePane.setCenter(view);
     }
 }

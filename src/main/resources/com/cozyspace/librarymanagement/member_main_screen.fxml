@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<BorderPane fx:id="mainBorderPane" prefHeight="720" prefWidth="1280.0"
-            xmlns:fx="http://javafx.com/fxml/"
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainBorderPane" prefHeight="720" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/"
             fx:controller="com.cozyspace.librarymanagement.UserMainScreenController">
 
     <left>
-        <VBox alignment="TOP_CENTER" spacing="50" style="-fx-border-color: gray; -fx-border-style: hidden solid hidden hidden">
+        <VBox alignment="TOP_CENTER" spacing="50"
+              style="-fx-border-color: gray; -fx-border-style: hidden solid hidden hidden">
             <padding>
                 <Insets left="10"/>
             </padding>
-            <ImageView VBox.vgrow="NEVER" fitHeight="182.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="182.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
                 <Image url="@book.png"/>
             </ImageView>
             <GridPane hgap="15" vgap="15">
-                <Label fx:id="home" alignment="CENTER" prefHeight="46.0" prefWidth="167.0" text="Trang chủ"
-                       GridPane.rowIndex="0">
+                <Label fx:id="home" alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="134.0" text="Trang chủ"
+                       GridPane.rowIndex="0"
+                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
                     <font>
                         <Font size="30"/>
                     </font>
                 </Label>
-                <Label fx:id="search" alignment="CENTER" prefHeight="46.0" prefWidth="167.0" text="Tìm kiếm"
-                       GridPane.rowIndex="1" onMouseClicked="#search">
+                <Label fx:id="showAllAvailableDocument" alignment="BASELINE_LEFT" prefHeight="92.0" prefWidth="134.0"
+                       text="Tài liệu hiện có" wrapText="true" GridPane.rowIndex="1"
+                       onMouseClicked="#showAllAvailableDocument"
+                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
+                    <font>
+                        <Font size="30"/>
+                    </font>
+                </Label>
+                <Label fx:id="search" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="46.0"
+                       prefWidth="134.0" text="Tìm kiếm" GridPane.rowIndex="2"
+                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
                     <font>
                         <Font size="30"/>
                     </font>

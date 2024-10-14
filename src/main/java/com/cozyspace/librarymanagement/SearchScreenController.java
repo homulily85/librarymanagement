@@ -2,12 +2,11 @@ package com.cozyspace.librarymanagement;
 
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.User;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 public class SearchScreenController {
     @FXML
@@ -26,6 +25,11 @@ public class SearchScreenController {
     private Label documentNotFound;
     @FXML
     private TableView<Document> table;
+
+    public void initialize() {
+        searchButton.disableProperty()
+                .bind(Bindings.isEmpty(searchField.textProperty()));
+    }
 
     public void search() {
         documentNotFound.setVisible(false);

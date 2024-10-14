@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="720" prefWidth="1111.0" spacing="40" xmlns:fx="http://javafx.com/fxml/1"
+<VBox prefHeight="720" prefWidth="1111.0" spacing="40" xmlns:fx="http://javafx.com/fxml/"
       fx:controller="com.cozyspace.librarymanagement.SearchScreenController">
     <padding>
         <Insets top="30"/>
@@ -19,12 +19,7 @@
                 <Font size="40"/>
             </font>
         </Label>
-        <columnConstraints>
-            <ColumnConstraints/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints/>
-        </rowConstraints>
+
     </GridPane>
     <GridPane alignment="TOP_CENTER" hgap="30" vgap="30">
         <ComboBox fx:id="searchType" GridPane.columnIndex="0">

@@ -25,7 +25,7 @@
         <TextField fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <HBox alignment="CENTER" GridPane.columnSpan="2" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <Button fx:id="loginButton" onAction="#handleLoginAction" text="Đăng nhập"/>
+            <Button fx:id="loginButton" onAction="#handleLoginAction" text="Đăng nhập" defaultButton="true" />
         </HBox>
     </GridPane>
 </VBox>

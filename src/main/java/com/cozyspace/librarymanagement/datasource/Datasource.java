@@ -110,28 +110,42 @@ public class Datasource {
     public static ObservableList<Document> queryDocument(String searchType, String value) {
         StringBuilder sb = new StringBuilder(value);
         sb.append("%");
-        sb.insert(0,"%");
+        sb.insert(0, "%");
         try {
             PreparedStatement query = connection.prepareStatement("select * from %s where %s like ?"
                     .formatted(TABLE_DOCUMENT, searchType));
             query.setString(1, sb.toString());
-            ResultSet resultSet = query.executeQuery();
-            ObservableList<Document> result = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
-                        resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
-                        resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
-                        resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
-                        resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TYPE),
-                        resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY)));
-            }
-            resultSet.close();
-            query.close();
-            return result;
+            return getDocuments(query);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
+    public static ObservableList<Document> getAvailableDocument() {
+        try {
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0"
+                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            return getDocuments(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private static ObservableList<Document> getDocuments(PreparedStatement query) throws SQLException {
+        ResultSet resultSet = query.executeQuery();
+        ObservableList<Document> result = FXCollections.observableArrayList();
+        while (resultSet.next()) {
+            result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TYPE),
+                    resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY)));
+        }
+        resultSet.close();
+        query.close();
+        return result;
+    }
 }

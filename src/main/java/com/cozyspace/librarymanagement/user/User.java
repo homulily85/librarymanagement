@@ -45,21 +45,21 @@ public class User {
      * Tìm kiếm tài liệu theo tên
      */
     public static ObservableList<Document> searchDocumentByTitle(String title) {
-        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE,title);
+        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE, title);
     }
 
     /**
      * Tìm kiếm tài liệu theo tác giả
      */
     public static ObservableList<Document> searchDocumentByAuthor(String author) {
-        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR,author);
+        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR, author);
     }
 
     /**
      * Xem tất cả các tài liệu có trong cơ sở dữ liệu
      */
-    public static void viewAllAvailableDocument() {
-
+    public static ObservableList<Document> viewAllAvailableDocument() {
+        return Datasource.getAvailableDocument();
     }
 
 
