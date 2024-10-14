@@ -24,10 +24,6 @@ public class Document {
         this.quantity = quantity;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -48,7 +44,4 @@ public class Document {
         return quantity;
     }
 
-    public void showDocumentInfo() {
-
-    }
 }

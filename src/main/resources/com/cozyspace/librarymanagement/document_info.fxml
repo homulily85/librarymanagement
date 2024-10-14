@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cozyspace.librarymanagement.DocumentInfoController"
+            prefHeight="600.0" prefWidth="900.0">
+    <left>
+        <VBox>
+            <padding>
+                <Insets left="30"/>
+            </padding>
+            <ImageView>
+                <Image url="@coverart.png"/>
+            </ImageView>
+        </VBox>
+    </left>
+    <center>
+
+        <VBox>
+            <padding>
+                <Insets left="20"/>
+            </padding>
+            <Label fx:id="documentTitle" text="Discrete Mathematics and Its Applications" prefWidth="675"
+                   wrapText="true">
+                <font>
+                    <Font size="40"/>
+                </font>
+            </Label>
+            <Label fx:id="documentAuthor" text="Tác giả: " prefWidth="675" wrapText="true">
+                <font>
+                    <Font size="25"/>
+                </font>
+            </Label>
+            <Label fx:id="documentType" text="Loại: " prefWidth="675" wrapText="true">
+                <font>
+                    <Font size="25"/>
+                </font>
+            </Label>
+            <Label fx:id="documentQuantity" text="Số lượng: " prefWidth="675" wrapText="true">
+                <font>
+                    <Font size="25"/>
+                </font>
+            </Label>
+            <Label text="Mô tả: " prefWidth="675" wrapText="true">
+                <font>
+                    <Font size="25"/>
+                </font>
+            </Label>
+            <Label fx:id="documentDescription" text="Place holder " prefWidth="675" wrapText="true">
+                <font>
+                    <Font size="25"/>
+                </font>
+            </Label>
+        </VBox>
+    </center>
+</BorderPane>
