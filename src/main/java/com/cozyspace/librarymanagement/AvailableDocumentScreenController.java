@@ -29,7 +29,7 @@ public class AvailableDocumentScreenController {
     private TableView<Document> table;
 
     public void initialize() {
-        ObservableList<Document> result = User.viewAllAvailableDocument();
+        ObservableList<Document> result = User.getInstance().viewAllAvailableDocument();
         table.getItems().setAll(result);
         titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
         authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));

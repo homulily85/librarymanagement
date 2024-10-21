@@ -6,14 +6,53 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class User {
+public class User implements Searchable{
 
     private String id;
-    private String password;
     private final Person person;
+    private static User instance;
 
-    public User() {
+    User() {
         person = Person.getInstance();
+    }
+
+    public static User getInstance() {
+        return instance;
+    }
+
+    /**
+     * Đăng nhập tài khoản. Phương thức này chỉ có thể được gọi khi có khi phần mềm ở
+     * trạng thái chưa đăng nhập.
+     *
+     * @param username tên đăng nhập
+     * @param password mật khẩu
+     * @return true nếu tồn tại một bản ghi trong cơ sở dữ liệu tương ứng với thông tin nhập vào,
+     * false nếu ngược lại
+     */
+    public static boolean login(String username, String password) {
+        if (instance != null) {
+            throw new RuntimeException("User instance exists.");
+        }
+        List<String> userInfor = Datasource.getAccountInfo(username, password);
+        if (userInfor == null) {
+            return false;
+        } else if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
+            instance = new Member();
+            instance.setInfo(userInfor);
+        } else if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
+            instance = new Librarian();
+            instance.setInfo(userInfor);
+        }
+        return true;
+    }
+
+    /**
+     * Đăng xuất tài khoản hiện tại. Phương thức này chỉ có thể được gọi khi đã có
+     * tài khoản đăng nhập vào phần mềm.
+     */
+    public static void logout() {
+        if (instance == null) throw new RuntimeException("User instance does not exist.");
+        instance = null;
     }
 
     public String getId() {
@@ -24,17 +63,9 @@ public class User {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setInfo(List<String> info) {
+    private void setInfo(List<String> info) {
         this.id = info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ID - 1);
-        this.password = info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PASSWORD - 1);
         this.person.setName(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_NAME - 1));
         this.person.setAddress(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
         this.person.setEmail(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
@@ -44,21 +75,24 @@ public class User {
     /**
      * Tìm kiếm tài liệu theo tên
      */
-    public static ObservableList<Document> searchDocumentByTitle(String title) {
+    @Override
+    public ObservableList<Document> searchDocumentByTitle(String title) {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE, title);
     }
 
     /**
      * Tìm kiếm tài liệu theo tác giả
      */
-    public static ObservableList<Document> searchDocumentByAuthor(String author) {
+    @Override
+    public ObservableList<Document> searchDocumentByAuthor(String author) {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR, author);
     }
 
     /**
      * Xem tất cả các tài liệu có trong cơ sở dữ liệu
      */
-    public static ObservableList<Document> viewAllAvailableDocument() {
+    @Override
+    public ObservableList<Document> viewAllAvailableDocument() {
         return Datasource.getAvailableDocument();
     }
 

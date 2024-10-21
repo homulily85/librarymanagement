@@ -75,9 +75,9 @@ public class SearchScreenController {
         String query = searchField.getText();
         ObservableList<Document> result = null;
         if (searchType.getSelectionModel().getSelectedIndex() == 0) {
-            result = User.searchDocumentByTitle(query);
+            result = User.getInstance().searchDocumentByTitle(query);
         } else {
-            result = User.searchDocumentByAuthor(query);
+            result = User.getInstance().searchDocumentByAuthor(query);
         }
         if (result == null || result.isEmpty()) {
             documentNotFound.setVisible(true);

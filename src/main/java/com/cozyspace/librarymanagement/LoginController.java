@@ -1,8 +1,8 @@
 package com.cozyspace.librarymanagement;
 
-import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
+import com.cozyspace.librarymanagement.user.User;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class LoginController {
@@ -38,12 +37,13 @@ public class LoginController {
      * Xử lí màn hình sau khi người dùng ấn vào nút "Đăng nhập"
      */
     public void handleLoginAction() {
-        List<String> userInfor = Datasource.getAccountInfo(idField.getText(), passwordField.getText());
-        if (userInfor == null) {
+        boolean loginSuccess = User.login(idField.getText(),passwordField.getText());
+        if (!loginSuccess) {
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initOwner(loginVbox.getScene().getWindow());
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Objects.requireNonNull(getClass().getResource("authenticate_fail_dialog.fxml")));
+            fxmlLoader.setLocation(Objects.requireNonNull(getClass()
+                    .getResource("authenticate_fail_dialog.fxml")));
             try {
                 dialog.getDialogPane().setContent(fxmlLoader.load());
             } catch (IOException e) {
@@ -56,8 +56,7 @@ public class LoginController {
             Parent root = null;
             Stage stage = (Stage) loginButton.getScene().getWindow();
 
-            if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
-                Member.getInstance().setInfo(userInfor);
+            if (User.getInstance() instanceof Member) {
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(getClass().
                             getResource("member_main_screen.fxml")));
@@ -65,9 +64,7 @@ public class LoginController {
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
-            } else {
-                Librarian.getInstance().setInfo(userInfor);
-
+            } else if (User.getInstance() instanceof Librarian){
                 try {
                     root = FXMLLoader.load(Objects.requireNonNull(getClass()
                             .getResource("librarian_main_screen.fxml")));

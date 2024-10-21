@@ -41,6 +41,13 @@
                         <Font size="30"/>
                     </font>
                 </Label>
+                <Label fx:id="logout" alignment="BASELINE_LEFT" onMouseClicked="#logout" prefHeight="46.0"
+                        prefWidth="134.0" text ="Đăng xuất" GridPane.rowIndex="3"
+                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
+                    <font>
+                        <Font size="30"/>
+                    </font>
+                </Label>
             </GridPane>
         </VBox>
     </left>
