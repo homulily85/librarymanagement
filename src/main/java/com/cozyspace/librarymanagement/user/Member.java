@@ -15,7 +15,4 @@ public class Member extends User {
     public void returnDocument() {
     }
 
-    public void showMemberInfo(){
-
-    }
 }

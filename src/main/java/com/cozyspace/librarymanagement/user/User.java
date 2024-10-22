@@ -2,18 +2,18 @@ package com.cozyspace.librarymanagement.user;
 
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class User implements Searchable{
+public class User implements Searchable {
 
     private String id;
-    private final Person person;
+    private static Person person;
     private static User instance;
 
     User() {
-        person = Person.getInstance();
     }
 
     public static User getInstance() {
@@ -33,15 +33,17 @@ public class User implements Searchable{
         if (instance != null) {
             throw new RuntimeException("User instance exists.");
         }
-        List<String> userInfor = Datasource.getAccountInfo(username, password);
-        if (userInfor == null) {
+        List<String> userInfo = Datasource.getAccountInfo(username, password);
+        if (userInfo == null) {
             return false;
-        } else if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
+        } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
+            person = new Person();
             instance = new Member();
-            instance.setInfo(userInfor);
-        } else if (userInfor.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
+            instance.setInfo(userInfo);
+        } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
+            person = new Person();
             instance = new Librarian();
-            instance.setInfo(userInfor);
+            instance.setInfo(userInfo);
         }
         return true;
     }
@@ -52,6 +54,7 @@ public class User implements Searchable{
      */
     public static void logout() {
         if (instance == null) throw new RuntimeException("User instance does not exist.");
+        person = null;
         instance = null;
     }
 
@@ -59,42 +62,36 @@ public class User implements Searchable{
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
     private void setInfo(List<String> info) {
         this.id = info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ID - 1);
-        this.person.setName(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_NAME - 1));
-        this.person.setAddress(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
-        this.person.setEmail(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
-        this.person.setPhone(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1));
+        person.setName(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_NAME - 1));
+        person.setAddress(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
+        person.setEmail(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
+        person.setPhone(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1));
     }
 
-    /**
-     * Tìm kiếm tài liệu theo tên
-     */
+    public ObservableList<String> getUserInfo() {
+        ObservableList<String> userInfo = FXCollections.observableArrayList();
+        userInfo.add(person.getName());
+        userInfo.add(person.getAddress());
+        userInfo.add(person.getEmail());
+        userInfo.add(person.getPhone());
+        return userInfo;
+    }
+
     @Override
     public ObservableList<Document> searchDocumentByTitle(String title) {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE, title);
     }
 
-    /**
-     * Tìm kiếm tài liệu theo tác giả
-     */
     @Override
     public ObservableList<Document> searchDocumentByAuthor(String author) {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR, author);
     }
 
-    /**
-     * Xem tất cả các tài liệu có trong cơ sở dữ liệu
-     */
     @Override
     public ObservableList<Document> viewAllAvailableDocument() {
         return Datasource.getAvailableDocument();
     }
-
 
 }

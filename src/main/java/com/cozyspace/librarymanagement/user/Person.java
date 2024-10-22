@@ -6,14 +6,14 @@ public class Person {
     private String email;
     private String phone;
 
-    private static final Person instance = new Person();
+    public static int PERSON_NAME_FIELD_INDEX = 0;
+    public static int PERSON_ADDRESS_FIELD_INDEX = 1;
+    public static int PERSON_EMAIL_FIELD_INDEX = 2;
+    public static int PERSON_PHONE_FIELD_INDEX = 3;
 
-    private Person(){
 
-    }
+    Person(){
 
-    public static Person getInstance(){
-        return instance;
     }
 
     public String getName() {
