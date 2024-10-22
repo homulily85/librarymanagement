@@ -12,7 +12,9 @@ public class Member extends User {
 
     }
 
+    /**
+     * Trả tài liệu
+     */
     public void returnDocument() {
     }
-
 }
