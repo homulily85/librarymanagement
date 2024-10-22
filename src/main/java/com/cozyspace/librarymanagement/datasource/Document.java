@@ -24,10 +24,24 @@ public class Document {
         this.quantity = quantity;
     }
 
-    /**
-     * Hiển thị thông tin tài liệu
-     */
-    public void showDocumentInfo() {
-
+    public String getTitle() {
+        return title;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
 }

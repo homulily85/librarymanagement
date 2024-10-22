@@ -12,7 +12,7 @@
             <padding>
                 <Insets top="40"/>
             </padding>
-            <Label text="Tên đăng nhập hoặc mật khảu không chính xác.">
+            <Label text="Bạn có thật sự muốn đăng xuất?">
                 <font>
                     <Font size="15"/>
                 </font>
