@@ -20,7 +20,8 @@
     <GridPane alignment="TOP_CENTER">
         <TableView fx:id="table" prefHeight="550.0" prefWidth="800.0" GridPane.rowIndex="1">
             <columns>
-                <TableColumn fx:id="titleColumn" prefWidth="450" text="Tên tài liệu"/>
+                <TableColumn fx:id="titleColumn" prefWidth="350" text="Tên tài liệu"/>
+                <TableColumn fx:id="isbnColumn" prefWidth="100" text="ISBN"/>
                 <TableColumn fx:id="authorColumn" prefWidth="150" text="Tác giả"/>
                 <TableColumn fx:id="typeColumn" prefWidth="100" text="Loại"/>
                 <TableColumn fx:id="quantityColumn" prefWidth="85" text="Số lượng"/>

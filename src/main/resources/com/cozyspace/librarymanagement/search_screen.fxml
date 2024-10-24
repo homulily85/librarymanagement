@@ -27,6 +27,7 @@
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Tìm kiếm theo tên tài liệu"/>
                     <String fx:value="Tìm kiếm theo tác giả"/>
+                    <String fx:value="Tìm kiếm theo mã ISBN"/>
                 </FXCollections>
             </items>
             <value>
@@ -44,7 +45,8 @@
         <TableView fx:id="table" prefHeight="500" prefWidth="100" GridPane.columnSpan="3" GridPane.rowIndex="1"
                    visible="false">
             <columns>
-                <TableColumn fx:id="titleColumn" prefWidth="500" text="Tên tài liệu"/>
+                <TableColumn fx:id="titleColumn" prefWidth="400" text="Tên tài liệu"/>
+                <TableColumn fx:id="isbnColumn" prefWidth="100" text="ISBN"/>
                 <TableColumn fx:id="authorColumn" prefWidth="200" text="Tác giả"/>
                 <TableColumn fx:id="typeColumn" prefWidth="76.8" text="Loại"/>
             </columns>

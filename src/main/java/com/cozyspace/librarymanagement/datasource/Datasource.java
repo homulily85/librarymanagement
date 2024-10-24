@@ -9,6 +9,7 @@ import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Datasource {
 
@@ -44,6 +45,8 @@ public class Datasource {
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_TYPE = 5;
     public static final String TABLE_DOCUMENT_COLUMN_QUANTITY = "quantity";
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY = 6;
+    public static final String TABLE_DOCUMENT_COLUMN_ISBN = "ISBN";
+    public static final int TABLE_DOCUMENT_INDEX_COLUMN_ISBN = 7;
 
     private static Connection connection = null;
 
@@ -109,12 +112,22 @@ public class Datasource {
 
     public static ObservableList<Document> queryDocument(String searchType, String value) {
         StringBuilder sb = new StringBuilder(value);
-        sb.append("%");
-        sb.insert(0, "%");
+        if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
+            sb.append("%");
+            sb.insert(0, "%");
+        }
+        PreparedStatement query = null;
         try {
-            PreparedStatement query = connection.prepareStatement("select * from %s where %s like ?"
-                    .formatted(TABLE_DOCUMENT, searchType));
+            if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
+                query = connection.prepareStatement("select * from %s where %s like ?"
+                        .formatted(TABLE_DOCUMENT, searchType));
+            } else {
+                query = connection.prepareStatement("select * from %s where %s = ?"
+                        .formatted(TABLE_DOCUMENT, searchType));
+            }
             query.setString(1, sb.toString());
+            System.out.println(query);
+
             return getDocuments(query);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -138,6 +151,7 @@ public class Datasource {
         ObservableList<Document> result = FXCollections.observableArrayList();
         while (resultSet.next()) {
             result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),

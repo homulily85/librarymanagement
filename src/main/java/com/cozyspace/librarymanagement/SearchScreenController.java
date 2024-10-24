@@ -17,6 +17,8 @@ import java.util.Objects;
 
 public class SearchScreenController {
     @FXML
+    private TableColumn<Document, String> isbnColumn;
+    @FXML
     private TableColumn<Document, String> typeColumn;
     @FXML
     private TableColumn<Document, String> authorColumn;
@@ -74,15 +76,16 @@ public class SearchScreenController {
         table.setVisible(false);
         String query = searchField.getText();
         ObservableList<Document> result = null;
-        if (searchType.getSelectionModel().getSelectedIndex() == 0) {
-            result = User.getInstance().searchDocumentByTitle(query);
-        } else {
-            result = User.getInstance().searchDocumentByAuthor(query);
+        switch (searchType.getSelectionModel().getSelectedIndex()) {
+            case 0 -> result = User.getInstance().searchDocumentByTitle(query);
+            case 1 -> result = User.getInstance().searchDocumentByAuthor(query);
+            case 2 -> result = User.getInstance().searchByISBN(query);
         }
         if (result == null || result.isEmpty()) {
             documentNotFound.setVisible(true);
         } else {
             table.getItems().setAll(result);
+            isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
             titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
             authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
             typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));

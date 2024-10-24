@@ -27,8 +27,7 @@
             <padding>
                 <Insets left="20"/>
             </padding>
-            <Label fx:id="documentTitle" text="Discrete Mathematics and Its Applications" prefWidth="675"
-                   wrapText="true">
+            <Label fx:id="documentTitle" prefWidth="675" wrapText="true">
                 <font>
                     <Font size="40"/>
                 </font>

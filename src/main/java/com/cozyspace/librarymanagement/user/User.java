@@ -90,6 +90,11 @@ public class User implements Searchable {
     }
 
     @Override
+    public ObservableList<Document> searchByISBN(String ISBN) {
+        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_ISBN,ISBN);
+    }
+
+    @Override
     public ObservableList<Document> viewAllAvailableDocument() {
         return Datasource.getAvailableDocument();
     }

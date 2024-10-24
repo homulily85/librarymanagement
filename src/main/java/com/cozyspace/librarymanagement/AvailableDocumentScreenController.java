@@ -18,6 +18,8 @@ import java.util.Objects;
 
 public class AvailableDocumentScreenController {
     @FXML
+    private TableColumn<Document, String> isbnColumn;
+    @FXML
     private TableColumn<Document, String> titleColumn;
     @FXML
     private TableColumn<Document, String> authorColumn;
@@ -34,6 +36,7 @@ public class AvailableDocumentScreenController {
         titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
         authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
         typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
+        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
         // Hiển thị thông tin tài liệu cho khi ấn vào dòng tương ứng với tài liệu
         quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
         table.setRowFactory(_ -> {
