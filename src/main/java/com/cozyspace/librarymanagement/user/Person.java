@@ -1,6 +1,6 @@
 package com.cozyspace.librarymanagement.user;
 
-public class Person {
+public final class Person {
     private String name;
     private String address;
     private String email;
@@ -12,7 +12,7 @@ public class Person {
     public static int PERSON_PHONE_FIELD_INDEX = 3;
 
 
-    Person(){
+    Person() {
 
     }
 

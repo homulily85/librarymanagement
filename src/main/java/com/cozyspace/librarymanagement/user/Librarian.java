@@ -1,6 +1,6 @@
 package com.cozyspace.librarymanagement.user;
 
-public class Librarian extends User {
+public final class Librarian extends User {
 
     Librarian() {
     }

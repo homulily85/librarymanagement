@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Datasource {
+public final class Datasource {
+
+    private Datasource() {
+
+    }
 
     public static final String DB_NAME = "src/main/resources/com/cozyspace/librarymanagement/library.db";
     public static final String CONNECTION_NAME = "jdbc:sqlite:" + new File(DB_NAME).getAbsolutePath();
