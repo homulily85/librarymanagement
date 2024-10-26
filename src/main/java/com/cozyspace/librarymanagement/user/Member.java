@@ -1,6 +1,6 @@
 package com.cozyspace.librarymanagement.user;
 
-public class Member extends User {
+public final class Member extends User {
 
     Member() {
     }

@@ -1,4 +1,4 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.fxml.FXML;

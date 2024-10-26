@@ -1,41 +1,45 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.User;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
-public class SearchScreenController {
+public class AvailableDocumentScreenController {
     @FXML
-    private TableColumn<Document, String> typeColumn;
-    @FXML
-    private TableColumn<Document, String> authorColumn;
+    private TableColumn<Document, String> isbnColumn;
     @FXML
     private TableColumn<Document, String> titleColumn;
     @FXML
-    private TextField searchField;
+    private TableColumn<Document, String> authorColumn;
     @FXML
-    private Button searchButton;
+    private TableColumn<Document, String> typeColumn;
     @FXML
-    private ComboBox<String> searchType;
-    @FXML
-    private Label documentNotFound;
+    private TableColumn<Document, String> quantityColumn;
     @FXML
     private TableView<Document> table;
 
     public void initialize() {
-        searchButton.disableProperty()
-                .bind(Bindings.isEmpty(searchField.textProperty()));
+        ObservableList<Document> result = User.getInstance().viewAllAvailableDocument();
+        table.getItems().setAll(result);
+        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
+        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
+        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
+        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
+        // Hiển thị thông tin tài liệu cho khi ấn vào dòng tương ứng với tài liệu
+        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
         table.setRowFactory(_ -> {
             TableRow<Document> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -44,7 +48,7 @@ public class SearchScreenController {
                         Stage newStage = new Stage();
 
                         FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(Objects.requireNonNull(getClass().getResource("document_info.fxml")));
+                        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/document_info.fxml")));
 
                         Scene scene = null;
                         try {
@@ -67,27 +71,5 @@ public class SearchScreenController {
             });
             return row;
         });
-    }
-
-    public void search() {
-        documentNotFound.setVisible(false);
-        table.setVisible(false);
-        String query = searchField.getText();
-        ObservableList<Document> result = null;
-        if (searchType.getSelectionModel().getSelectedIndex() == 0) {
-            result = User.getInstance().searchDocumentByTitle(query);
-        } else {
-            result = User.getInstance().searchDocumentByAuthor(query);
-        }
-        if (result == null || result.isEmpty()) {
-            documentNotFound.setVisible(true);
-        } else {
-            table.getItems().setAll(result);
-            titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
-            authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
-            typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
-            table.setVisible(true);
-        }
-
     }
 }

@@ -9,14 +9,16 @@ public class Document {
     public static final String DOCUMENT_TYPE_MAGAZINE = "magazine";
 
     private int id;
+    private String ISBN;
     private String title;
     private String author;
     private String description;
     private String type;
     private int quantity;
 
-    public Document(int id, String title, String author, String description, String type, int quantity) {
+    public Document(int id, String ISBN, String title, String author, String description, String type, int quantity) {
         this.id = id;
+        this.ISBN = ISBN;
         this.title = title;
         this.author = author;
         this.description = description;
@@ -44,4 +46,7 @@ public class Document {
         return quantity;
     }
 
+    public String getISBN() {
+        return ISBN;
+    }
 }

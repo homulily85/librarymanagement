@@ -4,6 +4,7 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,10 +12,12 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800,500);
         stage.setTitle("Library Management System");
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
         stage.show();
     }
 
