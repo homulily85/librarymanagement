@@ -6,7 +6,8 @@
 <?import javafx.scene.text.*?>
 
 <SplitPane fx:id="loginScreen" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
-           xmlns:fx="http://javafx.com/fxml/" fx:controller="com.cozyspace.librarymanagement.controller.LoginController">
+           xmlns:fx="http://javafx.com/fxml/"
+           fx:controller="com.cozyspace.librarymanagement.controller.LoginController">
     <AnchorPane minWidth="256">
         <ImageView fitHeight="80" fitWidth="80" layoutX="25.0" layoutY="130.0">
             <Image url="@../book.png"/>
@@ -36,21 +37,17 @@
         <TextField fx:id="usernameField" layoutX="104.0" layoutY="157.0" prefHeight="47.0" prefWidth="350.0"/>
         <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="250.0" prefHeight="47.0" prefWidth="350.0"/>
         <Button fx:id="loginButton" layoutX="346.0" layoutY="346.0" prefHeight="36.0" prefWidth="108.0"
-                style="-fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;"
                 text="Đăng nhập" onAction="#login" defaultButton="true">
             <font>
                 <Font size="15"/>
             </font>
         </Button>
-        <Label text="Tạo tài khoản" layoutX="234.0" layoutY="353.0" textFill="#0d58d0" onMouseClicked="#changeToCreateNewAccount">
+        <Button fx:id="createNewAccountButton" text="Tạo tài khoản" layoutX="224.0" layoutY="346.0" prefHeight="36.0"
+                onAction="#changeToCreateNewAccount">
             <font>
                 <Font size="15"/>
             </font>
-        </Label>
+        </Button>
         <Label fx:id="inputPrompt" layoutX="148.0" layoutY="314.0" text="Hãy nhập tên đăng nhập và mật khẩu của bạn"
                textFill="#e40c0c" visible="false">
             <font>

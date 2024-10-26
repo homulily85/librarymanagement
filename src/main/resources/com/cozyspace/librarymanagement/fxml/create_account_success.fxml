@@ -24,14 +24,8 @@
                 <Font size="20"/>
             </font>
         </Label>
-        <Button defaultButton="true" layoutX="364.0" layoutY="327.0" onAction="#next"
-                prefHeight="36.0" prefWidth="108.0"
-                style="-fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;"
-                text="Tiếp tục">
+        <Button fx:id="nextButton" defaultButton="true" layoutX="364.0" layoutY="327.0" onAction="#next"
+                prefHeight="36.0" prefWidth="108.0" text="Tiếp tục">
             <font>
                 <Font size="15"/>
             </font>

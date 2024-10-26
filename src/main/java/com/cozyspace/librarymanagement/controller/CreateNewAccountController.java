@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class CreateNewAccountController {
+    @FXML
+    private Button returnButton;
     private String lastUserNameInput;
     private String lastPasswordInput;
     @FXML
@@ -44,6 +46,7 @@ public class CreateNewAccountController {
     private SplitPane createNewAccountScreen;
     @FXML
     private Label badPhone;
+
 
     public void getInfo() {
         if (usernameField.getText().equals(lastUserNameInput) && passwordField.getText().equals(lastPasswordInput)) {
@@ -154,6 +157,44 @@ public class CreateNewAccountController {
     }
 
     public void initialize() {
+        final String IDLE_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #0e4ed5;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+        final String HOVERED_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #043ea8;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+
+        final String IDLE_RETURN_BUTTON_STYLE = """
+                -fx-text-fill: #043ea8;
+                -fx-background-color: transparent;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+        final String HOVERED_RETURN_BUTTON_STYLE = """
+                -fx-text-fill: #043ea8;
+                -fx-background-color: #ece9e9;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+
+        nextButton.setStyle(IDLE_BUTTON_STYLE);
+        nextButton.setOnMouseEntered(_ -> nextButton.setStyle(HOVERED_BUTTON_STYLE));
+        nextButton.setOnMouseExited(_ -> nextButton.setStyle(IDLE_BUTTON_STYLE));
+
+        returnButton.setStyle(IDLE_RETURN_BUTTON_STYLE);
+        returnButton.setOnMouseEntered(_ -> returnButton.setStyle(HOVERED_RETURN_BUTTON_STYLE));
+        returnButton.setOnMouseExited(_ -> returnButton.setStyle(IDLE_RETURN_BUTTON_STYLE));
+
         Tooltip userNameTooltip = new Tooltip();
         userNameTooltip.setText("Tên đăng nhập có độ dài từ 6 đến 15 kí tự và không chứa kí tự đặc biệt.");
         usernameField.setTooltip(userNameTooltip);
@@ -161,6 +202,8 @@ public class CreateNewAccountController {
         Tooltip passwordTooltip = new Tooltip();
         passwordTooltip.setText("Mật khẩu có tối thiểu 6 kí tự, chứa ít nhất một chữ cái in hoa và chứa ít nhất một chữ số");
         passwordField.setTooltip(passwordTooltip);
+
+
     }
 
 }

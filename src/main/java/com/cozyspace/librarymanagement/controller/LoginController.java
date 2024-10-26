@@ -20,6 +20,8 @@ import java.util.Objects;
 
 public class LoginController {
     @FXML
+    private Button createNewAccountButton;
+    @FXML
     private SplitPane loginScreen;
     private String lastUserNameInput;
     private String lastPasswordInput;
@@ -33,6 +35,46 @@ public class LoginController {
     private Label inputPrompt;
     @FXML
     private TextField usernameField;
+
+    public void initialize() {
+        final String IDLE_LOGIN_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #0e4ed5;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+        final String HOVERED_LOGIN_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #043ea8;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+
+        final String IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE = """
+                -fx-text-fill: #043ea8;
+                -fx-background-color: transparent;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+        final String HOVERED_CREATE_NEW_ACCOUNT_LOGIN_BUTTON_STYLE = """
+                -fx-text-fill: #043ea8;
+                -fx-background-color: #ece9e9;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+
+        loginButton.setStyle(IDLE_LOGIN_BUTTON_STYLE);
+        loginButton.setOnMouseEntered(_ -> loginButton.setStyle(HOVERED_LOGIN_BUTTON_STYLE));
+        loginButton.setOnMouseExited(_ -> loginButton.setStyle(IDLE_LOGIN_BUTTON_STYLE));
+
+        createNewAccountButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE);
+        createNewAccountButton.setOnMouseEntered(_ -> createNewAccountButton.setStyle(HOVERED_CREATE_NEW_ACCOUNT_LOGIN_BUTTON_STYLE));
+        createNewAccountButton.setOnMouseExited(_ -> createNewAccountButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE));
+    }
 
     public void login() {
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {

@@ -4,19 +4,20 @@ import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class EmailValidateController {
+    @FXML
+    private Button nextButton;
     @FXML
     private Label inputPrompt;
     @FXML
@@ -25,6 +26,27 @@ public class EmailValidateController {
     private Label wrongCode;
     @FXML
     private SplitPane emailValidate;
+
+    public void initialize() {
+        final String IDLE_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #0e4ed5;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+        final String HOVERED_BUTTON_STYLE = """
+                -fx-text-fill: #ffffff;
+                -fx-background-color: #043ea8;
+                -fx-border-radius: 20;
+                -fx-background-radius: 20;
+                -fx-padding: 5;
+                """;
+
+        nextButton.setStyle(IDLE_BUTTON_STYLE);
+        nextButton.setOnMouseEntered(_ -> nextButton.setStyle(HOVERED_BUTTON_STYLE));
+        nextButton.setOnMouseExited(_ -> nextButton.setStyle(IDLE_BUTTON_STYLE));
+    }
 
     public void codeCheck() {
         if (codeField.getText().isEmpty()) {
