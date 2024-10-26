@@ -1,11 +1,11 @@
 package com.cozyspace.librarymanagement.datasource;
 
+import com.cozyspace.librarymanagement.Main;
 import com.password4j.Hash;
 import com.password4j.Password;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ public final class Datasource {
 
     }
 
-    public static final String DB_NAME = "src/main/resources/com/cozyspace/librarymanagement/library.db";
-    public static final String CONNECTION_NAME = "jdbc:sqlite:" + new File(DB_NAME).getAbsolutePath();
+    public static final String DB_NAME = Objects.requireNonNull(Main.class.getResource("library.db")).toString();
+    public static final String CONNECTION_NAME = "jdbc:sqlite:%s".formatted(DB_NAME);
 
     public static final String TABLE_ACCOUNT = "account";
-    public static final String TABLE_ACCOUNT_COLUMN_ID = "id";
-    public static final int TABLE_ACCOUNT_INDEX_COLUMN_ID = 1;
+    public static final String TABLE_ACCOUNT_COLUMN_USERNAME = "username";
+    public static final int TABLE_ACCOUNT_INDEX_COLUMN_USERNAME = 1;
     public static final String TABLE_ACCOUNT_COLUMN_PASSWORD = "password";
     public static final int TABLE_ACCOUNT_INDEX_COLUMN_PASSWORD = 2;
     public static final String TABLE_ACCOUNT_COLUMN_NAME = "name";
@@ -73,6 +73,7 @@ public final class Datasource {
         if (connection == null) return;
         try {
             connection.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -81,21 +82,21 @@ public final class Datasource {
     /**
      * Kiểm tra và lấy thông tin người dùng.
      *
-     * @param id       tên đăng nhập
+     * @param username tên đăng nhập
      * @param password mật khẩu
      * @return null nếu tên đăng nhập hoặc mật khẩu không đúng,
      * List chứa thông tin người dùng nếu thông tin đăng nhập khớp với một bản ghi trong CSDL
      */
-    public static List<String> getAccountInfo(String id, String password) {
+    public static List<String> getAccountInfo(String username, String password) {
         Hash hash = Password.hash(password).addSalt("1").withArgon2();
         try {
             PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ?"
-                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ID));
-            query.setString(1, id);
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME));
+            query.setString(1, username);
             ResultSet resultSet = query.executeQuery();
             List<String> result = new ArrayList<>();
             while (resultSet.next()) {
-                result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ID));
+                result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_USERNAME));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_PASSWORD));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS));
@@ -166,4 +167,63 @@ public final class Datasource {
         query.close();
         return result;
     }
+
+    /**
+     * Tìm kiếm tên đăng nhập trong cơ sở dữ liệu
+     *
+     * @param username tên đăng nhập cần tìm
+     * @return true nếu tên đăng nhập tồn tại, false nếu ngược lai.
+     */
+    public static boolean searchForUserName(String username) {
+        boolean ans = false;
+        try {
+            PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ?"
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME));
+            query.setString(1, username);
+            ResultSet resultSet = query.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                ans = true;
+            }
+            resultSet.close();
+            query.close();
+            return ans;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return ans;
+        }
+    }
+
+    /**
+     * Thêm tài khoản mới vào cơ sơ dữ liệu.
+     *
+     * @param username tên đăng nhập
+     * @param password mật khẩu
+     * @param name     tên
+     * @param address  địa chỉ
+     * @param email    email
+     * @param phone    số điện thoại
+     */
+    public static void addUser(String username, String password, String name, String address, String email, String phone,
+                               String role) {
+        Hash hash = Password.hash(password).addSalt("1").withArgon2();
+        try {
+            PreparedStatement query = connection.prepareStatement(("insert into %s (%s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?)").
+                    formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME, TABLE_ACCOUNT_COLUMN_PASSWORD,
+                            TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_ADDRESS, TABLE_ACCOUNT_COLUMN_EMAIL,
+                            TABLE_ACCOUNT_COLUMN_PHONE, TABLE_ACCOUNT_COLUMN_ROLE));
+            query.setString(1, username);
+            query.setString(2, hash.getResult());
+            query.setString(3, name);
+            query.setString(4, address);
+            query.setString(5, email);
+            query.setString(6, phone);
+            query.setString(7, role);
+            query.executeUpdate();
+            query.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

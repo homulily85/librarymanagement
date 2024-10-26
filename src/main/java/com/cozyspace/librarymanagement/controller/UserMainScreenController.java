@@ -1,5 +1,6 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +26,7 @@ public class UserMainScreenController {
      * Xử lí khi người dùng ấn vào nút "Tìm kiếm"
      */
     public void search() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("search_screen.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("search_screen.fxml"));
         Pane searchView = null;
         try {
             searchView = loader.load();
@@ -37,7 +38,7 @@ public class UserMainScreenController {
     }
 
     public void showAllAvailableDocument() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("available_document_screen.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/available_document_screen.fxml"));
         Pane view = null;
         try {
             view = loader.load();
@@ -52,8 +53,8 @@ public class UserMainScreenController {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(home.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Objects.requireNonNull(getClass()
-                .getResource("logout_confirmation.fxml")));
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class
+                .getResource("fxml/logout_confirmation.fxml")));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
@@ -71,12 +72,13 @@ public class UserMainScreenController {
             Stage stage = (Stage) home.getScene().getWindow();
 
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login.fxml")));
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            Scene scene = new Scene(root, 640, 480);
+            assert root != null;
+            Scene scene = new Scene(root, 800, 350);
             stage.setScene(scene);
             stage.show();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();

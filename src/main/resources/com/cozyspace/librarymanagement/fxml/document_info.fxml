@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.cozyspace.librarymanagement.DocumentInfoController"
+            fx:controller="com.cozyspace.librarymanagement.controller.DocumentInfoController"
             prefHeight="600.0" prefWidth="900.0">
     <left>
         <VBox>
@@ -17,7 +17,7 @@
                 <Insets left="30"/>
             </padding>
             <ImageView>
-                <Image url="@coverart.png"/>
+                <Image url="@../coverart.png"/>
             </ImageView>
         </VBox>
     </left>

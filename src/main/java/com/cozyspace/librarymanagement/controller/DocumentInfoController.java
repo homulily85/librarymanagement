@@ -1,10 +1,8 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
 
 public class DocumentInfoController {
     @FXML

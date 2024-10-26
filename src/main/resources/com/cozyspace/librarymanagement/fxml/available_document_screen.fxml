@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <VBox prefHeight="720.0" prefWidth="1111.0" spacing="40" xmlns:fx="http://javafx.com/fxml/"
-      fx:controller="com.cozyspace.librarymanagement.AvailableDocumentScreenController">
+      fx:controller="com.cozyspace.librarymanagement.controller.AvailableDocumentScreenController">
     <padding>
         <Insets top="30"/>
     </padding>

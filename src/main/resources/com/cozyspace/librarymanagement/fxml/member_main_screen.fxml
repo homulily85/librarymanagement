@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <BorderPane fx:id="mainBorderPane" prefHeight="720" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="com.cozyspace.librarymanagement.UserMainScreenController">
+            fx:controller="com.cozyspace.librarymanagement.controller.UserMainScreenController">
 
     <left>
         <VBox alignment="TOP_CENTER" spacing="50"
@@ -16,7 +16,7 @@
                 <Insets left="10"/>
             </padding>
             <ImageView fitHeight="182.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
-                <Image url="@book.png"/>
+                <Image url="@../book.png"/>
             </ImageView>
             <GridPane hgap="15" vgap="15">
                 <Label fx:id="home" alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="134.0" text="Trang chủ"

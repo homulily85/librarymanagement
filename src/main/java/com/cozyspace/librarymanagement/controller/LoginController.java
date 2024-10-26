@@ -1,24 +1,26 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
 import com.cozyspace.librarymanagement.user.User;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class LoginController {
+    @FXML
+    private SplitPane loginScreen;
     private String lastUserNameInput;
     private String lastPasswordInput;
     @FXML
@@ -58,16 +60,14 @@ public class LoginController {
 
         if (User.getInstance() instanceof Member) {
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass().
-                        getResource("member_main_screen.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/member_main_screen.fxml")));
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         } else if (User.getInstance() instanceof Librarian) {
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(getClass()
-                        .getResource("librarian_main_screen.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/librarian_main_screen.fxml")));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -82,4 +82,25 @@ public class LoginController {
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
+    public void changeToCreateNewAccount() {
+        FadeTransition fadeTransition = new FadeTransition();
+        fadeTransition.setDuration(Duration.millis(500));
+        fadeTransition.setNode(loginScreen);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        fadeTransition.setOnFinished(_ -> {
+            Parent root;
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/create_new_account.fxml")));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            assert root != null;
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        });
+    }
 }

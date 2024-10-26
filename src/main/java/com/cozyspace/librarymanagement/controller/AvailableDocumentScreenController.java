@@ -1,5 +1,6 @@
-package com.cozyspace.librarymanagement;
+package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.User;
 import javafx.beans.property.SimpleStringProperty;
@@ -47,7 +48,7 @@ public class AvailableDocumentScreenController {
                         Stage newStage = new Stage();
 
                         FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(Objects.requireNonNull(getClass().getResource("document_info.fxml")));
+                        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/document_info.fxml")));
 
                         Scene scene = null;
                         try {
