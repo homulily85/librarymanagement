@@ -128,7 +128,7 @@ public class CreateNewAccountController {
     }
 
     private void validate() {
-        Email.sendValidateEmail(User.getInstance().getEmail());
+        new Thread(() -> Email.sendValidateEmail(User.getInstance().getEmail())).start();
     }
 
     public void returnToLogin() {
