@@ -26,7 +26,7 @@ public class UserMainScreenController {
      * Xử lí khi người dùng ấn vào nút "Tìm kiếm"
      */
     public void search() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("search_screen.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/search_screen.fxml"));
         Pane searchView = null;
         try {
             searchView = loader.load();

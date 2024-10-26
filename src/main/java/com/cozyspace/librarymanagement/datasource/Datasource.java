@@ -131,7 +131,6 @@ public final class Datasource {
                         .formatted(TABLE_DOCUMENT, searchType));
             }
             query.setString(1, sb.toString());
-            System.out.println(query);
 
             return getDocuments(query);
         } catch (SQLException e) {
