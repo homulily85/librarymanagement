@@ -7,15 +7,16 @@ import javafx.collections.ObservableList;
 
 import java.util.List;
 
-public class User implements Searchable {
+public class User implements SearchBook {
 
     private String username;
     private String password;
-    private static Person person;
+    private Person person;
     private static User instance;
     private static int code;
 
     User() {
+        person = new Person();
     }
 
     public static void setCode(int newCode) {
@@ -35,27 +36,22 @@ public class User implements Searchable {
      * trạng thái chưa đăng nhập.
      *
      * @param username tên đăng nhập
-     * @param password mật khẩu
-     * @return true nếu tồn tại một bản ghi trong cơ sở dữ liệu tương ứng với thông tin nhập vào,
-     * false nếu ngược lại
      */
-    public static boolean login(String username, String password) {
+    public static void createNewUserInstance(String username) {
         if (instance != null) {
             throw new RuntimeException("User instance exists.");
         }
-        List<String> userInfo = Datasource.getAccountInfo(username, password);
-        if (userInfo == null) {
-            return false;
-        } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
-            person = new Person();
+        List<String> userInfo = Datasource.getAccountInfo(username);
+        assert userInfo != null;
+        if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
             instance = new Member();
-            instance.setNewUserInfo(userInfo);
         } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
-            person = new Person();
             instance = new Librarian();
-            instance.setNewUserInfo(userInfo);
         }
-        return true;
+        User.instance.person.setName(userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_NAME - 1));
+        User.instance.person.setAddress(userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
+        User.instance.person.setEmail(userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
+        User.instance.person.setPhone(userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1));
     }
 
     /**
@@ -64,9 +60,13 @@ public class User implements Searchable {
      */
     public static void logout() {
         if (instance == null) throw new RuntimeException("User instance does not exist.");
-        person = null;
+        User.instance.person = null;
         instance = null;
         code = 0;
+    }
+
+    public static boolean authenticate(String username, String password) {
+        return Datasource.authenticate(username, password);
     }
 
     public String getUsername() {
@@ -80,19 +80,18 @@ public class User implements Searchable {
     /**
      * Lưu thông tin người dùng khi họ đăng kí tài khoản. Phương thức này chỉ được gọi đến khi tạo tài khoản mới.
      */
-    public static void setNewUserInfo(String username, String password, String name, String address, String email, String phone) {
+    public static void setUserInfoFromDataBase(String username, String password, String name, String address, String email, String phone) {
         if (instance != null) {
             throw new RuntimeException("User instance exists.");
         }
 
-        person = new Person();
         instance = new Member();
         instance.username = username;
         instance.password = password;
-        person.setName(name);
-        person.setAddress(address);
-        person.setEmail(email);
-        person.setPhone(phone);
+        User.instance.person.setName(name);
+        User.instance.person.setAddress(address);
+        User.instance.person.setEmail(email);
+        User.instance.person.setPhone(phone);
 
     }
 
@@ -101,27 +100,13 @@ public class User implements Searchable {
      * Để thêm tài khoản mới với vai trò bất kì, sử dụng phương thức addAccount ở lớp Librarian.
      */
     public static void addNewMember() {
-        Datasource.addUser(User.getInstance().username, User.getInstance().password, person.getName(), person.getAddress(),
-                person.getAddress(), person.getPhone(), "Member");
+        Datasource.addUser(User.getInstance().username, User.getInstance().password, User.instance.person.getName(), User.instance.person.getAddress(),
+                User.instance.person.getAddress(), User.instance.person.getPhone(), "Member");
     }
 
-    private void setNewUserInfo(List<String> info) {
-        this.username = info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_USERNAME - 1);
-        person.setName(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_NAME - 1));
-        person.setAddress(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1));
-        person.setEmail(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1));
-        person.setPhone(info.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1));
+    public static void updatePassword(String username, String newPassword) {
+        Datasource.updatePassword(username, newPassword);
     }
-
-    public ObservableList<String> getUserInfo() {
-        ObservableList<String> userInfo = FXCollections.observableArrayList();
-        userInfo.add(person.getName());
-        userInfo.add(person.getAddress());
-        userInfo.add(person.getEmail());
-        userInfo.add(person.getPhone());
-        return userInfo;
-    }
-
 
     /**
      * Kiểm tra tên đăng nhập có tồn tại không

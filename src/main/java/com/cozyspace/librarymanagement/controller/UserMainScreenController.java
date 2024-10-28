@@ -72,13 +72,13 @@ public class UserMainScreenController {
             Stage stage = (Stage) home.getScene().getWindow();
 
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login_phase_1.fxml")));
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
             assert root != null;
-            Scene scene = new Scene(root, 800, 350);
+            Scene scene = new Scene(root, 800, 500 );
             stage.setScene(scene);
             stage.show();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();

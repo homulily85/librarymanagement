@@ -83,12 +83,10 @@ public final class Datasource {
      * Kiểm tra và lấy thông tin người dùng.
      *
      * @param username tên đăng nhập
-     * @param password mật khẩu
      * @return null nếu tên đăng nhập hoặc mật khẩu không đúng,
      * List chứa thông tin người dùng nếu thông tin đăng nhập khớp với một bản ghi trong CSDL
      */
-    public static List<String> getAccountInfo(String username, String password) {
-        Hash hash = Password.hash(password).addSalt("1").withArgon2();
+    public static List<String> getAccountInfo(String username) {
         try {
             PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ?"
                     .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME));
@@ -106,9 +104,7 @@ public final class Datasource {
             }
             resultSet.close();
             query.close();
-            if (!result.isEmpty() &&
-                    hash.getResult().equals(result.get(TABLE_ACCOUNT_INDEX_COLUMN_PASSWORD - 1))) return result;
-            else return null;
+            return result;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -224,5 +220,46 @@ public final class Datasource {
             System.out.println(e.getMessage());
         }
     }
+
+
+    /**
+     * Xác thực thông tin người dùng
+     *
+     * @param username tên đăng nhập
+     * @param password mật khẩu
+     * @return true nếu thông tin trùng với một bản ghi trong CDSL, false nếu ngược lại.
+     */
+    public static boolean authenticate(String username, String password) {
+        Hash hash = Password.hash(password).addSalt("1").withArgon2();
+        try {
+            PreparedStatement query = connection.prepareStatement("Select * from %s where %s = ? and %s = ?"
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME, TABLE_ACCOUNT_COLUMN_PASSWORD));
+            query.setString(1, username);
+            query.setString(2, hash.getResult());
+            ResultSet resultSet = query.executeQuery();
+            boolean success = resultSet.isBeforeFirst();
+            resultSet.close();
+            query.close();
+            return success;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static void updatePassword(String username, String newPassword) {
+        Hash hash = Password.hash(newPassword).addSalt("1").withArgon2();
+        try {
+            PreparedStatement query = connection.prepareStatement("update %s set %s = ? where %s =?"
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_PASSWORD, TABLE_ACCOUNT_COLUMN_USERNAME));
+            query.setString(1, hash.getResult());
+            query.setString(2, username);
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }

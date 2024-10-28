@@ -1,6 +1,9 @@
 package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.datasource.Datasource;
+import com.cozyspace.librarymanagement.email.Email;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
 import com.cozyspace.librarymanagement.user.User;
@@ -10,7 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.SplitPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -18,23 +24,15 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Objects;
 
-public class LoginController {
+public class LoginPhase2Controller {
     @FXML
-    private Button createNewAccountButton;
-    @FXML
-    private SplitPane loginScreen;
-    private String lastUserNameInput;
-    private String lastPasswordInput;
-    @FXML
-    public Button loginButton;
-    @FXML
+    private SplitPane login_phase_2;
+    private String lastPasswordNameInput;
     public PasswordField passwordField;
-    @FXML
-    private Label loginFailedPrompt;
-    @FXML
-    private Label inputPrompt;
-    @FXML
-    private TextField usernameField;
+    public Button loginButton;
+    public Button passwordResetButton;
+    public Label inputPrompt;
+    public Label loginFailedPrompt;
 
     public void initialize() {
         final String IDLE_LOGIN_BUTTON_STYLE = """
@@ -71,31 +69,29 @@ public class LoginController {
         loginButton.setOnMouseEntered(_ -> loginButton.setStyle(HOVERED_LOGIN_BUTTON_STYLE));
         loginButton.setOnMouseExited(_ -> loginButton.setStyle(IDLE_LOGIN_BUTTON_STYLE));
 
-        createNewAccountButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE);
-        createNewAccountButton.setOnMouseEntered(_ -> createNewAccountButton.setStyle(HOVERED_CREATE_NEW_ACCOUNT_LOGIN_BUTTON_STYLE));
-        createNewAccountButton.setOnMouseExited(_ -> createNewAccountButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE));
+        passwordResetButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE);
+        passwordResetButton.setOnMouseEntered(_ -> passwordResetButton.setStyle(HOVERED_CREATE_NEW_ACCOUNT_LOGIN_BUTTON_STYLE));
+        passwordResetButton.setOnMouseExited(_ -> passwordResetButton.setStyle(IDLE_CREATE_NEW_ACCOUNT_BUTTON_STYLE));
     }
 
     public void login() {
-        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+        if (passwordField.getText().isEmpty()) {
             loginFailedPrompt.setVisible(false);
             inputPrompt.setVisible(true);
             return;
         }
-        if (usernameField.getText().equals(lastUserNameInput) && passwordField.getText().equals(lastPasswordInput)) {
+        if (passwordField.getText().equals(lastPasswordNameInput)) {
             return;
         }
-        boolean loginSuccess = User.login(usernameField.getText(), passwordField.getText());
-        if (!loginSuccess) {
-            lastUserNameInput = usernameField.getText();
-            lastPasswordInput = passwordField.getText();
+
+        if (!User.authenticate(DataTransfer.getInstance().getDataMap().get("loginUsername"), passwordField.getText())) {
+            lastPasswordNameInput = passwordField.getText();
             inputPrompt.setVisible(false);
             loginFailedPrompt.setVisible(true);
             return;
         }
 
-        lastPasswordInput = null;
-        lastUserNameInput = null;
+        User.createNewUserInstance(DataTransfer.getInstance().getDataMap().get("loginUsername"));
 
         Parent root = null;
         Stage stage = (Stage) loginButton.getScene().getWindow();
@@ -124,17 +120,26 @@ public class LoginController {
         stage.setY((screenBounds.getHeight() - stage.getHeight()) / 2);
     }
 
-    public void changeToCreateNewAccount() {
+
+    public void resetPassword() {
+
+        String email = Objects.requireNonNull(Datasource.getAccountInfo(DataTransfer.getInstance().getDataMap().get("loginUsername"))).
+                get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1);
+
+        DataTransfer.getInstance().getDataMap().put("userEmail", email);
+
+        new Thread(() -> Email.sendResetPasswordConfirmationEmail(email)).start();
+
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
-        fadeTransition.setNode(loginScreen);
+        fadeTransition.setNode(login_phase_2);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
         fadeTransition.play();
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/create_new_account.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/reset_password_phase_1.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -144,5 +149,6 @@ public class LoginController {
             stage.setScene(scene);
             stage.show();
         });
+
     }
 }

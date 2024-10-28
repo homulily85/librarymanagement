@@ -5,56 +5,52 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane fx:id="loginScreen" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
+<SplitPane fx:id="login_phase_2" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
            xmlns:fx="http://javafx.com/fxml/"
-           fx:controller="com.cozyspace.librarymanagement.controller.LoginController">
+           fx:controller="com.cozyspace.librarymanagement.controller.LoginPhase2Controller">
     <AnchorPane minWidth="256">
         <ImageView fitHeight="80" fitWidth="80" layoutX="25.0" layoutY="130.0">
             <Image url="@../book.png"/>
         </ImageView>
-        <Label layoutX="25.0" layoutY="210.0" text="Đăng nhập">
+        <Label layoutX="25.0" layoutY="210.0" text="Xin chào!">
             <font>
                 <Font size="40"/>
             </font>
         </Label>
-        <Label layoutX="25.0" layoutY="268.0" text="Sử dụng tài khoản của bạn">
+        <Label layoutX="25.0" layoutY="268.0" prefWidth="175"
+               text="Hãy nhập mật khẩu để tiếp tục để truy cập vào tài khoản của bạn"
+               wrapText="true">
             <font>
                 <Font size="15"/>
             </font>
         </Label>
     </AnchorPane>
     <AnchorPane minWidth="544" prefHeight="493.0" prefWidth="546.0">
-        <Label layoutX="104.0" layoutY="129.0" prefHeight="28.0" prefWidth="108.0" text="Tên đăng nhập">
+        <Label layoutX="104.0" layoutY="197.0" prefHeight="28.0" prefWidth="108.0" text="Mật khẩu">
             <font>
                 <Font size="15"/>
             </font>
         </Label>
-        <Label layoutX="104.0" layoutY="222.0" prefHeight="28.0" prefWidth="108.0" text="Mật khẩu">
-            <font>
-                <Font size="15"/>
-            </font>
-        </Label>
-        <TextField fx:id="usernameField" layoutX="104.0" layoutY="157.0" prefHeight="47.0" prefWidth="350.0"/>
-        <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="250.0" prefHeight="47.0" prefWidth="350.0"/>
+        <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="225.0" prefHeight="47.0" prefWidth="350.0"/>
         <Button fx:id="loginButton" layoutX="346.0" layoutY="346.0" prefHeight="36.0" prefWidth="108.0"
                 text="Đăng nhập" onAction="#login" defaultButton="true">
             <font>
                 <Font size="15"/>
             </font>
         </Button>
-        <Button fx:id="createNewAccountButton" text="Tạo tài khoản" layoutX="224.0" layoutY="346.0" prefHeight="36.0"
-                onAction="#changeToCreateNewAccount">
+        <Button fx:id="passwordResetButton" text="Quên mật khẩu" layoutX="195.0" layoutY="346.0" prefHeight="36.0"
+                onAction="#resetPassword">
             <font>
                 <Font size="15"/>
             </font>
         </Button>
-        <Label fx:id="inputPrompt" layoutX="148.0" layoutY="314.0" text="Hãy nhập tên đăng nhập và mật khẩu của bạn"
+        <Label fx:id="inputPrompt" layoutX="205.0" layoutY="296.0" text="Hãy nhập mật khẩu của bạn"
                textFill="#e40c0c" visible="false">
             <font>
                 <Font size="12"/>
             </font>
         </Label>
-        <Label fx:id="loginFailedPrompt" layoutX="165.0" layoutY="314.0" text="Tên đăng nhập hoặc mật khẩu không đúng"
+        <Label fx:id="loginFailedPrompt" layoutX="202.0" layoutY="296.0" text="Mật khẩu không chính xác"
                textFill="#e40c0c" visible="false">
             <font>
                 <Font size="12"/>

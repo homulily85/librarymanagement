@@ -100,7 +100,7 @@ public class CreateNewAccountController {
             return;
         }
 
-        User.setNewUserInfo(usernameField.getText(), passwordField.getText(), nameField.getText(), addressField.getText(),
+        User.setUserInfoFromDataBase(usernameField.getText(), passwordField.getText(), nameField.getText(), addressField.getText(),
                 emailField.getText(), phoneField.getText());
 
         lastUserNameInput = null;
@@ -144,7 +144,7 @@ public class CreateNewAccountController {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login_phase_1.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
