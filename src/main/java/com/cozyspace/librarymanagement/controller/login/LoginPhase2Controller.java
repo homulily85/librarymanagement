@@ -1,4 +1,4 @@
-package com.cozyspace.librarymanagement.controller;
+package com.cozyspace.librarymanagement.controller.login;
 
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
@@ -7,6 +7,7 @@ import com.cozyspace.librarymanagement.email.Email;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
 import com.cozyspace.librarymanagement.user.User;
+
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -139,7 +140,7 @@ public class LoginPhase2Controller {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/reset_password_phase_1.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/reset_password/reset_password_phase_1.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

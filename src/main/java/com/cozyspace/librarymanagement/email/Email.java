@@ -10,10 +10,7 @@ import java.util.Properties;
 import java.util.Random;
 
 public class Email {
-    public static void sendValidateEmail(String receiveEmail) {
-        Random random = new Random();
-        User.setCode(random.nextInt(100000, 1000000));
-
+    private static Session createSession() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", MailConfig.HOST_NAME);
@@ -21,17 +18,29 @@ public class Email {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.port", MailConfig.SSL_PORT);
 
-        Session session = Session.getDefaultInstance(props, new Authenticator() {
+        return Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(MailConfig.APP_EMAIL, MailConfig.APP_PASSWORD);
             }
         });
+    }
+
+    private static Integer generateCode() {
+        Random random = new Random();
+        return random.nextInt(100000, 1000000);
+    }
+
+    public static void sendEmailValidationCode(String receiveEmail) {
+        Integer code = generateCode();
+        DataTransfer.getInstance().getDataMap().put("emailValidationCode", code.toString());
+
+        Session session = createSession();
 
         try {
             MimeMessage message = new MimeMessage(session);
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiveEmail));
             message.setSubject("Mã xác thực để tạo tài khoản truy cập thư viện");
-            message.setText("Mã xác thực của bạn là: %d".formatted(User.getCode()));
+            message.setText("Mã xác thực của bạn là: %d".formatted(code));
 
             Transport.send(message);
 
@@ -41,22 +50,10 @@ public class Email {
     }
 
     public static void sendResetPasswordConfirmationEmail(String receiveEmail) {
-        Random random = new Random();
-        int code = random.nextInt(100000, 1000000);
-        DataTransfer.getInstance().getDataMap().put("resetPasswordCode", ((Integer) code).toString());
+        Integer code = generateCode();
+        DataTransfer.getInstance().getDataMap().put("resetPasswordCode", code.toString());
 
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", MailConfig.HOST_NAME);
-        props.put("mail.smtp.socketFactory.port", MailConfig.SSL_PORT);
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.port", MailConfig.SSL_PORT);
-
-        Session session = Session.getDefaultInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(MailConfig.APP_EMAIL, MailConfig.APP_PASSWORD);
-            }
-        });
+        Session session = createSession();
 
         try {
             MimeMessage message = new MimeMessage(session);

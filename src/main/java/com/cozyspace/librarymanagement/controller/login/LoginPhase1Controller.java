@@ -1,18 +1,14 @@
-package com.cozyspace.librarymanagement.controller;
+package com.cozyspace.librarymanagement.controller.login;
 
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
-import com.cozyspace.librarymanagement.user.Librarian;
-import com.cozyspace.librarymanagement.user.Member;
 import com.cozyspace.librarymanagement.user.User;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -90,7 +86,7 @@ public class LoginPhase1Controller {
             return;
         }
 
-        DataTransfer.getInstance().getDataMap().put("loginUsername",usernameField.getText());
+        DataTransfer.getInstance().getDataMap().put("loginUsername", usernameField.getText());
 
         FadeTransition fadeTransition = new FadeTransition();
         fadeTransition.setDuration(Duration.millis(500));
@@ -101,7 +97,7 @@ public class LoginPhase1Controller {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login_phase_2.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login/login_phase_2.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -124,7 +120,8 @@ public class LoginPhase1Controller {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/create_new_account.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.
+                        getResource("fxml/create_new_account/create_new_account_phase_1.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -1,4 +1,4 @@
-package com.cozyspace.librarymanagement.controller;
+package com.cozyspace.librarymanagement.controller.reset_password;
 
 import com.cozyspace.librarymanagement.Main;
 import javafx.animation.FadeTransition;
@@ -52,7 +52,7 @@ public class resetPasswordPhase3Controller {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login_phase_1.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login/login_phase_1.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -2,7 +2,6 @@ package com.cozyspace.librarymanagement.user;
 
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -102,6 +101,10 @@ public class User implements SearchBook {
     public static void addNewMember() {
         Datasource.addUser(User.getInstance().username, User.getInstance().password, User.instance.person.getName(), User.instance.person.getAddress(),
                 User.instance.person.getAddress(), User.instance.person.getPhone(), "Member");
+    }
+
+    public static void addNewMember(String username, String password, String name, String address, String email, String phone, String role) {
+        Datasource.addUser(username, password, name, address, email, phone, role);
     }
 
     public static void updatePassword(String username, String newPassword) {

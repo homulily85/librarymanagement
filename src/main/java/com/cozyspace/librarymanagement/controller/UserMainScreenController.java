@@ -72,7 +72,7 @@ public class UserMainScreenController {
             Stage stage = (Stage) home.getScene().getWindow();
 
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login_phase_1.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login/login_phase_1.fxml")));
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());

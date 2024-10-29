@@ -1,4 +1,4 @@
-package com.cozyspace.librarymanagement.controller;
+package com.cozyspace.librarymanagement.controller.reset_password;
 
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -55,6 +52,10 @@ public class resetPasswordPhase2Controller {
         continueButton.setOnMouseEntered(_ -> continueButton.setStyle(HOVERED_LOGIN_BUTTON_STYLE));
         continueButton.setOnMouseExited(_ -> continueButton.setStyle(IDLE_LOGIN_BUTTON_STYLE));
 
+        Tooltip passwordTooltip = new Tooltip();
+        passwordTooltip.setText("Mật khẩu có tối thiểu 6 kí tự, chứa ít nhất một chữ cái in hoa và chứa ít nhất một chữ số");
+        newPasswordField.setTooltip(passwordTooltip);
+
     }
 
 
@@ -92,7 +93,7 @@ public class resetPasswordPhase2Controller {
         fadeTransition.setOnFinished(_ -> {
             Parent root;
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/reset_password_phase_3.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/reset_password/reset_password_phase_3.fxml")));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

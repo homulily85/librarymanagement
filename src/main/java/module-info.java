@@ -9,4 +9,10 @@ module com.cozyspace.librarymanagement {
     exports com.cozyspace.librarymanagement;
     exports com.cozyspace.librarymanagement.controller;
     opens com.cozyspace.librarymanagement.controller to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.login;
+    opens com.cozyspace.librarymanagement.controller.login to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.reset_password;
+    opens com.cozyspace.librarymanagement.controller.reset_password to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.create_new_account;
+    opens com.cozyspace.librarymanagement.controller.create_new_account to javafx.fxml;
 }
