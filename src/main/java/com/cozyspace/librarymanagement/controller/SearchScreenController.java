@@ -2,7 +2,7 @@ package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
-import com.cozyspace.librarymanagement.user.User;
+import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -78,9 +78,9 @@ public class SearchScreenController {
         String query = searchField.getText();
         ObservableList<Document> result = null;
         switch (searchType.getSelectionModel().getSelectedIndex()) {
-            case 0 -> result = User.getInstance().searchDocumentByTitle(query);
-            case 1 -> result = User.getInstance().searchDocumentByAuthor(query);
-            case 2 -> result = User.getInstance().searchByISBN(query);
+            case 0 -> result = UserManager.getUserInstance().searchDocumentByTitle(query);
+            case 1 -> result = UserManager.getUserInstance().searchDocumentByAuthor(query);
+            case 2 -> result = UserManager.getUserInstance().searchByISBN(query);
         }
         if (result == null || result.isEmpty()) {
             documentNotFound.setVisible(true);

@@ -3,7 +3,7 @@ package com.cozyspace.librarymanagement.user;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.collections.ObservableList;
 
-public interface Searchable {
+public interface SearchBook {
     /**
      * Tìm kiếm tài liệu theo tên.
      *

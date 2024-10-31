@@ -11,9 +11,11 @@ public final class Person {
     public static int PERSON_EMAIL_FIELD_INDEX = 2;
     public static int PERSON_PHONE_FIELD_INDEX = 3;
 
-
-    Person() {
-
+    public Person(String name, String address, String email, String phone) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
     }
 
     public String getName() {

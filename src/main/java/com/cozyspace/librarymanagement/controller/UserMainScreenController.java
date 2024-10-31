@@ -1,7 +1,7 @@
 package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.Main;
-import com.cozyspace.librarymanagement.user.User;
+import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -67,18 +67,18 @@ public class UserMainScreenController {
         var result = dialog.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
 
-            User.logout();
+            UserManager.removeUserInstance();
             Parent root = null;
             Stage stage = (Stage) home.getScene().getWindow();
 
             try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login.fxml")));
+                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/login/login_phase_1.fxml")));
 
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
             assert root != null;
-            Scene scene = new Scene(root, 800, 350);
+            Scene scene = new Scene(root, 800, 500 );
             stage.setScene(scene);
             stage.show();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();

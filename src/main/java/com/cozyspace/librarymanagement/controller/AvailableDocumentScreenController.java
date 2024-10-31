@@ -2,7 +2,7 @@ package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
-import com.cozyspace.librarymanagement.user.User;
+import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +32,7 @@ public class AvailableDocumentScreenController {
     private TableView<Document> table;
 
     public void initialize() {
-        ObservableList<Document> result = User.getInstance().viewAllAvailableDocument();
+        ObservableList<Document> result = UserManager.getUserInstance().viewAllAvailableDocument();
         table.getItems().setAll(result);
         titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
         authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));

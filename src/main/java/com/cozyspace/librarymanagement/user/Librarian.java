@@ -2,7 +2,39 @@ package com.cozyspace.librarymanagement.user;
 
 public final class Librarian extends User {
 
-    Librarian() {
+    private Librarian(String name, String address, String email, String phone) {
+        super(name, address, email, phone);
+    }
+
+    private static Librarian instance = null;
+
+    /**
+     * Kiểm tra xem đã có đối tượng kiểu Librarian nào tồn tại không
+     *
+     * @return true nếu có, false nếu không
+     */
+    public static boolean isInstanceExist() {
+        return instance != null;
+    }
+
+    static Librarian getInstance() {
+        if (!isInstanceExist()) throw new RuntimeException("Librarian instance does not exist");
+        return instance;
+    }
+
+    /**
+     * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Librarian nào tồn tại.
+     */
+    static void createNewInstance(String name, String address, String email, String phone) {
+        if (isInstanceExist()) throw new RuntimeException("Librarian instance exists");
+        instance = new Librarian(name, address, email, phone);
+    }
+
+    /**
+     * Xóa đối tượng thuộc kiểu Librarian.
+     */
+    static void removeInstance() {
+        instance = null;
     }
 
     /**
