@@ -1,7 +1,7 @@
 package com.cozyspace.librarymanagement.controller;
 
 import com.cozyspace.librarymanagement.Main;
-import com.cozyspace.librarymanagement.user.User;
+import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -67,7 +67,7 @@ public class UserMainScreenController {
         var result = dialog.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
 
-            User.logout();
+            UserManager.removeUserInstance();
             Parent root = null;
             Stage stage = (Stage) home.getScene().getWindow();
 

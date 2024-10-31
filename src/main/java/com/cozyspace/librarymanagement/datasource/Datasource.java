@@ -57,7 +57,7 @@ public final class Datasource {
     /**
      * Bắt đầu kết nối tới CSDL account
      */
-    public static void openConection() {
+    public static void openConnection() {
         if (connection != null) return;
         try {
             connection = DriverManager.getConnection(CONNECTION_NAME);

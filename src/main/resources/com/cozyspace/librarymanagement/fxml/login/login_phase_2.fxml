@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane fx:id="login_phase_2" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
+<SplitPane fx:id="loginPhase2" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
            xmlns:fx="http://javafx.com/fxml/"
            fx:controller="com.cozyspace.librarymanagement.controller.login.LoginPhase2Controller">
     <AnchorPane minWidth="256">
