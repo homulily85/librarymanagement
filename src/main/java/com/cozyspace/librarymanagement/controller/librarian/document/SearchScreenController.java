@@ -1,5 +1,6 @@
-package com.cozyspace.librarymanagement.controller;
+package com.cozyspace.librarymanagement.controller.librarian.document;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.UserManager;
@@ -17,6 +18,10 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SearchScreenController {
+    @FXML
+    private TableColumn<Document, String> subjectColumn;
+    @FXML
+    private TableColumn<Document, String> quantityColumn;
     @FXML
     private TableColumn<Document, String> isbnColumn;
     @FXML
@@ -37,6 +42,16 @@ public class SearchScreenController {
     private TableView<Document> table;
 
     public void initialize() {
+        ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
+                Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
+        table.getItems().setAll(result);
+        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
+        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
+        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
+        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
+        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
+        subjectColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getSubject()));
+        table.setVisible(true);
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
         table.setRowFactory(_ -> {
@@ -47,7 +62,7 @@ public class SearchScreenController {
                         Stage newStage = new Stage();
 
                         FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/document_info.fxml")));
+                        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/librarian/document/document_info.fxml")));
 
                         Scene scene = null;
                         try {
@@ -78,9 +93,12 @@ public class SearchScreenController {
         String query = searchField.getText();
         ObservableList<Document> result = null;
         switch (searchType.getSelectionModel().getSelectedIndex()) {
-            case 0 -> result = UserManager.getUserInstance().searchDocumentByTitle(query);
-            case 1 -> result = UserManager.getUserInstance().searchDocumentByAuthor(query);
-            case 2 -> result = UserManager.getUserInstance().searchByISBN(query);
+            case 0 -> result = UserManager.getUserInstance().searchDocumentByTitle(query,
+                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
+            case 1 -> result = UserManager.getUserInstance().searchDocumentByAuthor(query,
+                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
+            case 2 -> result = UserManager.getUserInstance().searchByISBN(query,
+                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         }
         if (result == null || result.isEmpty()) {
             documentNotFound.setVisible(true);

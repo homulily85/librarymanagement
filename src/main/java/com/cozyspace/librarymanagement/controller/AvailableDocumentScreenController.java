@@ -1,6 +1,8 @@
 package com.cozyspace.librarymanagement.controller;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.controller.librarian.document.DocumentInfoController;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.property.SimpleStringProperty;
@@ -32,13 +34,13 @@ public class AvailableDocumentScreenController {
     private TableView<Document> table;
 
     public void initialize() {
-        ObservableList<Document> result = UserManager.getUserInstance().viewAllAvailableDocument();
+        ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
+                 Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         table.getItems().setAll(result);
         titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
         authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
         typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
         isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
-        // Hiển thị thông tin tài liệu cho khi ấn vào dòng tương ứng với tài liệu
         quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
         table.setRowFactory(_ -> {
             TableRow<Document> row = new TableRow<>();

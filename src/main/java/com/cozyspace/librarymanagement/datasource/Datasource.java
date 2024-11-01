@@ -1,6 +1,7 @@
 package com.cozyspace.librarymanagement.datasource;
 
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.password4j.Hash;
 import com.password4j.Password;
 import javafx.collections.FXCollections;
@@ -51,6 +52,10 @@ public final class Datasource {
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY = 6;
     public static final String TABLE_DOCUMENT_COLUMN_ISBN = "ISBN";
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_ISBN = 7;
+    public static final String TABLE_DOCUMENT_COLUMN_SUBJECT = "subject";
+    public static final int TABLE_DOCUMENT_INDEX_COLUMN_SUBJECT = 8;
+    public static final String TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION = "coverPageLocation";
+    public static final int TABLE_DOCUMENT_INDEX_COLUMN_COVER_PAGE_LOCATION = 9;
 
     private static Connection connection = null;
 
@@ -111,21 +116,25 @@ public final class Datasource {
         }
     }
 
-    public static ObservableList<Document> queryDocument(String searchType, String value) {
+    public static ObservableList<Document> queryDocument(String searchType, String value, int mode) {
         StringBuilder sb = new StringBuilder(value);
-        if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
-            sb.append("%");
-            sb.insert(0, "%");
-        }
+        sb.append("%");
+        sb.insert(0, "%");
+
         PreparedStatement query = null;
         try {
-            if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
-                query = connection.prepareStatement("select * from %s where %s like ?"
-                        .formatted(TABLE_DOCUMENT, searchType));
-            } else {
-                query = connection.prepareStatement("select * from %s where %s = ?"
-                        .formatted(TABLE_DOCUMENT, searchType));
+            switch (mode) {
+                case SearchBook.SEARCH_ALL_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ?"
+                                .formatted(TABLE_DOCUMENT, searchType));
+                case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s>0"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s=0"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
             }
+
             query.setString(1, sb.toString());
 
             return getDocuments(query);
@@ -135,10 +144,20 @@ public final class Datasource {
         }
     }
 
-    public static ObservableList<Document> getAvailableDocument() {
+    public static ObservableList<Document> getDocument(int mode) {
         try {
             PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0"
                     .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            switch (mode) {
+                case SearchBook.SEARCH_ALL_DOCUMENT -> query = connection.prepareStatement("select * from %s"
+                        .formatted(TABLE_DOCUMENT));
+                case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s > 0"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s = 0"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            }
             return getDocuments(query);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -156,7 +175,10 @@ public final class Datasource {
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TYPE),
-                    resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY)));
+                    resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_SUBJECT),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_COVER_PAGE_LOCATION)));
+
         }
         resultSet.close();
         query.close();

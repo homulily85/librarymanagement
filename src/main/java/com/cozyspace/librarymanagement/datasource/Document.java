@@ -15,8 +15,16 @@ public class Document {
     private String description;
     private String type;
     private int quantity;
+    private String subject;
+    private String coverPageLocation;
 
-    public Document(int id, String ISBN, String title, String author, String description, String type, int quantity) {
+    public int getId() {
+        return id;
+    }
+
+
+    public Document(int id, String ISBN, String title, String author, String description, String type, int quantity,
+                    String subject, String coverPageLocation) {
         this.id = id;
         this.ISBN = ISBN;
         this.title = title;
@@ -24,6 +32,16 @@ public class Document {
         this.description = description;
         this.type = type;
         this.quantity = quantity;
+        this.subject = subject;
+        this.coverPageLocation = coverPageLocation;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getCoverPageLocation() {
+        return coverPageLocation;
     }
 
     public String getTitle() {
