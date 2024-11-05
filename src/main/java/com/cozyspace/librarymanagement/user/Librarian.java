@@ -1,5 +1,8 @@
 package com.cozyspace.librarymanagement.user;
 
+import com.cozyspace.librarymanagement.datasource.Datasource;
+import com.cozyspace.librarymanagement.datasource.Document;
+
 public final class Librarian extends User {
 
     private Librarian(String name, String address, String email, String phone) {
@@ -39,9 +42,11 @@ public final class Librarian extends User {
 
     /**
      * Thêm tài liệu mới vào cơ sở dữ liệu
+     *
+     * @param newDoc Tài liệu cần thêm
      */
-    public void addDocument() {
-
+    public void addDocument(Document newDoc) {
+        new Thread(() -> Datasource.addNewDocument(newDoc)).start();
     }
 
     /**

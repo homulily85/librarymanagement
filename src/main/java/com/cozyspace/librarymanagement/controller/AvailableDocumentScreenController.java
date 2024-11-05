@@ -37,11 +37,11 @@ public class AvailableDocumentScreenController {
         ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
                  Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         table.getItems().setAll(result);
-        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
-        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
-        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
-        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
-        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
+        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().title()));
+        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().author()));
+        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().type()));
+        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().ISBN()));
+        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().quantity()).toString()));
         table.setRowFactory(_ -> {
             TableRow<Document> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

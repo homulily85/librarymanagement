@@ -7,6 +7,7 @@ import com.password4j.Password;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -167,10 +168,9 @@ public final class Datasource {
 
     private static ObservableList<Document> getDocuments(PreparedStatement query) throws SQLException {
         ResultSet resultSet = query.executeQuery();
-        ObservableList<Document> result = FXCollections.observableArrayList();
+        ObservableList<Document> result = FXCollections.observableList(new ArrayList<>());
         while (resultSet.next()) {
-            result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
-                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
+            result.add(new Document(resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
@@ -278,6 +278,30 @@ public final class Datasource {
             query.setString(2, username);
             query.executeUpdate();
             query.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addNewDocument(Document newDoc) {
+        try {
+            PreparedStatement query = connection.prepareStatement(("insert into %s " +
+                    "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
+                    formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_AUTHOR,
+                            TABLE_DOCUMENT_COLUMN_DESCRIPTION, TABLE_DOCUMENT_COLUMN_TYPE,
+                            TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN, TABLE_DOCUMENT_COLUMN_SUBJECT,
+                            TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION));
+            query.setString(1, newDoc.title());
+            query.setString(2, newDoc.author());
+            query.setString(3, newDoc.description());
+            query.setString(4, newDoc.type());
+            query.setInt(5, newDoc.quantity());
+            query.setString(6, newDoc.ISBN());
+            query.setString(7, newDoc.subject());
+            query.setString(8, newDoc.coverPageLocation());
+            query.executeUpdate();
+            query.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

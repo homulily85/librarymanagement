@@ -25,17 +25,16 @@ public class DocumentInfoController {
     @FXML
     private Label documentDescription;
 
-    public void initialize() {
-
-    }
-
     public void setInfo(Document document) {
-        documentTitle.setText(document.getTitle());
-        documentAuthor.setText(documentAuthor.getText() + document.getAuthor());
-        documentType.setText(documentType.getText() + document.getType());
-        documentQuantity.setText(documentQuantity.getText() + document.getQuantity());
-        documentDescription.setText(document.getDescription());
-        documentSubject.setText(documentSubject.getText() + document.getSubject());
-        coverPage.setImage(new Image(Objects.requireNonNull(Main.class.getResource("book_cover/"+document.getCoverPageLocation())).toString()));
+        documentTitle.setText(document.title());
+        documentAuthor.setText(documentAuthor.getText() + document.author());
+        documentType.setText(documentType.getText() + document.type());
+        documentQuantity.setText(documentQuantity.getText() + document.quantity());
+        documentDescription.setText(document.description());
+        documentSubject.setText(documentSubject.getText() + document.subject());
+        if (document.coverPageLocation() != null || !document.coverPageLocation().isEmpty()) {
+            coverPage.setImage(new Image(Objects.requireNonNull(Main.class.getResource("book_cover/"
+                    + document.coverPageLocation())).toString()));
+        }
     }
 }

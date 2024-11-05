@@ -3,6 +3,7 @@ package com.cozyspace.librarymanagement.controller.librarian.document;
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SearchScreenController {
+    @FXML
+    private Button addNewDocument;
     @FXML
     private TableColumn<Document, String> subjectColumn;
     @FXML
@@ -45,13 +48,14 @@ public class SearchScreenController {
         ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
                 Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         table.getItems().setAll(result);
-        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
-        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
-        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
-        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
-        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
-        subjectColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getSubject()));
+        titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().title()));
+        authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().author()));
+        typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().type()));
+        isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().ISBN()));
+        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().quantity()).toString()));
+        subjectColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().subject()));
         table.setVisible(true);
+
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
         table.setRowFactory(_ -> {
@@ -85,6 +89,31 @@ public class SearchScreenController {
             });
             return row;
         });
+
+        if (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode"))
+                == SearchBook.SEARCH_ALL_DOCUMENT) {
+            final String IDLE_MAIN_BUTTON_STYLE = """
+                    -fx-text-fill: #ffffff;
+                    -fx-background-color: #0e4ed5;
+                    -fx-border-radius: 20;
+                    -fx-background-radius: 20;
+                    -fx-padding: 5;
+                    """;
+            final String HOVERED_MAIN_BUTTON_STYLE = """
+                    -fx-text-fill: #ffffff;
+                    -fx-background-color: #043ea8;
+                    -fx-border-radius: 20;
+                    -fx-background-radius: 20;
+                    -fx-padding: 5;
+                    """;
+
+            addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE);
+            addNewDocument.setOnMouseEntered(_ -> addNewDocument.setStyle(HOVERED_MAIN_BUTTON_STYLE));
+            addNewDocument.setOnMouseExited(_ -> addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE));
+        } else {
+            addNewDocument.setDisable(true);
+            addNewDocument.setVisible(false);
+        }
     }
 
     public void search() {
@@ -104,12 +133,41 @@ public class SearchScreenController {
             documentNotFound.setVisible(true);
         } else {
             table.getItems().setAll(result);
-            isbnColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getISBN()));
-            titleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getTitle()));
-            authorColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getAuthor()));
-            typeColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getType()));
             table.setVisible(true);
         }
+
+    }
+
+    public void addNewDocument() {
+        Stage newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
+                ("fxml/librarian/document/add_new_document.fxml")));
+
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 900, 600);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        newStage.setTitle("Thêm tài liệu");
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.requestFocus();
+        newStage.initOwner(table.getScene().getWindow());
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.showAndWait();
+
+        DataTransfer.getInstance().getDataMap().put("searchMode", ((Integer) SearchBook.SEARCH_ALL_DOCUMENT).toString());
+
+        ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
+                Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
+
+        table.setVisible(true);
+        documentNotFound.setVisible(false);
+        table.getItems().setAll(result);
+        searchField.clear();
 
     }
 }
