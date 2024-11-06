@@ -9,18 +9,30 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 
 public class LibrarianMainScreenController {
+
+    @FXML
+    private BorderPane memberManagement;
     @FXML
     private BorderPane documentMainScreen;
 
     public void initialize() {
 
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/document/document_main_screen.fxml"));
-        Pane temp = null;
+        FXMLLoader loader1 = new FXMLLoader(Main.class.getResource("fxml/librarian/document/document_main_screen.fxml"));
+        Pane temp1 = null;
         try {
-            temp = loader.load();
+            temp1 = loader1.load();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        documentMainScreen.setCenter(temp);
+        documentMainScreen.setCenter(temp1);
+
+        FXMLLoader loader2 = new FXMLLoader(Main.class.getResource("fxml/librarian/member_management.fxml"));
+        Pane temp2 = null;
+        try {
+            temp2 = loader2.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        memberManagement.setCenter(temp2);
     }
 }

@@ -72,7 +72,7 @@ public class SearchScreenController {
                         try {
                             scene = new Scene(fxmlLoader.load(), 900, 600);
                         } catch (IOException e) {
-                            System.out.println(e.getMessage());
+                            e.printStackTrace();
                         }
                         newStage.setTitle("Thông tin tài liệu");
                         newStage.setScene(scene);
@@ -149,7 +149,7 @@ public class SearchScreenController {
         try {
             scene = new Scene(fxmlLoader.load(), 900, 600);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         newStage.setTitle("Thêm tài liệu");
         newStage.setScene(scene);

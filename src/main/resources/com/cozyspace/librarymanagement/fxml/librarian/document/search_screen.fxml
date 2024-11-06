@@ -32,7 +32,7 @@
             <TableColumn fx:id="authorColumn" prefWidth="235" text="Tác giả"/>
             <TableColumn fx:id="subjectColumn" prefWidth="150" text="Chủ đề"/>
             <TableColumn fx:id="typeColumn" prefWidth="100" text="Loại"/>
-            <TableColumn fx:id="quantityColumn" prefWidth="85" text="Số lượng"/>
+            <TableColumn fx:id="quantityColumn" prefWidth="75" text="Số lượng"/>
         </columns>
     </TableView>
     <Label fx:id="documentNotFound" layoutX="401.0" layoutY="331.0" text="Không tìm thấy tài liệu!" visible="false">

@@ -7,7 +7,6 @@ import com.password4j.Password;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.print.Doc;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +67,7 @@ public final class Datasource {
         try {
             connection = DriverManager.getConnection(CONNECTION_NAME);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -81,7 +80,7 @@ public final class Datasource {
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -112,7 +111,7 @@ public final class Datasource {
             query.close();
             return result;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -140,12 +139,12 @@ public final class Datasource {
 
             return getDocuments(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
-    public static ObservableList<Document> getDocument(int mode) {
+    public static ObservableList<Document> viewAllDocument(int mode) {
         try {
             PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0"
                     .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
@@ -161,7 +160,7 @@ public final class Datasource {
             }
             return getDocuments(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -205,7 +204,7 @@ public final class Datasource {
             query.close();
             return ans;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ans;
         }
     }
@@ -239,7 +238,7 @@ public final class Datasource {
             query.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -264,7 +263,7 @@ public final class Datasource {
             query.close();
             return success;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -279,7 +278,7 @@ public final class Datasource {
             query.executeUpdate();
             query.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -303,9 +302,80 @@ public final class Datasource {
             query.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    public static ObservableList<MemberRecord> queryMember(String searchType, String value) {
+        PreparedStatement query = null;
+        try {
+            if (!searchType.equals(TABLE_ACCOUNT_COLUMN_NAME)) {
+                query = connection.prepareStatement("select * from %s where %s = ? and %s =?"
+                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
+                query.setString(1, value);
+                query.setString(2, "Member");
+
+            } else {
+                query = connection.prepareStatement("select * from %s where %s like ? and %s =?"
+                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
+                query.setString(1, "%" + value + "%");
+                query.setString(2, "Member");
+
+            }
+
+            return getMemberRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static ObservableList<MemberRecord> getMemberRecord(PreparedStatement query) throws SQLException {
+        ResultSet resultSet = query.executeQuery();
+        ObservableList<MemberRecord> result = FXCollections.observableList(new ArrayList<>());
+        while (resultSet.next()) {
+            result.add(new MemberRecord(resultSet.getString(TABLE_ACCOUNT_COLUMN_USERNAME),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL),
+                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE)));
+        }
+        resultSet.close();
+        query.close();
+        return result;
+    }
+
+    public static ObservableList<MemberRecord> viewAllMember() {
+        try {
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s = ?"
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ROLE));
+
+            query.setString(1, "Member");
+
+            return getMemberRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void updateMemberInfo(MemberRecord newMemberRecord) {
+        try {
+            PreparedStatement query = connection.prepareStatement(
+                    "update %s set %s = ?, %s = ?, %s=?, %s=? where %s = ?"
+                            .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ADDRESS, TABLE_ACCOUNT_COLUMN_PHONE,
+                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_USERNAME));
+            query.setString(1, newMemberRecord.getAddress());
+            query.setString(2, newMemberRecord.getPhone());
+            query.setString(3, newMemberRecord.getEmail());
+            query.setString(4, newMemberRecord.getName());
+            query.setString(5, newMemberRecord.getUserName());
+            query.executeUpdate();
+            query.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

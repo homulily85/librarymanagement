@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/"
+            xmlns:fx="http://javafx.com/fxml/"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.MemberManagementController">
+    <ComboBox fx:id="searchType" layoutX="241.0" layoutY="33.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Tìm kiếm theo tên"/>
+                <String fx:value="Tìm kiếm theo số điện thoại"/>
+                <String fx:value="Tìm kiếm theo email"/>
+            </FXCollections>
+        </items>
+        <value>
+            <String fx:value="Tìm kiếm theo tên"/>
+        </value>
+    </ComboBox>
+    <TextField fx:id="searchField" layoutX="463.0" layoutY="33.0" prefHeight="26.0" prefWidth="476.0"/>
+    <Button fx:id="searchButton" defaultButton="true" layoutX="972.0" layoutY="32.0" onAction="#search"
+            prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
+    <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="526.0" prefWidth="899.0">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="243.8000030517578" text="Tên thành viên "/>
+            <TableColumn fx:id="addressColumn" prefWidth="281.0" text="Địa chỉ"/>
+            <TableColumn fx:id="emailColumn" prefWidth="222.0" text="Email"/>
+            <TableColumn fx:id="phoneColumn" prefWidth="147.5999755859375" text="Số điện thoại"/>
+        </columns>
+    </TableView>
+    <Label fx:id="memberNotFound" layoutX="401.0" layoutY="331.0" text="Không tìm thấy thành viên!" visible="false">
+        <font>
+            <Font size="30"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="20" fitWidth="20" layoutX="986.0" layoutY="36.0">
+        <Image url="@../../search_icon.png"/>
+    </ImageView>
+    <Label fx:id="titleLabel" layoutX="972.0" layoutY="84.0" prefHeight="30.0" prefWidth="282.0"
+           text="Thông tin thành viên" textFill="#0e4ed5">
+        <font>
+            <Font size="30.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="nameField" layoutX="972.0" layoutY="156.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="addressField" layoutX="972.0" layoutY="207.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="emailField" layoutX="972.0" layoutY="259.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="phoneField" layoutX="972.0" layoutY="312.0" prefHeight="26.0" prefWidth="282.0"/>
+    <Label fx:id="nameLabel" layoutX="972.0" layoutY="130.0" text="Tên thành viên">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <Label fx:id="addressLabel" layoutX="973.0" layoutY="185.0" text="Địa chỉ">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <Label fx:id="emailLabel" layoutX="972.0" layoutY="237.0" prefWidth="46.0" text="Email">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <Label fx:id="phoneLabel" layoutX="972.0" layoutY="287.0" text="Số điện thoại">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <Button fx:id="saveButton" layoutX="1069.0" layoutY="377.0" mnemonicParsing="false" onAction="#updateMemberInfo"
+            prefHeight="31.0" prefWidth="88.0" text="Cập nhật">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Button>
+    <Label fx:id="phoneFailed" layoutX="1015.0" layoutY="345.0" text="Số điện thoại không đúng định dạng"
+           textFill="#e40c0c" visible="false">
+        <font>
+            <Font size="12"/>
+        </font>
+    </Label>
+    <Label fx:id="emailFailed" layoutX="1015.0" layoutY="345.0" text="Email không đúng định dạng" textFill="#e40c0c"
+           visible="false">
+        <font>
+            <Font size="12"/>
+        </font>
+    </Label>
+    <Label fx:id="success" layoutX="1002.0" layoutY="345.0" text="Cập nhật thông tin thành viên thành công"
+           textFill="green" visible="false">
+        <font>
+            <Font size="12"/>
+        </font>
+    </Label>
+</AnchorPane>

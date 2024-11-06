@@ -2,8 +2,10 @@ package com.cozyspace.librarymanagement.user;
 
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
+import com.cozyspace.librarymanagement.datasource.MemberRecord;
+import javafx.collections.ObservableList;
 
-public final class Librarian extends User {
+public final class Librarian extends User implements SearchMember {
 
     private Librarian(String name, String address, String email, String phone) {
         super(name, address, email, phone);
@@ -46,7 +48,7 @@ public final class Librarian extends User {
      * @param newDoc Tài liệu cần thêm
      */
     public void addDocument(Document newDoc) {
-        new Thread(() -> Datasource.addNewDocument(newDoc)).start();
+        Datasource.addNewDocument(newDoc);
     }
 
     /**
@@ -64,38 +66,29 @@ public final class Librarian extends User {
     }
 
     /**
-     * Tìm kiếm thành viên theo theo tên đăng nhập.
-     */
-    public void searchForMember() {
-
-    }
-
-    /**
-     * Thêm một thành viên mới
-     */
-    public void addMember() {
-
-    }
-
-    /**
-     * Xóa một thành viên khỏi cơ sở dữ liệu
-     */
-    public void removeMember() {
-
-    }
-
-    /**
      * Thay đổi thông tin của một thành viên (trừ tên đăng nhập và mặt khảu)
      */
-    public void editMemberInfo() {
-
+    public void updateMemberInfo(MemberRecord newMemberRecord) {
+        Datasource.updateMemberInfo(newMemberRecord);
     }
 
-    /**
-     * Hiển thị danh sách tất cả thành viên.
-     */
-    public void viewAllMember() {
+    public ObservableList<MemberRecord> viewAllMember() {
 
+        return Datasource.viewAllMember();
     }
 
+    @Override
+    public ObservableList<MemberRecord> searchMemberByName(String name) {
+        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_NAME, name);
+    }
+
+    @Override
+    public ObservableList<MemberRecord> searchMemberByEmail(String email) {
+        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_EMAIL, email);
+    }
+
+    @Override
+    public ObservableList<MemberRecord> searchMemberByPhone(String phone) {
+        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_PHONE, phone);
+    }
 }

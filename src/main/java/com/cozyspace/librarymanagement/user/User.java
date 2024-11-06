@@ -27,8 +27,9 @@ public abstract class User implements SearchBook {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_ISBN, ISBN, mode);
     }
 
+    @Override
     public ObservableList<Document> viewDocument(int mode) {
-        return Datasource.getDocument(mode);
+        return Datasource.viewAllDocument(mode);
     }
 
 }

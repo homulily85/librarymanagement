@@ -32,7 +32,7 @@ public class DocumentInfoController {
         documentQuantity.setText(documentQuantity.getText() + document.quantity());
         documentDescription.setText(document.description());
         documentSubject.setText(documentSubject.getText() + document.subject());
-        if (document.coverPageLocation() != null || !document.coverPageLocation().isEmpty()) {
+        if (!(document.coverPageLocation() == null)) {
             coverPage.setImage(new Image(Objects.requireNonNull(Main.class.getResource("book_cover/"
                     + document.coverPageLocation())).toString()));
         }

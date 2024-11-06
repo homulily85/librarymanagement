@@ -15,7 +15,7 @@ public interface SearchBook {
      * @param mode  chế độ tìm kiếm, là một trong ba chế độ được khai báo trong interface SearchBook
      * @return ObservableList chứa các tài liệu mà tiêu đề có chứa từ khóa cần tìm
      */
-    public ObservableList<Document> searchDocumentByTitle(String title, int mode);
+    ObservableList<Document> searchDocumentByTitle(String title, int mode);
 
     /**
      * Tìm kiếm tài liệu theo tác giả.
@@ -24,7 +24,7 @@ public interface SearchBook {
      * @param author từ khóa
      * @return ObservableList chứa các tài liệu mà tiêu đề có chứa từ khóa cần tìm
      */
-    public ObservableList<Document> searchDocumentByAuthor(String author, int mode);
+    ObservableList<Document> searchDocumentByAuthor(String author, int mode);
 
     /**
      * Tìm kiếm theo mã ISBN
@@ -33,6 +33,14 @@ public interface SearchBook {
      * @param ISBN mã ISBN của tài liệu cần tìm
      * @return ObservableList chứa tài liệu cần tìm
      */
-    public ObservableList<Document> searchByISBN(String ISBN, int mode);
+    ObservableList<Document> searchByISBN(String ISBN, int mode);
+
+    /**
+     * Xem tất cả các tài liệu
+     *
+     * @param mode chế độ tìm kiếm, là một trong ba chế độ được khai báo trong interface SearchBook
+     * @return ObservableList chứa tài liệu cần tìm
+     */
+    ObservableList<Document> viewDocument(int mode);
 
 }

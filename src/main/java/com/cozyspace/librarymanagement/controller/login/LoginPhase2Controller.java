@@ -7,7 +7,6 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.email.Email;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.Member;
-
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.fxml.FXML;
@@ -67,7 +66,7 @@ public class LoginPhase2Controller extends AccountRelatedController {
                 root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/member_main_screen.fxml")));
                 DataTransfer.getInstance().getDataMap().put("searchMode", Integer.toString(SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT));
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         } else if (UserManager.getUserInstance() instanceof Librarian) {
             try {
@@ -75,7 +74,7 @@ public class LoginPhase2Controller extends AccountRelatedController {
                 DataTransfer.getInstance().getDataMap().put("searchMode", Integer.toString(SearchBook.SEARCH_ALL_DOCUMENT));
 
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
         Scene scene = new Scene(root);
