@@ -152,35 +152,36 @@ public class SearchScreenController {
     }
 
     public void addNewDocument() {
-        Stage newStage = new Stage();
 
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
-                ("fxml/librarian/document/add_new_document.fxml")));
-
-        Scene scene = null;
-        try {
-            scene = new Scene(fxmlLoader.load(), 900, 600);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        newStage.setTitle("Thêm tài liệu");
-        newStage.setScene(scene);
-        newStage.setResizable(false);
-        newStage.requestFocus();
-        newStage.initOwner(table.getScene().getWindow());
-        newStage.initModality(Modality.WINDOW_MODAL);
-        newStage.showAndWait();
-
-        DataTransfer.getInstance().getDataMap().put("searchMode", ((Integer) SearchBook.SEARCH_ALL_DOCUMENT).toString());
-
-        ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
-                Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
-
-        table.setVisible(true);
-        documentNotFound.setVisible(false);
-        table.getItems().setAll(result);
-        searchField.clear();
+//        Stage newStage = new Stage();
+//
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
+//                ("fxml/librarian/document/add_new_document.fxml")));
+//
+//        Scene scene = null;
+//        try {
+//            scene = new Scene(fxmlLoader.load(), 900, 600);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        newStage.setTitle("Thêm tài liệu");
+//        newStage.setScene(scene);
+//        newStage.setResizable(false);
+//        newStage.requestFocus();
+//        newStage.initOwner(table.getScene().getWindow());
+//        newStage.initModality(Modality.WINDOW_MODAL);
+//        newStage.showAndWait();
+//
+//        DataTransfer.getInstance().getDataMap().put("searchMode", ((Integer) SearchBook.SEARCH_ALL_DOCUMENT).toString());
+//
+//        ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
+//                Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
+//
+//        table.setVisible(true);
+//        documentNotFound.setVisible(false);
+//        table.getItems().setAll(result);
+//        searchField.clear();
 
     }
 }

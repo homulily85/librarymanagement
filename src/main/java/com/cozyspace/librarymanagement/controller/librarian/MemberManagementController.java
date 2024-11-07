@@ -11,6 +11,10 @@ import javafx.scene.control.*;
 
 public class MemberManagementController {
     @FXML
+    private Label usernameLabel;
+    @FXML
+    private TextField usernameField;
+    @FXML
     private Label removeQuery;
     @FXML
     private Label success;
@@ -72,6 +76,8 @@ public class MemberManagementController {
 
         removeQuery.disableProperty().bind(Bindings.isEmpty(searchField.textProperty()));
 
+        usernameField.setDisable(true);
+
         removeQuery.setOnMouseClicked(_ -> {
             searchField.clear();
             table.getItems().setAll(result);
@@ -87,6 +93,8 @@ public class MemberManagementController {
             emailLabel.setVisible(true);
             saveButton.setVisible(true);
             titleLabel.setVisible(true);
+            usernameField.setVisible(true);
+            usernameLabel.setVisible(true);
         });
 
         table.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
@@ -99,6 +107,7 @@ public class MemberManagementController {
                 emailFailed.setVisible(false);
                 success.setVisible(false);
                 phoneFailed.setVisible(false);
+                usernameField.setText(item.getUserName());
             }
         });
 
@@ -145,6 +154,8 @@ public class MemberManagementController {
         phoneField.clear();
         phoneField.setVisible(false);
         saveButton.setVisible(false);
+        usernameField.setVisible(false);
+        usernameLabel.setVisible(false);
         ObservableList<MemberRecord> result = null;
         switch (searchType.getSelectionModel().getSelectedIndex()) {
             case 0 -> result = ((Librarian) UserManager.getUserInstance()).searchMemberByName(searchField.getText());
@@ -167,6 +178,8 @@ public class MemberManagementController {
             emailLabel.setVisible(true);
             saveButton.setVisible(true);
             memberNotFound.setVisible(false);
+            usernameField.setVisible(true);
+            usernameLabel.setVisible(true);
         }
 
     }

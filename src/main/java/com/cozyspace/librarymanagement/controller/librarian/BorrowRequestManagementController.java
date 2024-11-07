@@ -107,4 +107,9 @@ public class BorrowRequestManagementController {
             table.setVisible(true);
         }
     }
+
+    public void createNewRequest() {
+
+    }
+
 }
