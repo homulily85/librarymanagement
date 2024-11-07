@@ -1,6 +1,7 @@
 package com.cozyspace.librarymanagement.datasource;
 
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.password4j.Hash;
 import com.password4j.Password;
 import javafx.collections.FXCollections;
@@ -51,6 +52,10 @@ public final class Datasource {
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY = 6;
     public static final String TABLE_DOCUMENT_COLUMN_ISBN = "ISBN";
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_ISBN = 7;
+    public static final String TABLE_DOCUMENT_COLUMN_SUBJECT = "subject";
+    public static final int TABLE_DOCUMENT_INDEX_COLUMN_SUBJECT = 8;
+    public static final String TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION = "coverPageLocation";
+    public static final int TABLE_DOCUMENT_INDEX_COLUMN_COVER_PAGE_LOCATION = 9;
 
     private static Connection connection = null;
 
@@ -62,7 +67,7 @@ public final class Datasource {
         try {
             connection = DriverManager.getConnection(CONNECTION_NAME);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -75,7 +80,7 @@ public final class Datasource {
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -106,57 +111,73 @@ public final class Datasource {
             query.close();
             return result;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
-    public static ObservableList<Document> queryDocument(String searchType, String value) {
+    public static ObservableList<Document> queryDocument(String searchType, String value, int mode) {
         StringBuilder sb = new StringBuilder(value);
-        if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
-            sb.append("%");
-            sb.insert(0, "%");
-        }
+        sb.append("%");
+        sb.insert(0, "%");
+
         PreparedStatement query = null;
         try {
-            if (!Objects.equals(searchType, TABLE_DOCUMENT_COLUMN_ISBN)) {
-                query = connection.prepareStatement("select * from %s where %s like ?"
-                        .formatted(TABLE_DOCUMENT, searchType));
-            } else {
-                query = connection.prepareStatement("select * from %s where %s = ?"
-                        .formatted(TABLE_DOCUMENT, searchType));
+            switch (mode) {
+                case SearchBook.SEARCH_ALL_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ?"
+                                .formatted(TABLE_DOCUMENT, searchType));
+                case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s>0"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s=0"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
             }
+
             query.setString(1, sb.toString());
 
             return getDocuments(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
-    public static ObservableList<Document> getAvailableDocument() {
+    public static ObservableList<Document> viewAllDocument(int mode) {
         try {
             PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0"
                     .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            switch (mode) {
+                case SearchBook.SEARCH_ALL_DOCUMENT -> query = connection.prepareStatement("select * from %s"
+                        .formatted(TABLE_DOCUMENT));
+                case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s > 0"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s where %s = 0"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            }
             return getDocuments(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
 
     private static ObservableList<Document> getDocuments(PreparedStatement query) throws SQLException {
         ResultSet resultSet = query.executeQuery();
-        ObservableList<Document> result = FXCollections.observableArrayList();
+        ObservableList<Document> result = FXCollections.observableList(new ArrayList<>());
         while (resultSet.next()) {
-            result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
-                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
+            result.add(new Document(resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TYPE),
-                    resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY)));
+                    resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_QUANTITY),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_SUBJECT),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_COVER_PAGE_LOCATION)));
+
         }
         resultSet.close();
         query.close();
@@ -183,7 +204,7 @@ public final class Datasource {
             query.close();
             return ans;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return ans;
         }
     }
@@ -217,7 +238,7 @@ public final class Datasource {
             query.close();
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -242,7 +263,7 @@ public final class Datasource {
             query.close();
             return success;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
@@ -257,9 +278,104 @@ public final class Datasource {
             query.executeUpdate();
             query.close();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    public static void addNewDocument(Document newDoc) {
+        try {
+            PreparedStatement query = connection.prepareStatement(("insert into %s " +
+                    "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
+                    formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_AUTHOR,
+                            TABLE_DOCUMENT_COLUMN_DESCRIPTION, TABLE_DOCUMENT_COLUMN_TYPE,
+                            TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN, TABLE_DOCUMENT_COLUMN_SUBJECT,
+                            TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION));
+            query.setString(1, newDoc.title());
+            query.setString(2, newDoc.author());
+            query.setString(3, newDoc.description());
+            query.setString(4, newDoc.type());
+            query.setInt(5, newDoc.quantity());
+            query.setString(6, newDoc.ISBN());
+            query.setString(7, newDoc.subject());
+            query.setString(8, newDoc.coverPageLocation());
+            query.executeUpdate();
+            query.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ObservableList<MemberRecord> queryMember(String searchType, String value) {
+        PreparedStatement query = null;
+        try {
+            if (!searchType.equals(TABLE_ACCOUNT_COLUMN_NAME)) {
+                query = connection.prepareStatement("select * from %s where %s = ? and %s =?"
+                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
+                query.setString(1, value);
+                query.setString(2, "Member");
+
+            } else {
+                query = connection.prepareStatement("select * from %s where %s like ? and %s =?"
+                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
+                query.setString(1, "%" + value + "%");
+                query.setString(2, "Member");
+
+            }
+
+            return getMemberRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static ObservableList<MemberRecord> getMemberRecord(PreparedStatement query) throws SQLException {
+        ResultSet resultSet = query.executeQuery();
+        ObservableList<MemberRecord> result = FXCollections.observableList(new ArrayList<>());
+        while (resultSet.next()) {
+            result.add(new MemberRecord(resultSet.getString(TABLE_ACCOUNT_COLUMN_USERNAME),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL),
+                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE)));
+        }
+        resultSet.close();
+        query.close();
+        return result;
+    }
+
+    public static ObservableList<MemberRecord> viewAllMember() {
+        try {
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s = ?"
+                    .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ROLE));
+
+            query.setString(1, "Member");
+
+            return getMemberRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void updateMemberInfo(MemberRecord newMemberRecord) {
+        try {
+            PreparedStatement query = connection.prepareStatement(
+                    "update %s set %s = ?, %s = ?, %s=?, %s=? where %s = ?"
+                            .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ADDRESS, TABLE_ACCOUNT_COLUMN_PHONE,
+                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_USERNAME));
+            query.setString(1, newMemberRecord.getAddress());
+            query.setString(2, newMemberRecord.getPhone());
+            query.setString(3, newMemberRecord.getEmail());
+            query.setString(4, newMemberRecord.getName());
+            query.setString(5, newMemberRecord.getUserName());
+            query.executeUpdate();
+            query.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

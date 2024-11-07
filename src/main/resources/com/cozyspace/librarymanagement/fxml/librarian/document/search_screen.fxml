@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="650" prefWidth="1111.0" xmlns="http://javafx.com/javafx/"
+            xmlns:fx="http://javafx.com/fxml/"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.SearchScreenController">
+    <ComboBox fx:id="searchType" layoutX="128.0" layoutY="33.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Tìm kiếm theo tên tài liệu"/>
+                <String fx:value="Tìm kiếm theo tác giả"/>
+                <String fx:value="Tìm kiếm theo mã ISBN"/>
+            </FXCollections>
+        </items>
+        <value>
+            <String fx:value="Tìm kiếm theo tên tài liệu"/>
+        </value>
+    </ComboBox>
+    <TextField fx:id="searchField" layoutX="328.0" layoutY="33.0" prefHeight="26.0" prefWidth="576.0"/>
+    <Button fx:id="searchButton" defaultButton="true" layoutX="924.0" layoutY="32.0" onAction="#search"
+            prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
+    <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="525.0" prefWidth="1028.0" visible="false">
+        <columns>
+            <TableColumn fx:id="titleColumn" prefWidth="350" text="Tên tài liệu"/>
+            <TableColumn fx:id="isbnColumn" prefWidth="100" text="ISBN"/>
+            <TableColumn fx:id="authorColumn" prefWidth="235" text="Tác giả"/>
+            <TableColumn fx:id="subjectColumn" prefWidth="150" text="Chủ đề"/>
+            <TableColumn fx:id="typeColumn" prefWidth="100" text="Loại"/>
+            <TableColumn fx:id="quantityColumn" prefWidth="75" text="Số lượng"/>
+        </columns>
+    </TableView>
+    <Label fx:id="documentNotFound" layoutX="401.0" layoutY="331.0" text="Không tìm thấy tài liệu!" visible="false">
+        <font>
+            <Font size="30"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="20" fitWidth="20" layoutX="938.0" layoutY="36.0">
+        <Image url="@../../../search_icon.png"/>
+    </ImageView>
+    <Button fx:id="addNewDocument" layoutX="929.0" layoutY="625.0" prefHeight="38.0" prefWidth="108.0"
+            text="Thêm tài liệu" onAction="#addNewDocument">
+        <font>
+            <Font size="15"/>
+        </font>
+    </Button>
+
+</AnchorPane>

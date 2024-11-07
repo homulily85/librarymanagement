@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/"
+            xmlns:fx="http://javafx.com/fxml/"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.DocumentInfoController">
+    <AnchorPane prefWidth="875.0">
+        <ImageView fx:id="coverPage" fitHeight="177" fitWidth="140" layoutX="14.0" layoutY="14.0">
+            <Image url="@../../../coverart.png"/>
+        </ImageView>
+        <Label fx:id="documentTitle" layoutX="167.0" layoutY="14.0" prefWidth="700.0" wrapText="true">
+            <font>
+                <Font size="40"/>
+            </font>
+        </Label>
+        <Label fx:id="documentAuthor" layoutX="167.0" layoutY="119.0" prefWidth="700.0" text="Tác giả: "
+               wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label fx:id="documentSubject" layoutX="167.0" layoutY="180.0" prefWidth="700.0" text="Chủ đề: "
+               wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label fx:id="documentType" layoutX="167.0" layoutY="216.0" prefWidth="700.0" text="Loại: " wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label fx:id="documentQuantity" layoutX="167.0" layoutY="252.0" prefWidth="675" text="Số lượng: "
+               wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label layoutX="167.0" layoutY="288.0" prefWidth="675" text="Mô tả: " wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label fx:id="documentDescription" layoutX="241.0" layoutY="288.0" prefWidth="643.0" text="Place holder "
+               wrapText="true">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+    </AnchorPane>
+
+</ScrollPane>
