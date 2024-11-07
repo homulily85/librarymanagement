@@ -20,6 +20,8 @@ import java.util.Objects;
 
 public class SearchScreenController {
     @FXML
+    private Label removeQuery;
+    @FXML
     private Button addNewDocument;
     @FXML
     private TableColumn<Document, String> subjectColumn;
@@ -55,6 +57,17 @@ public class SearchScreenController {
         quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().quantity()).toString()));
         subjectColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().subject()));
         table.setVisible(true);
+
+        removeQuery.disableProperty().bind(Bindings.isEmpty(searchField.textProperty()));
+
+        removeQuery.setOnMouseClicked(_ -> {
+            searchField.clear();
+            table.getItems().setAll(result);
+            documentNotFound.setVisible(false);
+            table.setVisible(true);
+        });
+
+        searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
 
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));

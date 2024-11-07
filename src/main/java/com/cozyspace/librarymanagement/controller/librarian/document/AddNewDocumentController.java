@@ -49,8 +49,10 @@ public class AddNewDocumentController {
     private Label quantityFailed;
     @FXML
     private Button addNewDocument;
+    private boolean isCoverArtChosen;
 
     public void initialize() {
+        isCoverArtChosen = false;
         final String IDLE_MAIN_BUTTON_STYLE = """
                 -fx-text-fill: #ffffff;
                 -fx-background-color: #0e4ed5;
@@ -134,7 +136,9 @@ public class AddNewDocumentController {
         }
 
         new Thread(() -> {
-
+            if (!isCoverArtChosen) {
+                return;
+            }
             String sour = coverPage.getImage().getUrl().replace("/", "\\");
             String des = Objects.requireNonNull(Main.class.getResource("book_cover/")).getPath()
                     .replace("/", "\\").substring(1) +
@@ -150,7 +154,7 @@ public class AddNewDocumentController {
         Document newDoc = new Document(documentISBNField.getText(), documentTitleField.getText(),
                 documentAuthorField.getText(), documentDescriptionField.getText(),
                 documentTypeComboBox.getSelectionModel().getSelectedItem(), Integer.parseInt(documentQuantityField.getText()),
-                documentSubjectField.getText(), Path.of(coverPage.getImage().getUrl().replace("/", "\\"))
+                documentSubjectField.getText(), !isCoverArtChosen ? null : Path.of(coverPage.getImage().getUrl().replace("/", "\\"))
                 .getFileName().toString());
 
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -187,6 +191,7 @@ public class AddNewDocumentController {
             return;
         }
         coverPage.setImage(new Image(coverArt.toString()));
+        isCoverArtChosen = true;
     }
 
     private String getFileExtension(File file) {

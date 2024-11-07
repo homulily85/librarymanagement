@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/"
+            xmlns:fx="http://javafx.com/fxml/"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.BorrowRequestManagementController">
+    <Button fx:id="searchButton" defaultButton="true" layoutX="1042.0" layoutY="22.0" prefHeight="26.0"
+            onAction="#search" prefWidth="47.0"/>
+    <TableView fx:id="table" layoutX="40.0" layoutY="63.0" prefHeight="547.0" prefWidth="1175.0">
+        <columns>
+            <TableColumn fx:id="requestIdColumn" prefWidth="100" text="Mã yêu cầu"/>
+            <TableColumn fx:id="nameColumn" prefWidth="160" text="Tên thành viên"/>
+            <TableColumn fx:id="documentTittleColumn" prefWidth="160" text="Tên tài liệu"/>
+            <TableColumn fx:id="requestDateColumn" prefWidth="150" text="Ngày yêu cầu"/>
+            <TableColumn fx:id="borrowDateColumn" prefWidth="150" text="Ngày mượn"/>
+            <TableColumn fx:id="returnDate" prefWidth="150" text="Ngày trả"/>
+            <TableColumn fx:id="dueDateColumn" prefWidth="150" text="Thời hạn mượn"/>
+            <TableColumn fx:id="status" prefWidth="135.2000732421875" text="Trạng thái"/>
+        </columns>
+    </TableView>
+
+    <ImageView fitHeight="20" fitWidth="20" layoutX="1056.0" layoutY="25.0">
+        <Image url="@../../search_icon.png"/>
+    </ImageView>
+
+    <ComboBox fx:id="searchType" layoutX="220.0" layoutY="22.0">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Tìm kiếm theo mã yêu cầu"/>
+                <String fx:value="Tìm kiếm theo tên thành viên"/>
+                <String fx:value="Tìm kiếm theo tên tài liệu"/>
+            </FXCollections>
+        </items>
+        <value>
+            <String fx:value="Tìm kiếm theo mã yêu cầu"/>
+        </value>
+    </ComboBox>
+
+    <TextField fx:id="searchField" layoutX="437.0" layoutY="22.0" prefHeight="26.0" prefWidth="576.0"/>
+
+    <Button fx:id="createNewRequest" layoutX="1090.0" layoutY="620.0" prefHeight="26.0" prefWidth="126.0"
+            text="Tạo yêu cầu mới"/>
+
+    <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="995.0" layoutY="24.0" prefHeight="22.0" prefWidth="10.0"
+           text="x">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+
+    <Label fx:id="requestNotFound" layoutX="401.0" layoutY="331.0" text="Không tìm thấy yêu cầu!" visible="false">
+        <font>
+            <Font size="30"/>
+        </font>
+    </Label>
+
+</AnchorPane>

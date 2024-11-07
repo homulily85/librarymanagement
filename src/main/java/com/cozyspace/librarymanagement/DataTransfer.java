@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public final class DataTransfer {
     private static DataTransfer instance;
-    private HashMap<String, String> dataMap;
+    private final HashMap<String, String> dataMap;
 
     public HashMap<String, String> getDataMap() {
         return dataMap;

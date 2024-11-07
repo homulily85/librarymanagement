@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 
 public class MemberManagementController {
     @FXML
+    private Label removeQuery;
+    @FXML
     private Label success;
     @FXML
     private Label titleLabel;
@@ -68,6 +70,25 @@ public class MemberManagementController {
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
 
+        removeQuery.disableProperty().bind(Bindings.isEmpty(searchField.textProperty()));
+
+        removeQuery.setOnMouseClicked(_ -> {
+            searchField.clear();
+            table.getItems().setAll(result);
+            memberNotFound.setVisible(false);
+            table.setVisible(true);
+            nameLabel.setVisible(true);
+            nameField.setVisible(true);
+            addressLabel.setVisible(true);
+            addressField.setVisible(true);
+            phoneLabel.setVisible(true);
+            phoneField.setVisible(true);
+            emailField.setVisible(true);
+            emailLabel.setVisible(true);
+            saveButton.setVisible(true);
+            titleLabel.setVisible(true);
+        });
+
         table.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             if (newValue != null) {
                 MemberRecord item = table.getSelectionModel().getSelectedItem();
@@ -80,6 +101,9 @@ public class MemberManagementController {
                 phoneFailed.setVisible(false);
             }
         });
+
+        searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
+
         final String IDLE_MAIN_BUTTON_STYLE = """
                 -fx-text-fill: #ffffff;
                 -fx-background-color: #0e4ed5;

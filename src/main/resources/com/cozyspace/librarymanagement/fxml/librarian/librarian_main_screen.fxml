@@ -19,8 +19,10 @@
 
         </BorderPane>
     </Tab>
-    <Tab text="Quản lý mượn trả sách">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+    <Tab text="Yêu cầu mượn sách">
+        <BorderPane fx:id="requestManagement">
+
+        </BorderPane>
     </Tab>
     <Tab text="Thông báo">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>

@@ -57,6 +57,26 @@ public final class Datasource {
     public static final String TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION = "coverPageLocation";
     public static final int TABLE_DOCUMENT_INDEX_COLUMN_COVER_PAGE_LOCATION = 9;
 
+    public static final String TABLE_BORROW_REQUEST = "borrow_request";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_ID = "id";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_USERNAME = "username";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID = "documentID";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_REQUEST_DATE = "requestDate";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_BORROW_DATE = "borrowDate";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_RETURN_DATE = "returnDate";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_DUE_DATE = "dueDate";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_STATUS = "status";
+
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_ID = 1;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_USERNAME = 2;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_DOCUMENT_ID = 3;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_REQUEST_DATE = 4;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_BORROW_DATE = 5;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_RETURN_DATE = 6;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_DUE_DATE = 7;
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS = 8;
+
+
     private static Connection connection = null;
 
     /**
@@ -334,7 +354,7 @@ public final class Datasource {
         ResultSet resultSet = query.executeQuery();
         ObservableList<MemberRecord> result = FXCollections.observableList(new ArrayList<>());
         while (resultSet.next()) {
-            result.add(new MemberRecord(resultSet.getString(TABLE_ACCOUNT_COLUMN_USERNAME),
+            result.add(new MemberRecord(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_USERNAME),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL),
@@ -375,6 +395,102 @@ public final class Datasource {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> viewAllBorrowRequest() {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s);
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME));
+            return getBorrowRequestRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static ObservableList<BorrowRequestRecord> getBorrowRequestRecord(PreparedStatement query) {
+        try {
+            ResultSet resultSet = query.executeQuery();
+            ObservableList<BorrowRequestRecord> result = FXCollections.observableList(new ArrayList<>());
+            while (resultSet.next()) {
+                result.add(new BorrowRequestRecord(resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_ID),
+                        resultSet.getString(TABLE_ACCOUNT_COLUMN_NAME),
+                        resultSet.getString(TABLE_DOCUMENT_COLUMN_TITLE),
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_REQUEST_DATE),
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_BORROW_DATE),
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_RETURN_DATE),
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_DUE_DATE),
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS)));
+            }
+            resultSet.close();
+            query.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByRequestID(String id) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s)
+                    where %s.%s = ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
+                            TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_ID));
+            query.setString(1, id);
+            return getBorrowRequestRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByMemberName(String memberName) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s)
+                    where %s.%s like ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
+                            TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_NAME));
+            query.setString(1, "%" + memberName + "%");
+            return getBorrowRequestRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s)
+                    where %s.%s like ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE));
+            query.setString(1, "%" + documentTittle + "%");
+            return getBorrowRequestRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -90,10 +90,18 @@
             <Font size="12"/>
         </font>
     </Label>
-    <Label fx:id="success" layoutX="1002.0" layoutY="345.0" text="Cập nhật thông tin thành viên thành công"
+    <Label fx:id="success" layoutX="920.0" layoutY="35.0" text="Cập nhật thông tin thành viên thành công"
            textFill="green" visible="false">
         <font>
             <Font size="12"/>
         </font>
     </Label>
+
+    <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="915.0" layoutY="34.0" prefHeight="22.0" prefWidth="10.0"
+           text="x">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+
 </AnchorPane>

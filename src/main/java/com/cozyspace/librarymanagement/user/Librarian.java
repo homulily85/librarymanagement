@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.user;
 
+import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
@@ -90,5 +91,21 @@ public final class Librarian extends User implements SearchMember {
     @Override
     public ObservableList<MemberRecord> searchMemberByPhone(String phone) {
         return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_PHONE, phone);
+    }
+
+    public ObservableList<BorrowRequestRecord> viewAllBorrowRequest() {
+        return Datasource.viewAllBorrowRequest();
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByRequestID(String id) {
+        return Datasource.searchBorrowRequestByRequestID(id);
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByMemberName(String memberName) {
+        return Datasource.searchBorrowRequestByMemberName(memberName);
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
+        return Datasource.searchBorrowRequestByDocumentTittle(documentTittle);
     }
 }
