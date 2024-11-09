@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.controller.librarian;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
 import com.cozyspace.librarymanagement.user.Librarian;
@@ -160,6 +161,10 @@ public class CreateNewBorrowRequestController {
             return;
         }
 
+        DataTransfer.getInstance().setCurrentDocument(documentTable.getSelectionModel().getSelectedItem());
+        DataTransfer.getInstance().getCurrentDocument().setQuantity
+                (DataTransfer.getInstance().getCurrentDocument().getQuantity() - Integer.parseInt(quantityField.getText()));
+
         ((Librarian) UserManager.getUserInstance()).createNewBorrowRequest(
                 memberTable.getSelectionModel().getSelectedItem().getUsername(),
                 documentTable.getSelectionModel().getSelectedItem().getId(),
@@ -167,6 +172,8 @@ public class CreateNewBorrowRequestController {
                 dueDateField.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
         );
 
+        new Thread(() -> ((Librarian) UserManager.getUserInstance()).editDocument(DataTransfer.getInstance()
+                .getCurrentDocument())).start();
 
         Stage stage = (Stage) finishButton.getScene().getWindow();
         stage.close();

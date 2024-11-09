@@ -342,6 +342,31 @@ public final class Datasource {
         }
     }
 
+    public static void updateDocumentInfo(Document document) {
+        try {
+            PreparedStatement query = connection.prepareStatement(
+                    "update %s set %s = ?, %s = ?, %s=?, %s=?, %s=?, %s=?, %s=?, %s=? where %s = ?"
+                            .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_AUTHOR, TABLE_DOCUMENT_COLUMN_DESCRIPTION,
+                                    TABLE_DOCUMENT_COLUMN_TYPE, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN,
+                                    TABLE_DOCUMENT_COLUMN_SUBJECT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION,
+                                    TABLE_DOCUMENT_COLUMN_ID));
+            query.setString(1, document.getAuthor());
+            query.setString(2, document.getDescription());
+            query.setString(3, document.getType());
+            query.setInt(4, document.getQuantity());
+            query.setString(5, document.getISBN());
+            query.setString(6, document.getSubject());
+            query.setString(7, document.getTitle());
+            query.setString(8, document.getCoverPageLocation());
+            query.setInt(9, document.getId());
+            query.executeUpdate();
+            query.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static ObservableList<MemberRecord> queryMember(String searchType, String value) {
         PreparedStatement query;
         try {
@@ -536,4 +561,5 @@ public final class Datasource {
             e.printStackTrace();
         }
     }
+
 }

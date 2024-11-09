@@ -49,6 +49,19 @@ public class SearchScreenController {
     private TableView<Document> table;
 
     public void initialize() {
+
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem viewItem = new MenuItem("Xem thông tin");
+        MenuItem editItem = new MenuItem("Chỉnh sửa thông tin");
+        MenuItem deleteItem = new MenuItem("Xóa tài liệu");
+        contextMenu.getItems().addAll(viewItem, editItem, deleteItem);
+
+        table.setContextMenu(contextMenu);
+
+        viewItem.setOnAction(_ -> showDocumentInfo());
+        editItem.setOnAction(_ -> updateDocument());
+
         ObservableList<Document> result = UserManager.getUserInstance().viewDocument(
                 Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         table.getItems().setAll(result);
@@ -80,36 +93,14 @@ public class SearchScreenController {
             TableRow<Document> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    row.setOnMouseClicked(_ -> {
-                        Stage newStage = new Stage();
-
-                        FXMLLoader fxmlLoader = new FXMLLoader();
-                        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/librarian/document/document_info.fxml")));
-
-                        Scene scene = null;
-                        try {
-                            scene = new Scene(fxmlLoader.load(), 900, 600);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        newStage.setTitle("Thông tin tài liệu");
-                        newStage.setScene(scene);
-                        DocumentInfoController controller = fxmlLoader.getController();
-                        controller.setInfo(table.getSelectionModel().getSelectedItem());
-                        newStage.setResizable(false);
-                        newStage.requestFocus();
-                        newStage.initOwner(table.getScene().getWindow());
-                        newStage.initModality(Modality.WINDOW_MODAL);
-                        newStage.show();
-
-                    });
+                    row.setOnMouseClicked(_ -> showDocumentInfo());
                 }
             });
             return row;
         });
 
         if (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode"))
-                == SearchBook.SEARCH_ALL_DOCUMENT) {
+            == SearchBook.SEARCH_ALL_DOCUMENT) {
             final String IDLE_MAIN_BUTTON_STYLE = """
                     -fx-text-fill: #ffffff;
                     -fx-background-color: #0e4ed5;
@@ -188,6 +179,55 @@ public class SearchScreenController {
         documentNotFound.setVisible(false);
         table.getItems().setAll(result);
         searchField.clear();
+
+    }
+
+    public void showDocumentInfo() {
+        Stage newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/librarian/document/document_info.fxml")));
+
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 900, 600);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        newStage.setTitle("Thông tin tài liệu");
+        newStage.setScene(scene);
+        DocumentInfoController controller = fxmlLoader.getController();
+        controller.setInfo(table.getSelectionModel().getSelectedItem());
+        newStage.setResizable(false);
+        newStage.requestFocus();
+        newStage.initOwner(table.getScene().getWindow());
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.show();
+
+    }
+
+    public void updateDocument() {
+        DataTransfer.getInstance().setCurrentDocument(table.getSelectionModel().getSelectedItem());
+        Stage newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource("fxml/librarian/document/edit_document_info.fxml")));
+
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 900, 600);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        newStage.setTitle("Chỉnh sửa thông tin tài liệu");
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.requestFocus();
+        newStage.initOwner(table.getScene().getWindow());
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.showAndWait();
+
+        table.refresh();
 
     }
 }

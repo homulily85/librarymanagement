@@ -65,8 +65,8 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Thay đổi thông tin của tài liệu
      */
-    public void editDocument() {
-
+    public void editDocument(Document document) {
+        Datasource.updateDocumentInfo(document);
     }
 
     /**
