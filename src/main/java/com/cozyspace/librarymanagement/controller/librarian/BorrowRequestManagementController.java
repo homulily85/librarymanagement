@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.controller.librarian;
 
+import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.UserManager;
@@ -7,9 +8,18 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class BorrowRequestManagementController {
+    @FXML
+    private TableColumn<BorrowRequestRecord, String> quantityColumn;
     @FXML
     private Label requestNotFound;
     @FXML
@@ -52,6 +62,7 @@ public class BorrowRequestManagementController {
         returnDate.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getReturnDate()));
         dueDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getDueDate()));
         status.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getStatus()));
+        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
 
         table.setVisible(true);
 
@@ -109,6 +120,32 @@ public class BorrowRequestManagementController {
     }
 
     public void createNewRequest() {
+        Stage newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
+                ("fxml/librarian/create_new_borrow_request.fxml")));
+
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 900, 700);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        newStage.setTitle("Thêm yêu cầu mượn sách");
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.requestFocus();
+        newStage.initOwner(table.getScene().getWindow());
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.showAndWait();
+
+        ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
+
+        table.setVisible(true);
+        requestNotFound.setVisible(false);
+        table.getItems().setAll(result);
+        searchField.clear();
 
     }
 

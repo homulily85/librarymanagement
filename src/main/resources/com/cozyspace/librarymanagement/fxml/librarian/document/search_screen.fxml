@@ -28,7 +28,8 @@
             prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
     <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="525.0" prefWidth="1028.0" visible="false">
         <columns>
-            <TableColumn fx:id="titleColumn" prefWidth="350" text="Tên tài liệu"/>
+            <TableColumn fx:id="idColumn" prefWidth="50" text="ID"/>
+            <TableColumn fx:id="titleColumn" prefWidth="300" text="Tên tài liệu"/>
             <TableColumn fx:id="isbnColumn" prefWidth="100" text="ISBN"/>
             <TableColumn fx:id="authorColumn" prefWidth="235" text="Tác giả"/>
             <TableColumn fx:id="subjectColumn" prefWidth="150" text="Chủ đề"/>

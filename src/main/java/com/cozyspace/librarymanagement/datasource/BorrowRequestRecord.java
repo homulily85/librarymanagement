@@ -6,12 +6,13 @@ public class BorrowRequestRecord {
     private final String documentTittle;
     private final String requestDate;
     private final String borrowDate;
+    private final int quantity;
     private String returnDate;
     private String dueDate;
     private String status;
 
     public BorrowRequestRecord(String requestId, String name, String documentTittle, String requestDate, String borrowDate,
-                               String returnDate, String dueDate, String status) {
+                               String returnDate, String dueDate, String status, int quantity) {
         this.requestId = requestId;
         this.name = name;
         this.documentTittle = documentTittle;
@@ -20,6 +21,8 @@ public class BorrowRequestRecord {
         this.returnDate = returnDate;
         this.dueDate = dueDate;
         this.status = status;
+        this.quantity = quantity;
+
     }
 
     public String getRequestId() {
@@ -65,5 +68,15 @@ public class BorrowRequestRecord {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public static class BorrowRequestStatus {
+        public static final String PENDING = "Đang chờ xử lý";
+        public static final String BORROWED = "Đang mượn";
+        public static final String RETURNED = "Đã trả";
     }
 }

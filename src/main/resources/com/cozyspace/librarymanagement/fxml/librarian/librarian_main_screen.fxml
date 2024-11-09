@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<TabPane prefHeight="720.0" prefWidth="1280" tabClosingPolicy="UNAVAILABLE" tabDragPolicy="FIXED"
+<TabPane fx:id="tabPane" prefHeight="720.0" prefWidth="1280" tabClosingPolicy="UNAVAILABLE" tabDragPolicy="FIXED"
          xmlns="http://javafx.com/javafx/"
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="com.cozyspace.librarymanagement.controller.librarian.LibrarianMainScreenController">
@@ -19,7 +19,7 @@
 
         </BorderPane>
     </Tab>
-    <Tab text="Yêu cầu mượn sách">
+    <Tab text="Yêu cầu mượn">
         <BorderPane fx:id="requestManagement">
 
         </BorderPane>

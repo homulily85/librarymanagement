@@ -6,6 +6,9 @@ import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public final class Librarian extends User implements SearchMember {
 
     private Librarian(String name, String address, String email, String phone) {
@@ -108,4 +111,14 @@ public final class Librarian extends User implements SearchMember {
     public ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
         return Datasource.searchBorrowRequestByDocumentTittle(documentTittle);
     }
+
+    public ObservableList<Document> searchDocumentByIdOrTitle(String idOrTitle) {
+        return Datasource.getDocumentByIdOrTittle(idOrTitle);
+    }
+
+    public void createNewBorrowRequest(String username, int documentId, int quantity, String dueDate) {
+        Datasource.createNewBorrowRequest(username, documentId, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null, dueDate, BorrowRequestRecord.BorrowRequestStatus.BORROWED);
+    }
+
 }

@@ -1,26 +1,22 @@
 package com.cozyspace.librarymanagement.datasource;
 
 public class MemberRecord {
-    private String userName;
+    private final String username;
     private String name;
     private String address;
     private String email;
     private String phone;
 
     public MemberRecord(String userName, String name, String address, String email, String phone) {
-        this.userName = userName;
+        this.username = userName;
         this.name = name;
         this.address = address;
         this.email = email;
         this.phone = phone;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getName() {

@@ -66,6 +66,7 @@ public final class Datasource {
     public static final String TABLE_BORROW_REQUEST_COLUMN_RETURN_DATE = "returnDate";
     public static final String TABLE_BORROW_REQUEST_COLUMN_DUE_DATE = "dueDate";
     public static final String TABLE_BORROW_REQUEST_COLUMN_STATUS = "status";
+    public static final String TABLE_BORROW_REQUEST_COLUMN_QUANTITY = "quantity";
 
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_ID = 1;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_USERNAME = 2;
@@ -75,7 +76,7 @@ public final class Datasource {
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_RETURN_DATE = 6;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_DUE_DATE = 7;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS = 8;
-
+    public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_QUANTITY = 9;
 
     private static Connection connection = null;
 
@@ -145,14 +146,14 @@ public final class Datasource {
         try {
             switch (mode) {
                 case SearchBook.SEARCH_ALL_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ?"
-                                .formatted(TABLE_DOCUMENT, searchType));
+                        query = connection.prepareStatement("select * from %s where %s like ? order by %s"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_ID));
                 case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ? and %s>0"
-                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s>0 order by %s"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
                 case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ? and %s=0"
-                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                        query = connection.prepareStatement("select * from %s where %s like ? and %s=0 order by %s"
+                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
             }
 
             query.setString(1, sb.toString());
@@ -166,17 +167,18 @@ public final class Datasource {
 
     public static ObservableList<Document> viewAllDocument(int mode) {
         try {
-            PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0"
-                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0 order by %s"
+                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
             switch (mode) {
-                case SearchBook.SEARCH_ALL_DOCUMENT -> query = connection.prepareStatement("select * from %s"
-                        .formatted(TABLE_DOCUMENT));
+                case SearchBook.SEARCH_ALL_DOCUMENT ->
+                        query = connection.prepareStatement("select * from %s order by %s"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID));
                 case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s > 0"
-                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                        query = connection.prepareStatement("select * from %s where %s > 0 order by %s"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
                 case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s = 0"
-                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY));
+                        query = connection.prepareStatement("select * from %s where %s = 0 order by %s"
+                                .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
             }
             return getDocuments(query);
         } catch (SQLException e) {
@@ -189,7 +191,8 @@ public final class Datasource {
         ResultSet resultSet = query.executeQuery();
         ObservableList<Document> result = FXCollections.observableList(new ArrayList<>());
         while (resultSet.next()) {
-            result.add(new Document(resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
+            result.add(new Document(resultSet.getInt(TABLE_DOCUMENT_INDEX_COLUMN_ID),
+                    resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_ISBN),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_TITLE),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_AUTHOR),
                     resultSet.getString(TABLE_DOCUMENT_INDEX_COLUMN_DESCRIPTION),
@@ -202,6 +205,19 @@ public final class Datasource {
         resultSet.close();
         query.close();
         return result;
+    }
+
+    public static ObservableList<Document> getDocumentByIdOrTittle(String query) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from %s where %s like ? or %s = ? order by %s"
+                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_ID, TABLE_DOCUMENT_COLUMN_ID));
+            preparedStatement.setString(1, "%" + query + "%");
+            preparedStatement.setString(2, query);
+            return getDocuments(preparedStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -305,19 +321,19 @@ public final class Datasource {
     public static void addNewDocument(Document newDoc) {
         try {
             PreparedStatement query = connection.prepareStatement(("insert into %s " +
-                    "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
+                                                                   "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
                     formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_AUTHOR,
                             TABLE_DOCUMENT_COLUMN_DESCRIPTION, TABLE_DOCUMENT_COLUMN_TYPE,
                             TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN, TABLE_DOCUMENT_COLUMN_SUBJECT,
                             TABLE_DOCUMENT_COLUMN_COVER_PAGE_LOCATION));
-            query.setString(1, newDoc.title());
-            query.setString(2, newDoc.author());
-            query.setString(3, newDoc.description());
-            query.setString(4, newDoc.type());
-            query.setInt(5, newDoc.quantity());
-            query.setString(6, newDoc.ISBN());
-            query.setString(7, newDoc.subject());
-            query.setString(8, newDoc.coverPageLocation());
+            query.setString(1, newDoc.getTitle());
+            query.setString(2, newDoc.getAuthor());
+            query.setString(3, newDoc.getDescription());
+            query.setString(4, newDoc.getType());
+            query.setInt(5, newDoc.getQuantity());
+            query.setString(6, newDoc.getISBN());
+            query.setString(7, newDoc.getSubject());
+            query.setString(8, newDoc.getCoverPageLocation());
             query.executeUpdate();
             query.close();
 
@@ -327,7 +343,7 @@ public final class Datasource {
     }
 
     public static ObservableList<MemberRecord> queryMember(String searchType, String value) {
-        PreparedStatement query = null;
+        PreparedStatement query;
         try {
             if (!searchType.equals(TABLE_ACCOUNT_COLUMN_NAME)) {
                 query = connection.prepareStatement("select * from %s where %s = ? and %s =?"
@@ -389,7 +405,7 @@ public final class Datasource {
             query.setString(2, newMemberRecord.getPhone());
             query.setString(3, newMemberRecord.getEmail());
             query.setString(4, newMemberRecord.getName());
-            query.setString(5, newMemberRecord.getUserName());
+            query.setString(5, newMemberRecord.getUsername());
             query.executeUpdate();
             query.close();
 
@@ -426,7 +442,8 @@ public final class Datasource {
                         resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_BORROW_DATE),
                         resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_RETURN_DATE),
                         resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_DUE_DATE),
-                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS)));
+                        resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS)
+                        , resultSet.getInt(TABLE_BORROW_REQUEST_INDEX_COLUMN_QUANTITY)));
             }
             resultSet.close();
             query.close();
@@ -494,4 +511,29 @@ public final class Datasource {
         }
     }
 
+    public static void createNewBorrowRequest(String username, int documentId, int quantity, String requestDate,
+                                              String borrowDate, String returnDate, String dueDate, String status) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    insert into %s (%s, %s, %s, %s, %s, %s, %s, %s)
+                    values (?,? ,? ,? ,? ,? ,? ,?);
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_USERNAME, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_BORROW_REQUEST_COLUMN_REQUEST_DATE, TABLE_BORROW_REQUEST_COLUMN_BORROW_DATE,
+                            TABLE_BORROW_REQUEST_COLUMN_RETURN_DATE, TABLE_BORROW_REQUEST_COLUMN_DUE_DATE,
+                            TABLE_BORROW_REQUEST_COLUMN_STATUS, TABLE_BORROW_REQUEST_COLUMN_QUANTITY));
+            query.setString(1, username);
+            query.setInt(2, documentId);
+            query.setString(3, requestDate);
+            query.setString(4, borrowDate);
+            query.setString(5, returnDate);
+            query.setString(6, dueDate);
+            query.setString(7, status);
+            query.setInt(8, quantity);
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

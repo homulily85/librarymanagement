@@ -107,7 +107,7 @@ public class MemberManagementController {
                 emailFailed.setVisible(false);
                 success.setVisible(false);
                 phoneFailed.setVisible(false);
-                usernameField.setText(item.getUserName());
+                usernameField.setText(item.getUsername());
             }
         });
 
@@ -211,9 +211,7 @@ public class MemberManagementController {
 
         table.refresh();
 
-        new Thread(() -> {
-            ((Librarian) UserManager.getUserInstance()).updateMemberInfo(t);
-        }).start();
+        new Thread(() -> ((Librarian) UserManager.getUserInstance()).updateMemberInfo(t)).start();
 
     }
 }
