@@ -245,10 +245,10 @@ public class BorrowRequestManagementController {
         }
     }
 
-    public void extendDueDate(){
+    public void extendDueDate() {
         var currentStatus = table.getSelectionModel().getSelectedItem().getStatus();
         if (currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED) ||
-            currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.CANCELLED)||
+            currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.CANCELLED) ||
             currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.PENDING)) {
             Notifications.create().title("Lỗi").text("Không thể thay đổi trạng thái cho yêu cầu này.").showError();
             return;
@@ -300,7 +300,9 @@ public class BorrowRequestManagementController {
         var result = dialog.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            if (datePicker.getValue() == null || datePicker.getValue().isBefore(LocalDate.now())){
+            if (datePicker.getValue() == null || datePicker.getValue().isBefore(
+                    LocalDate.parse(table.getSelectionModel().getSelectedItem().getDueDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))) {
                 Notifications.create().title("Lỗi").text("Hạn trả không hợp lệ.").showError();
                 return;
             }
@@ -310,7 +312,6 @@ public class BorrowRequestManagementController {
             ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
             table.refresh();
         }
-
 
 
     }

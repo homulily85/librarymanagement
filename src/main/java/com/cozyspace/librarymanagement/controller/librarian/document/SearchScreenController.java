@@ -234,6 +234,7 @@ public class SearchScreenController {
     }
 
     public void updateDocument() {
+        DataTransfer.getInstance().getDataMap().put("isConfirm", "false");
         DataTransfer.getInstance().setCurrentDocument(table.getSelectionModel().getSelectedItem());
         Stage newStage = new Stage();
 
@@ -253,6 +254,10 @@ public class SearchScreenController {
         newStage.initOwner(table.getScene().getWindow());
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.showAndWait();
+
+        if (DataTransfer.getInstance().getDataMap().get("isConfirm").equals("false")) {
+            return;
+        }
 
         if (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode"))
             == SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT && DataTransfer.getInstance().getCurrentDocument().getQuantity() > 0) {

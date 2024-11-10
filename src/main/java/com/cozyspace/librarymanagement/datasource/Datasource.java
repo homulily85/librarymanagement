@@ -1,6 +1,5 @@
 package com.cozyspace.librarymanagement.datasource;
 
-import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.password4j.Hash;
 import com.password4j.Password;
@@ -10,7 +9,6 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public final class Datasource {
 
@@ -18,8 +16,10 @@ public final class Datasource {
 
     }
 
-    public static final String DB_NAME = Objects.requireNonNull(Main.class.getResource("library.db")).toString();
-    public static final String CONNECTION_NAME = "jdbc:sqlite:%s".formatted(DB_NAME);
+//    public static final String DB_NAME = Objects.requireNonNull(Main.class.getResource("library.db")).toString();
+//    public static final String CONNECTION_NAME = "jdbc:sqlite:%s".formatted(DB_NAME);
+
+    public static final String CONNECTION_NAME = "jdbc:sqlite::resource:library.db";
 
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_ACCOUNT_COLUMN_USERNAME = "username";

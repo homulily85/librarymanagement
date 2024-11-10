@@ -192,6 +192,7 @@ public class EditDocumentInfoController {
 
         Stage stage = (Stage) addNewDocument.getScene().getWindow();
         stage.close();
+        DataTransfer.getInstance().getDataMap().put("isConfirm", "true");
 
     }
 
