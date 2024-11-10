@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.controller.librarian.document;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.Librarian;
@@ -13,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -169,9 +171,12 @@ public class AddNewDocumentController {
         }
 
         ((Librarian) UserManager.getUserInstance()).addDocument(newDoc);
+        DataTransfer.getInstance().getDataMap().put("isFinished", Boolean.toString(true));
 
         Stage stage = (Stage) addNewDocument.getScene().getWindow();
         stage.close();
+
+        DataTransfer.getInstance().getDataMap().put("isConfirm", Boolean.toString(true));
 
     }
 

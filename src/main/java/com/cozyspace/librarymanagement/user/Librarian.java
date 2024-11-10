@@ -58,8 +58,8 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Xóa tài liệu ra khỏi cơ sở dữ liệu.
      */
-    public void removeDocument() {
-
+    public void removeDocument(int documentId) {
+        Datasource.removeDocument(documentId);
     }
 
     /**
@@ -116,9 +116,16 @@ public final class Librarian extends User implements SearchMember {
         return Datasource.getDocumentByIdOrTittle(idOrTitle);
     }
 
+    public ObservableList<Document> searchDocumentById(int id) {
+        return Datasource.getDocumentById(id);
+    }
+
     public void createNewBorrowRequest(String username, int documentId, int quantity, String dueDate) {
         Datasource.createNewBorrowRequest(username, documentId, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null, dueDate, BorrowRequestRecord.BorrowRequestStatus.BORROWED);
     }
 
+    public void updateBorrowRequest(BorrowRequestRecord record) {
+        Datasource.updateBorrowRequest(record);
+    }
 }

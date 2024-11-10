@@ -461,6 +461,7 @@ public final class Datasource {
             ObservableList<BorrowRequestRecord> result = FXCollections.observableList(new ArrayList<>());
             while (resultSet.next()) {
                 result.add(new BorrowRequestRecord(resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_ID),
+                        resultSet.getInt(TABLE_BORROW_REQUEST_INDEX_COLUMN_DOCUMENT_ID),
                         resultSet.getString(TABLE_ACCOUNT_COLUMN_NAME),
                         resultSet.getString(TABLE_DOCUMENT_COLUMN_TITLE),
                         resultSet.getString(TABLE_BORROW_REQUEST_INDEX_COLUMN_REQUEST_DATE),
@@ -562,4 +563,54 @@ public final class Datasource {
         }
     }
 
+    public static void removeDocument(int documentId) {
+        try {
+            PreparedStatement query = connection.prepareStatement("delete from %s where %s = ?"
+                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID));
+            query.setInt(1, documentId);
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateBorrowRequest(BorrowRequestRecord record) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    update %s
+                    set %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ?, %s = ?
+                    where %s = ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_RETURN_DATE,
+                            TABLE_BORROW_REQUEST_COLUMN_STATUS, TABLE_BORROW_REQUEST_COLUMN_BORROW_DATE,
+                            TABLE_BORROW_REQUEST_COLUMN_DUE_DATE, TABLE_BORROW_REQUEST_COLUMN_QUANTITY,
+                            TABLE_BORROW_REQUEST_COLUMN_RETURN_DATE, TABLE_BORROW_REQUEST_COLUMN_STATUS,
+                            TABLE_BORROW_REQUEST_COLUMN_ID));
+            query.setString(1, record.getReturnDate());
+            query.setString(2, record.getStatus());
+            query.setString(3, record.getBorrowDate());
+            query.setString(4, record.getDueDate());
+            query.setInt(5, record.getQuantity());
+            query.setString(6, record.getReturnDate());
+            query.setString(7, record.getStatus());
+            query.setString(8, record.getRequestId());
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ObservableList<Document> getDocumentById(int id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from %s where %s = ?"
+                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID));
+            preparedStatement.setInt(1, id);
+            return getDocuments(preparedStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

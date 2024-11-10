@@ -2,18 +2,20 @@ package com.cozyspace.librarymanagement.datasource;
 
 public class BorrowRequestRecord {
     private final String requestId;
+    private final int documentId;
     private final String name;
     private final String documentTittle;
     private final String requestDate;
-    private final String borrowDate;
+    private String borrowDate;
     private final int quantity;
     private String returnDate;
     private String dueDate;
     private String status;
 
-    public BorrowRequestRecord(String requestId, String name, String documentTittle, String requestDate, String borrowDate,
+    public BorrowRequestRecord(String requestId, int documentId  ,String name, String documentTittle, String requestDate, String borrowDate,
                                String returnDate, String dueDate, String status, int quantity) {
         this.requestId = requestId;
+        this.documentId = documentId;
         this.name = name;
         this.documentTittle = documentTittle;
         this.requestDate = requestDate;
@@ -37,6 +39,9 @@ public class BorrowRequestRecord {
         return documentTittle;
     }
 
+    public int getDocumentId() {
+        return documentId;
+    }
 
     public String getRequestDate() {
         return requestDate;
@@ -74,9 +79,14 @@ public class BorrowRequestRecord {
         return quantity;
     }
 
+    public void setBorrowDate(String borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
     public static class BorrowRequestStatus {
-        public static final String PENDING = "Đang chờ xử lý";
+        public static final String PENDING = "Đang chờ xử lí";
         public static final String BORROWED = "Đang mượn";
         public static final String RETURNED = "Đã trả";
+        public static final String CANCELLED = "Đã hủy";
     }
 }

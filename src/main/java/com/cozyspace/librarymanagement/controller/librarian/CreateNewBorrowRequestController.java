@@ -73,6 +73,8 @@ public class CreateNewBorrowRequestController {
         finishButton.setOnMouseEntered(_ -> finishButton.setStyle(HOVERED_MAIN_BUTTON_STYLE));
         finishButton.setOnMouseExited(_ -> finishButton.setStyle(IDLE_MAIN_BUTTON_STYLE));
 
+
+
         dueDateField.setConverter(new StringConverter<>() {
             final String pattern = "dd-MM-yyyy";
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
@@ -177,6 +179,8 @@ public class CreateNewBorrowRequestController {
 
         Stage stage = (Stage) finishButton.getScene().getWindow();
         stage.close();
+
+        DataTransfer.getInstance().getDataMap().put("isConfirm", Boolean.toString(true));
 
     }
 }

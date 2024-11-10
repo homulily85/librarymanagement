@@ -1,7 +1,9 @@
 package com.cozyspace.librarymanagement.controller.librarian;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
+import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.binding.Bindings;
@@ -11,10 +13,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class BorrowRequestManagementController {
@@ -52,6 +59,27 @@ public class BorrowRequestManagementController {
     private Label removeQuery;
 
     public void initialize() {
+
+        table.setRowFactory(_ -> {
+            TableRow<BorrowRequestRecord> row = new TableRow<>();
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem changeStatus = new MenuItem("Thay đổi trạng thái");
+            MenuItem extendDueDate = new MenuItem("Gia hạn hạn trả");
+            contextMenu.getItems().addAll(changeStatus, extendDueDate);
+
+            ContextMenu contextMenu2 = new ContextMenu();
+            table.setContextMenu(contextMenu);
+
+            changeStatus.setOnAction(_ -> changeStatus());
+            extendDueDate.setOnAction(_ -> extendDueDate());
+
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then(contextMenu2)
+                            .otherwise(contextMenu));
+            return row;
+        });
+
         ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
         table.getItems().setAll(result);
         requestIdColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getRequestId()));
@@ -120,6 +148,9 @@ public class BorrowRequestManagementController {
     }
 
     public void createNewRequest() {
+
+        DataTransfer.getInstance().getDataMap().put("isConfirm", Boolean.toString(false));
+
         Stage newStage = new Stage();
 
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -140,12 +171,147 @@ public class BorrowRequestManagementController {
         newStage.initModality(Modality.WINDOW_MODAL);
         newStage.showAndWait();
 
+        if (DataTransfer.getInstance().getDataMap().get("isConfirm").equals("false")) {
+            return;
+        }
+
         ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
 
         table.setVisible(true);
         requestNotFound.setVisible(false);
         table.getItems().setAll(result);
         searchField.clear();
+
+        Notifications.create()
+                .text("Yêu cầu mượn tài liệu đã được tạo thành công!")
+                .showInformation();
+    }
+
+    public void changeStatus() {
+        var currentStatus = table.getSelectionModel().getSelectedItem().getStatus();
+        if (currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED) ||
+            currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.CANCELLED)) {
+            Notifications.create().title("Lỗi").text("Không thể thay đổi trạng thái cho yêu cầu này.").showError();
+            return;
+        }
+        ComboBox<String> statusComboBox = new ComboBox<>();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(table.getScene().getWindow());
+        dialog.setTitle("Thay đổi trạng thái");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        Label statusLabel = new Label("Trạng thái mới: ");
+
+        if (currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.PENDING)) {
+            statusComboBox.getItems().setAll(BorrowRequestRecord.BorrowRequestStatus.BORROWED,
+                    BorrowRequestRecord.BorrowRequestStatus.CANCELLED);
+        } else if (currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED)) {
+            statusComboBox.getItems().setAll(BorrowRequestRecord.BorrowRequestStatus.RETURNED);
+        }
+        statusComboBox.getSelectionModel().selectFirst();
+
+        gridPane.add(statusLabel, 0, 0);
+        gridPane.add(statusComboBox, 1, 0);
+
+        dialog.getDialogPane().setContent(gridPane);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Xác nhận");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Hủy");
+
+        var result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            ObservableList<Document> document = ((Librarian) UserManager.getUserInstance())
+                    .searchDocumentById(table.getSelectionModel().getSelectedItem().getDocumentId());
+            BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
+            record.setStatus(statusComboBox.getSelectionModel().getSelectedItem());
+            if (statusComboBox.getSelectionModel().getSelectedItem().equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED)) {
+                record.setReturnDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                new Thread(() -> {
+                    document.getFirst().setQuantity(document.getFirst().getQuantity() + record.getQuantity());
+                    ((Librarian) UserManager.getUserInstance()).editDocument(document.getFirst());
+                }).start();
+            } else if (statusComboBox.getSelectionModel().getSelectedItem().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED)) {
+                record.setBorrowDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                new Thread(() -> {
+                    document.getFirst().setQuantity(document.getFirst().getQuantity() - record.getQuantity());
+                    ((Librarian) UserManager.getUserInstance()).editDocument(document.getFirst());
+                }).start();
+            }
+            ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
+            table.refresh();
+        }
+    }
+
+    public void extendDueDate(){
+        var currentStatus = table.getSelectionModel().getSelectedItem().getStatus();
+        if (currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED) ||
+            currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.CANCELLED)||
+            currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.PENDING)) {
+            Notifications.create().title("Lỗi").text("Không thể thay đổi trạng thái cho yêu cầu này.").showError();
+            return;
+        }
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(table.getScene().getWindow());
+        dialog.setTitle("Gia hạn hạn trả");
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        Label statusLabel = new Label("Hạn trả mới: ");
+        DatePicker datePicker = new DatePicker();
+
+        datePicker.setConverter(new StringConverter<>() {
+            final String pattern = "dd-MM-yyyy";
+            final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
+        gridPane.add(statusLabel, 0, 0);
+        gridPane.add(datePicker, 1, 0);
+
+        dialog.getDialogPane().setContent(gridPane);
+
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Xác nhận");
+        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Hủy");
+
+        var result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            if (datePicker.getValue() == null || datePicker.getValue().isBefore(LocalDate.now())){
+                Notifications.create().title("Lỗi").text("Hạn trả không hợp lệ.").showError();
+                return;
+            }
+
+            BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
+            record.setDueDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
+            table.refresh();
+        }
+
+
 
     }
 
