@@ -33,7 +33,7 @@ public interface SearchBook {
      * @param ISBN mã ISBN của tài liệu cần tìm
      * @return ObservableList chứa tài liệu cần tìm
      */
-    ObservableList<Document> searchByISBN(String ISBN, int mode);
+    ObservableList<Document> searchDocumentByISBN(String ISBN, int mode);
 
     /**
      * Xem tất cả các tài liệu

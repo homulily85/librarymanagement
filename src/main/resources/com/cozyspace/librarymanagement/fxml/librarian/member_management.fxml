@@ -48,52 +48,66 @@
             <Font size="30.0"/>
         </font>
     </Label>
-    <TextField fx:id="nameField" layoutX="972.0" layoutY="156.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="addressField" layoutX="972.0" layoutY="207.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="emailField" layoutX="972.0" layoutY="259.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="phoneField" layoutX="972.0" layoutY="312.0" prefHeight="26.0" prefWidth="282.0"/>
-    <Label fx:id="nameLabel" layoutX="972.0" layoutY="130.0" text="Tên thành viên">
+    <TextField fx:id="nameField" layoutX="972.0" layoutY="216.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="addressField" layoutX="972.0" layoutY="267.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="emailField" layoutX="972.0" layoutY="318.0" prefHeight="26.0" prefWidth="282.0"/>
+    <TextField fx:id="phoneField" layoutX="972.0" layoutY="372.0" prefHeight="26.0" prefWidth="282.0"/>
+    <Label fx:id="nameLabel" layoutX="972.0" layoutY="190.0" text="Tên thành viên">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="addressLabel" layoutX="973.0" layoutY="185.0" text="Địa chỉ">
+    <Label fx:id="addressLabel" layoutX="972.0" layoutY="245.0" text="Địa chỉ">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="emailLabel" layoutX="972.0" layoutY="237.0" prefWidth="46.0" text="Email">
+    <Label fx:id="emailLabel" layoutX="972.0" layoutY="293.0" prefWidth="46.0" text="Email">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="phoneLabel" layoutX="972.0" layoutY="287.0" text="Số điện thoại">
+    <Label fx:id="phoneLabel" layoutX="972.0" layoutY="347.0" text="Số điện thoại">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Button fx:id="saveButton" layoutX="1069.0" layoutY="377.0" mnemonicParsing="false" onAction="#updateMemberInfo"
+    <Button fx:id="saveButton" layoutX="1069.0" layoutY="429.0" mnemonicParsing="false" onAction="#updateMemberInfo"
             prefHeight="31.0" prefWidth="88.0" text="Cập nhật">
         <font>
             <Font size="15.0"/>
         </font>
     </Button>
-    <Label fx:id="phoneFailed" layoutX="1015.0" layoutY="345.0" text="Số điện thoại không đúng định dạng"
+    <Label fx:id="phoneFailed" layoutX="1015.0" layoutY="405.0" text="Số điện thoại không đúng định dạng"
            textFill="#e40c0c" visible="false">
         <font>
             <Font size="12"/>
         </font>
     </Label>
-    <Label fx:id="emailFailed" layoutX="1015.0" layoutY="345.0" text="Email không đúng định dạng" textFill="#e40c0c"
+    <Label fx:id="emailFailed" layoutX="1036.0" layoutY="405.0" text="Email không đúng định dạng" textFill="#e40c0c"
            visible="false">
         <font>
             <Font size="12"/>
         </font>
     </Label>
-    <Label fx:id="success" layoutX="1002.0" layoutY="345.0" text="Cập nhật thông tin thành viên thành công"
+    <Label fx:id="success" layoutX="1001.0" layoutY="405.0" text="Cập nhật thông tin thành viên thành công"
            textFill="green" visible="false">
         <font>
             <Font size="12"/>
         </font>
     </Label>
+
+    <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="915.0" layoutY="34.0" prefHeight="22.0" prefWidth="10.0"
+           text="x">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <Label fx:id="usernameLabel"  layoutX="972.0" layoutY="140.0" text="Tên đăng nhập">
+        <font>
+            <Font size="15.0"/>
+        </font>
+    </Label>
+    <TextField fx:id="usernameField"  layoutX="972.0" layoutY="162.0" prefHeight="26.0" prefWidth="282.0"/>
+
 </AnchorPane>

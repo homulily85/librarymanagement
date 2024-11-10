@@ -1,9 +1,13 @@
 package com.cozyspace.librarymanagement.user;
 
+import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public final class Librarian extends User implements SearchMember {
 
@@ -54,15 +58,15 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Xóa tài liệu ra khỏi cơ sở dữ liệu.
      */
-    public void removeDocument() {
-
+    public void removeDocument(int documentId) {
+        Datasource.removeDocument(documentId);
     }
 
     /**
      * Thay đổi thông tin của tài liệu
      */
-    public void editDocument() {
-
+    public void editDocument(Document document) {
+        Datasource.updateDocumentInfo(document);
     }
 
     /**
@@ -90,5 +94,38 @@ public final class Librarian extends User implements SearchMember {
     @Override
     public ObservableList<MemberRecord> searchMemberByPhone(String phone) {
         return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_PHONE, phone);
+    }
+
+    public ObservableList<BorrowRequestRecord> viewAllBorrowRequest() {
+        return Datasource.viewAllBorrowRequest();
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByRequestID(String id) {
+        return Datasource.searchBorrowRequestByRequestID(id);
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByMemberName(String memberName) {
+        return Datasource.searchBorrowRequestByMemberName(memberName);
+    }
+
+    public ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
+        return Datasource.searchBorrowRequestByDocumentTittle(documentTittle);
+    }
+
+    public ObservableList<Document> searchDocumentByIdOrTitle(String idOrTitle) {
+        return Datasource.getDocumentByIdOrTittle(idOrTitle);
+    }
+
+    public ObservableList<Document> searchDocumentById(int id) {
+        return Datasource.getDocumentById(id);
+    }
+
+    public void createNewBorrowRequest(String username, int documentId, int quantity, String dueDate) {
+        Datasource.createNewBorrowRequest(username, documentId, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null, dueDate, BorrowRequestRecord.BorrowRequestStatus.BORROWED);
+    }
+
+    public void updateBorrowRequest(BorrowRequestRecord record) {
+        Datasource.updateBorrowRequest(record);
     }
 }

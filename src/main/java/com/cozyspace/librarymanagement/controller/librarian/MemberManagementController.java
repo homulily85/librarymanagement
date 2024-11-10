@@ -11,6 +11,12 @@ import javafx.scene.control.*;
 
 public class MemberManagementController {
     @FXML
+    private Label usernameLabel;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private Label removeQuery;
+    @FXML
     private Label success;
     @FXML
     private Label titleLabel;
@@ -68,6 +74,29 @@ public class MemberManagementController {
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
 
+        removeQuery.disableProperty().bind(Bindings.isEmpty(searchField.textProperty()));
+
+        usernameField.setDisable(true);
+
+        removeQuery.setOnMouseClicked(_ -> {
+            searchField.clear();
+            table.getItems().setAll(result);
+            memberNotFound.setVisible(false);
+            table.setVisible(true);
+            nameLabel.setVisible(true);
+            nameField.setVisible(true);
+            addressLabel.setVisible(true);
+            addressField.setVisible(true);
+            phoneLabel.setVisible(true);
+            phoneField.setVisible(true);
+            emailField.setVisible(true);
+            emailLabel.setVisible(true);
+            saveButton.setVisible(true);
+            titleLabel.setVisible(true);
+            usernameField.setVisible(true);
+            usernameLabel.setVisible(true);
+        });
+
         table.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             if (newValue != null) {
                 MemberRecord item = table.getSelectionModel().getSelectedItem();
@@ -78,8 +107,12 @@ public class MemberManagementController {
                 emailFailed.setVisible(false);
                 success.setVisible(false);
                 phoneFailed.setVisible(false);
+                usernameField.setText(item.getUsername());
             }
         });
+
+        searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
+
         final String IDLE_MAIN_BUTTON_STYLE = """
                 -fx-text-fill: #ffffff;
                 -fx-background-color: #0e4ed5;
@@ -121,6 +154,8 @@ public class MemberManagementController {
         phoneField.clear();
         phoneField.setVisible(false);
         saveButton.setVisible(false);
+        usernameField.setVisible(false);
+        usernameLabel.setVisible(false);
         ObservableList<MemberRecord> result = null;
         switch (searchType.getSelectionModel().getSelectedIndex()) {
             case 0 -> result = ((Librarian) UserManager.getUserInstance()).searchMemberByName(searchField.getText());
@@ -143,6 +178,8 @@ public class MemberManagementController {
             emailLabel.setVisible(true);
             saveButton.setVisible(true);
             memberNotFound.setVisible(false);
+            usernameField.setVisible(true);
+            usernameLabel.setVisible(true);
         }
 
     }
@@ -174,9 +211,7 @@ public class MemberManagementController {
 
         table.refresh();
 
-        new Thread(() -> {
-            ((Librarian) UserManager.getUserInstance()).updateMemberInfo(t);
-        }).start();
+        new Thread(() -> ((Librarian) UserManager.getUserInstance()).updateMemberInfo(t)).start();
 
     }
 }

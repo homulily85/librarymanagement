@@ -1,5 +1,7 @@
 package com.cozyspace.librarymanagement;
 
+import com.cozyspace.librarymanagement.datasource.Document;
+
 import java.util.HashMap;
 
 /**
@@ -8,10 +10,19 @@ import java.util.HashMap;
  */
 public final class DataTransfer {
     private static DataTransfer instance;
-    private HashMap<String, String> dataMap;
+    private final HashMap<String, String> dataMap;
+    private Document currentDocument;
 
     public HashMap<String, String> getDataMap() {
         return dataMap;
+    }
+
+    public Document getCurrentDocument() {
+        return currentDocument;
+    }
+
+    public void setCurrentDocument(Document currentDocument) {
+        this.currentDocument = currentDocument;
     }
 
     private DataTransfer() {

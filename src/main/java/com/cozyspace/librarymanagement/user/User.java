@@ -23,7 +23,7 @@ public abstract class User implements SearchBook {
     }
 
     @Override
-    public ObservableList<Document> searchByISBN(String ISBN, int mode) {
+    public ObservableList<Document> searchDocumentByISBN(String ISBN, int mode) {
         return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_ISBN, ISBN, mode);
     }
 
