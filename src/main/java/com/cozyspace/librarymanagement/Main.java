@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -25,11 +24,13 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        File f = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
-                .toURI());
         //TODO: Only enable this line when running the jar file
-        DataTransfer.getInstance().getDataMap().put("jarPath", f.getParent());
-        System.out.println("Jar Path: " + f.getParent());
+
+//        File f = new File(Main.class.getProtectionDomain().getCodeSource().getLocation()
+//                .toURI());
+//        DataTransfer.getInstance().getDataMap().put("jarPath", f.getParent());
+//        System.out.println("Jar Path: " + f.getParent());
+
         Datasource.openConnection();
     }
 
