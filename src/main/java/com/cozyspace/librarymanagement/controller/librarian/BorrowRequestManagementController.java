@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -164,6 +165,7 @@ public class BorrowRequestManagementController {
             e.printStackTrace();
         }
         newStage.setTitle("Thêm yêu cầu mượn sách");
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
         newStage.setScene(scene);
         newStage.setResizable(false);
         newStage.requestFocus();

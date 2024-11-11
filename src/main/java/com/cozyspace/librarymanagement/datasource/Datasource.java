@@ -19,11 +19,11 @@ public final class Datasource {
 
     }
 
-//    public static final String DB_NAME = Objects.requireNonNull(Main.class.getResource("library.db")).toString();
-//    public static final String CONNECTION_NAME = "jdbc:sqlite:%s".formatted(DB_NAME);
+    public static final String DB_NAME = Objects.requireNonNull(Main.class.getResource("library.db")).toString();
+    public static final String CONNECTION_NAME = "jdbc:sqlite:%s".formatted(DB_NAME);
 
     //TODO: Only enable this line when running the jar file
-    public static final String CONNECTION_NAME = "jdbc:sqlite:%s/library.db".formatted(DataTransfer.getInstance().getDataMap().get("jarPath"));
+//    public static final String CONNECTION_NAME = "jdbc:sqlite:%s/library.db".formatted(DataTransfer.getInstance().getDataMap().get("jarPath"));
 
     public static final String TABLE_ACCOUNT = "account";
     public static final String TABLE_ACCOUNT_COLUMN_USERNAME = "username";

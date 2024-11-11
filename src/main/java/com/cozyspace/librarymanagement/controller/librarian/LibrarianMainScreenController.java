@@ -12,6 +12,8 @@ import java.io.IOException;
 public class LibrarianMainScreenController {
 
     @FXML
+    private BorderPane home;
+    @FXML
     private TabPane tabPane;
     @FXML
     private BorderPane requestManagement;
@@ -49,9 +51,28 @@ public class LibrarianMainScreenController {
         }
         requestManagement.setCenter(temp3);
 
+        FXMLLoader loader4 = new FXMLLoader(Main.class.getResource("fxml/librarian/home.fxml"));
+        Pane temp4 = null;
+        try {
+            temp4 = loader4.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        home.setCenter(temp4);
+
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (_, _, t1) -> {
-                    if (t1.getText().equals("Yêu cầu mượn")) {
+                    if (t1.getText().equals("Trang chủ")){
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/home.fxml"));
+                        Pane temp = null;
+                        try {
+                            temp = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        home.setCenter(temp);
+                    }
+                    else if (t1.getText().equals("Yêu cầu mượn")) {
                         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/borrow_request_management.fxml"));
                         Pane temp = null;
                         try {

@@ -5,9 +5,6 @@ import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.controller.AccountRelatedController;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.email.Email;
-import com.cozyspace.librarymanagement.user.Librarian;
-import com.cozyspace.librarymanagement.user.Member;
-import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,22 +58,12 @@ public class LoginPhase2Controller extends AccountRelatedController {
         Parent root = null;
         Stage stage = (Stage) loginButton.getScene().getWindow();
 
-        if (UserManager.getUserInstance() instanceof Member) {
-            try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/member_main_screen.fxml")));
-                DataTransfer.getInstance().getDataMap().put("searchMode", Integer.toString(SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (UserManager.getUserInstance() instanceof Librarian) {
-            try {
-                root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/librarian/librarian_main_screen.fxml")));
-                DataTransfer.getInstance().getDataMap().put("searchMode", Integer.toString(SearchBook.SEARCH_ALL_DOCUMENT));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/librarian/loading_screen.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

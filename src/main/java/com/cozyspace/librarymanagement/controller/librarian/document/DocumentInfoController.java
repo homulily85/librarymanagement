@@ -34,11 +34,11 @@ public class DocumentInfoController {
         documentDescription.setText(document.getDescription());
         documentSubject.setText(documentSubject.getText() + document.getSubject());
         if (!(document.getCoverPageLocation() == null)) {
-//            coverPage.setImage(new Image(Objects.requireNonNull(
-//                    Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));
+            coverPage.setImage(new Image(Objects.requireNonNull(
+                    Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));
             //TODO: Only enable this line when running the jar file
-            coverPage.setImage(new Image(DataTransfer.getInstance().getDataMap().get("jarPath") + "/book_cover/"
-                                         + document.getCoverPageLocation()));
+//            coverPage.setImage(new Image(DataTransfer.getInstance().getDataMap().get("jarPath") + "/book_cover/"
+//                                         + document.getCoverPageLocation()));
         }
     }
 }

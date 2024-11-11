@@ -17,8 +17,11 @@ import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class AddNewDocumentController {
@@ -141,35 +144,35 @@ public class AddNewDocumentController {
 
         String fileName = System.currentTimeMillis() + getFileExtension(coverPage.getImage().getUrl());
 
-//        new Thread(() -> {
-//            if (!isCoverArtChosen) {
-//                return;
-//            }
-//            String sour = coverPage.getImage().getUrl().replace("/", "\\");
-//            URL url = Main.class.getResource("book_cover/");
-//            String des = null;
-//            try {
-//                des = Paths.get(url.toURI()) + "/" + fileName;
-//                Files.copy(Path.of(sour), Path.of(des));
-//            } catch (URISyntaxException | IOException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
-
-
-        //TODO: Only enable this line when running the jar file
         new Thread(() -> {
             if (!isCoverArtChosen) {
                 return;
             }
             String sour = coverPage.getImage().getUrl().replace("/", "\\");
-            String des = DataTransfer.getInstance().getDataMap().get("jarPath") + "/book_cover/" + fileName;
+            URL url = Main.class.getResource("book_cover/");
+            String des = null;
             try {
+                des = Paths.get(url.toURI()) + "/" + fileName;
                 Files.copy(Path.of(sour), Path.of(des));
-            } catch (IOException e) {
+            } catch (URISyntaxException | IOException e) {
                 e.printStackTrace();
             }
         }).start();
+
+
+        //TODO: Only enable this line when running the jar file
+//        new Thread(() -> {
+//            if (!isCoverArtChosen) {
+//                return;
+//            }
+//            String sour = coverPage.getImage().getUrl().replace("/", "\\");
+//            String des = DataTransfer.getInstance().getDataMap().get("jarPath") + "/book_cover/" + fileName;
+//            try {
+//                Files.copy(Path.of(sour), Path.of(des));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }).start();
 
 
         Document newDoc = new Document(documentISBNField.getText(), documentTitleField.getText(),
