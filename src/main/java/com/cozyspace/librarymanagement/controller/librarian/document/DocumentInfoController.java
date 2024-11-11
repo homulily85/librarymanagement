@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.controller.librarian.document;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.fxml.FXML;
@@ -33,8 +34,11 @@ public class DocumentInfoController {
         documentDescription.setText(document.getDescription());
         documentSubject.setText(documentSubject.getText() + document.getSubject());
         if (!(document.getCoverPageLocation() == null)) {
-            coverPage.setImage(new Image(Objects.requireNonNull(
-                    Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));
+//            coverPage.setImage(new Image(Objects.requireNonNull(
+//                    Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));
+            //TODO: Only enable this line when running the jar file
+            coverPage.setImage(new Image(DataTransfer.getInstance().getDataMap().get("jarPath") + "/book_cover/"
+                                         + document.getCoverPageLocation()));
         }
     }
 }
