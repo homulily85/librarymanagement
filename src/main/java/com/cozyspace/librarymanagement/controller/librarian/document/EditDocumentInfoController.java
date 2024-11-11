@@ -16,8 +16,11 @@ import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class EditDocumentInfoController {
@@ -150,19 +153,19 @@ public class EditDocumentInfoController {
             imageFailed.setVisible(false);
         }
 
-        String coverPageName = System.currentTimeMillis() + getFileExtension(coverPage.getImage().getUrl());
+        String fileName = System.currentTimeMillis() + getFileExtension(coverPage.getImage().getUrl());
 
         new Thread(() -> {
             if (!isCoverArtChosen) {
                 return;
             }
             String sour = coverPage.getImage().getUrl().replace("/", "\\");
-            String des = Objects.requireNonNull(Main.class.getResource("book_cover/")).getPath()
-                                 .replace("/", "\\").substring(1) + coverPageName;
-
+            URL url = Main.class.getResource("book_cover/");
+            String des = null;
             try {
+                des = Paths.get(url.toURI()) + "/" + fileName;
                 Files.copy(Path.of(sour), Path.of(des));
-            } catch (IOException e) {
+            } catch (URISyntaxException | IOException e) {
                 e.printStackTrace();
             }
         }).start();
@@ -175,7 +178,7 @@ public class EditDocumentInfoController {
         DataTransfer.getInstance().getCurrentDocument().setQuantity(Integer.parseInt(documentQuantityField.getText()));
         DataTransfer.getInstance().getCurrentDocument().setDescription(documentDescriptionField.getText());
         if (isCoverArtChosen) {
-            DataTransfer.getInstance().getCurrentDocument().setCoverPageLocation(coverPageName);
+            DataTransfer.getInstance().getCurrentDocument().setCoverPageLocation(fileName);
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader();

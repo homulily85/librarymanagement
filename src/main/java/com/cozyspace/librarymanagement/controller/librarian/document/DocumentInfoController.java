@@ -33,8 +33,8 @@ public class DocumentInfoController {
         documentDescription.setText(document.getDescription());
         documentSubject.setText(documentSubject.getText() + document.getSubject());
         if (!(document.getCoverPageLocation() == null)) {
-            coverPage.setImage(new Image(Objects.requireNonNull(Main.class.getResource("book_cover/"
-                    + document.getCoverPageLocation())).toString()));
+            coverPage.setImage(new Image(Objects.requireNonNull(
+                    Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));
         }
     }
 }
