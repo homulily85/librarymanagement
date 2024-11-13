@@ -165,7 +165,7 @@ public class BorrowRequestManagementController {
             e.printStackTrace();
         }
         newStage.setTitle("Thêm yêu cầu mượn sách");
-        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
         newStage.setScene(scene);
         newStage.setResizable(false);
         newStage.requestFocus();

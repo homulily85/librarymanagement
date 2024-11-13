@@ -10,7 +10,7 @@
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.DocumentInfoController">
     <AnchorPane prefWidth="875.0">
         <ImageView fx:id="coverPage" fitHeight="177" fitWidth="140" layoutX="14.0" layoutY="14.0">
-            <Image url="@../../../coverart.png"/>
+            <Image url="@../../../icon/coverart.png"/>
         </ImageView>
         <Label fx:id="documentTitle" layoutX="167.0" layoutY="14.0" prefWidth="700.0" wrapText="true">
             <font>

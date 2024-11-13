@@ -27,7 +27,7 @@
     </TableView>
 
     <ImageView fitHeight="20" fitWidth="20" layoutX="1056.0" layoutY="25.0">
-        <Image url="@../../search_icon.png"/>
+        <Image url="@../../icon/search_icon.png"/>
     </ImageView>
 
     <ComboBox fx:id="searchType" layoutX="220.0" layoutY="22.0">

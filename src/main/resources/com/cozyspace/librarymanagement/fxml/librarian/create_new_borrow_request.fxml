@@ -42,7 +42,7 @@
     <Button layoutX="218.0" layoutY="139.0" mnemonicParsing="false" onAction="#handleDocumentSearchButton"
             prefHeight="26.0" prefWidth="29.0"/>
     <ImageView fitHeight="20" fitWidth="20" layoutX="223.0" layoutY="142.0">
-        <Image url="@../../search_icon.png"/>
+        <Image url="@../../icon/search_icon.png"/>
     </ImageView>
     <Label layoutX="14.0" layoutY="369.0" prefHeight="22.0" prefWidth="221.0" text="Nhập tên thành viên">
         <font>
@@ -51,7 +51,7 @@
     </Label>
     <TextField fx:id="memberSearchField" layoutX="14.0" layoutY="400.0" prefHeight="26.0" prefWidth="198.0"/>
     <ImageView fitHeight="20" fitWidth="20" layoutX="226.0" layoutY="402.0">
-        <Image url="@../../search_icon.png"/>
+        <Image url="@../../icon/search_icon.png"/>
     </ImageView>
     <TableView fx:id="memberTable" layoutX="270.0" layoutY="314.0" prefHeight="198.0" prefWidth="576.0">
         <columns>

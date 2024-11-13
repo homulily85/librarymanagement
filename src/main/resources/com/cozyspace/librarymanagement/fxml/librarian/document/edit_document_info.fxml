@@ -13,7 +13,7 @@
     <content>
         <AnchorPane prefWidth="875.0">
             <ImageView fx:id="coverPage" fitHeight="177" fitWidth="140" layoutX="14.0" layoutY="14.0">
-                <Image url="@../../../coverart.png"/>
+                <Image url="@../../../icon/coverart.png"/>
             </ImageView>
             <Label layoutX="167.0" layoutY="28.0" prefHeight="36.0" prefWidth="125.0" text="Tên tài liệu"
                    wrapText="true">

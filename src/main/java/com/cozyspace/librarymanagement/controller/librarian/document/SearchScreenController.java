@@ -182,7 +182,7 @@ public class SearchScreenController {
             e.printStackTrace();
         }
         newStage.setTitle("Thêm tài liệu");
-        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
 
         newStage.setScene(scene);
         newStage.setResizable(false);
@@ -224,7 +224,7 @@ public class SearchScreenController {
             e.printStackTrace();
         }
         newStage.setTitle("Thông tin tài liệu");
-        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
         newStage.setScene(scene);
         DocumentInfoController controller = fxmlLoader.getController();
         controller.setInfo(table.getSelectionModel().getSelectedItem());
@@ -251,7 +251,7 @@ public class SearchScreenController {
             e.printStackTrace();
         }
         newStage.setTitle("Chỉnh sửa thông tin tài liệu");
-        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
         newStage.setScene(scene);
         newStage.setResizable(false);
         newStage.requestFocus();

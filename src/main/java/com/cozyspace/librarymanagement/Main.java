@@ -17,7 +17,7 @@ public class Main extends Application {
         stage.setTitle("Library Management System");
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("book.png"))));
+        stage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
         stage.show();
     }
 
