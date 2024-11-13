@@ -1,54 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="720" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/"
-            fx:controller="com.cozyspace.librarymanagement.controller.UserMainScreenController">
+<BorderPane prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.UserMainScreenController">
 
     <left>
-        <VBox alignment="TOP_CENTER" spacing="50"
-              style="-fx-border-color: gray; -fx-border-style: hidden solid hidden hidden">
+        <VBox alignment="TOP_CENTER" prefHeight="640.0" prefWidth="180.0" spacing="50.0" style="-fx-background-color: #EE9923;">
             <padding>
-                <Insets left="10"/>
+                <Insets left="10" />
             </padding>
-            <ImageView fitHeight="182.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
-                <Image url="@../book.png"/>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER">
+                <Image url="@../Reading_time__1_-removebg-preview.png" />
+            <viewport>
+               <Rectangle2D />
+            </viewport>
+            <VBox.margin>
+               <Insets right="10.0" top="10.0" />
+            </VBox.margin>
             </ImageView>
-            <GridPane hgap="15" vgap="15">
-                <Label fx:id="home" alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="134.0" text="Trang chủ"
-                       GridPane.rowIndex="0"
-                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
+         <ImageView fitHeight="70.0" fitWidth="70.0" onDragEntered="#showMemberAva" pickOnBounds="true" preserveRatio="true">
+            <VBox.margin>
+               <Insets left="-120.0" top="10.0" />
+            </VBox.margin>
+            <image>
+               <Image url="@../../../../../../../../../../ảnh/mee/z4663746699639_50101c58ba317a60c6e716799ae6dc26.jpg" />
+            </image>
+         </ImageView>
+         <Text onDragEntered="#showMemberName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <VBox.margin>
+               <Insets right="-50.0" top="-100.0" />
+            </VBox.margin>
+            <font>
+               <Font name="Arial" size="18.0" />
+            </font>
+         </Text>
+            <GridPane alignment="TOP_CENTER" hgap="15" vgap="15">
+                <Label fx:id="home" alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="134.0" style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden" text="Trang chủ" GridPane.rowIndex="0">
                     <font>
-                        <Font size="30"/>
+                        <Font name="Arial" size="25.0" />
+                    </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+                </Label>
+                <Label fx:id="showAllAvailableDocument" alignment="BASELINE_LEFT" onMouseClicked="#showAllAvailableDocument" prefHeight="92.0" prefWidth="134.0" style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden" text="Tài liệu hiện có" wrapText="true" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="Arial" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="showAllAvailableDocument" alignment="BASELINE_LEFT" prefHeight="92.0" prefWidth="134.0"
-                       text="Tài liệu hiện có" wrapText="true" GridPane.rowIndex="1"
-                       onMouseClicked="#showAllAvailableDocument"
-                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
+                <Label fx:id="search" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="46.0" prefWidth="134.0" style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden" text="Tìm kiếm" GridPane.rowIndex="2">
                     <font>
-                        <Font size="30"/>
+                        <Font name="Arial" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="search" alignment="BASELINE_LEFT" onMouseClicked="#search" prefHeight="46.0"
-                       prefWidth="134.0" text="Tìm kiếm" GridPane.rowIndex="2"
-                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
+                <Label fx:id="logout" alignment="BASELINE_LEFT" onMouseClicked="#logout" prefHeight="46.0" prefWidth="134.0" style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden" text="Tài khoản" GridPane.rowIndex="3">
                     <font>
-                        <Font size="30"/>
+                        <Font name="Arial" size="25.0" />
                     </font>
                 </Label>
-                <Label fx:id="logout" alignment="BASELINE_LEFT" onMouseClicked="#logout" prefHeight="46.0"
-                        prefWidth="134.0" text ="Đăng xuất" GridPane.rowIndex="3"
-                       style="-fx-border-color: gray; -fx-border-style: hidden hidden solid hidden">
-                    <font>
-                        <Font size="30"/>
-                    </font>
-                </Label>
+            <columnConstraints>
+               <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            <padding>
+               <Insets top="20.0" />
+            </padding>
             </GridPane>
+         <effect>
+            <ColorAdjust />
+         </effect>
         </VBox>
     </left>
 
