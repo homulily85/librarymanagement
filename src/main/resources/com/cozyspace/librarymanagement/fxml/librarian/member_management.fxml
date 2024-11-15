@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -8,10 +9,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 <?import java.lang.String?>
-<AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/"
-            xmlns:fx="http://javafx.com/fxml/"
+<AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.MemberManagementController">
-    <ComboBox fx:id="searchType" layoutX="241.0" layoutY="33.0">
+    <JFXComboBox fx:id="searchType" focusColor="#9f6d1d" layoutX="241.0" layoutY="33.0">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Tìm kiếm theo tên"/>
@@ -22,11 +23,13 @@
         <value>
             <String fx:value="Tìm kiếm theo tên"/>
         </value>
-    </ComboBox>
-    <TextField fx:id="searchField" layoutX="463.0" layoutY="33.0" prefHeight="26.0" prefWidth="476.0"/>
+    </JFXComboBox>
+    <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="463.0" layoutY="33.0" prefHeight="26.0"
+                  prefWidth="476.0"/>
     <Button fx:id="searchButton" defaultButton="true" layoutX="972.0" layoutY="32.0" onAction="#search"
             prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
-    <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="526.0" prefWidth="899.0">
+    <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="526.0" prefWidth="899.0"
+               stylesheets="@../../css/table_view.css">
         <columns>
             <TableColumn fx:id="nameColumn" prefWidth="243.8000030517578" text="Tên thành viên "/>
             <TableColumn fx:id="addressColumn" prefWidth="281.0" text="Địa chỉ"/>
@@ -43,41 +46,45 @@
         <Image url="@../../icon/search_icon.png"/>
     </ImageView>
     <Label fx:id="titleLabel" layoutX="972.0" layoutY="84.0" prefHeight="30.0" prefWidth="282.0"
-           text="Thông tin thành viên" textFill="#0e4ed5">
+           text="Thông tin thành viên" textFill="#ee9923">
         <font>
             <Font size="30.0"/>
         </font>
     </Label>
-    <TextField fx:id="nameField" layoutX="972.0" layoutY="216.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="addressField" layoutX="972.0" layoutY="267.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="emailField" layoutX="972.0" layoutY="318.0" prefHeight="26.0" prefWidth="282.0"/>
-    <TextField fx:id="phoneField" layoutX="972.0" layoutY="372.0" prefHeight="26.0" prefWidth="282.0"/>
-    <Label fx:id="nameLabel" layoutX="972.0" layoutY="190.0" text="Tên thành viên">
+    <JFXTextField fx:id="nameField" focusColor="#9f6d1d" layoutX="972.0" layoutY="216.0" prefHeight="26.0"
+                  prefWidth="282.0"/>
+    <JFXTextField fx:id="addressField" focusColor="#9f6d1d" layoutX="972.0" layoutY="267.0" prefHeight="26.0"
+                  prefWidth="282.0"/>
+    <JFXTextField fx:id="emailField" focusColor="#9f6d1d" layoutX="972.0" layoutY="318.0" prefHeight="26.0"
+                  prefWidth="282.0"/>
+    <JFXTextField fx:id="phoneField" focusColor="#9f6d1d" layoutX="972.0" layoutY="372.0" prefHeight="26.0"
+                  prefWidth="282.0"/>
+    <Label fx:id="nameLabel" layoutX="972.0" layoutY="195.0" text="Tên thành viên">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="addressLabel" layoutX="972.0" layoutY="245.0" text="Địa chỉ">
+    <Label fx:id="addressLabel" layoutX="972.0" layoutY="250.0" text="Địa chỉ">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="emailLabel" layoutX="972.0" layoutY="293.0" prefWidth="46.0" text="Email">
+    <Label fx:id="emailLabel" layoutX="972.0" layoutY="298.0" prefWidth="46.0" text="Email">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="phoneLabel" layoutX="972.0" layoutY="347.0" text="Số điện thoại">
+    <Label fx:id="phoneLabel" layoutX="972.0" layoutY="352.0" text="Số điện thoại">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <Button fx:id="saveButton" layoutX="1069.0" layoutY="429.0" mnemonicParsing="false" onAction="#updateMemberInfo"
-            prefHeight="31.0" prefWidth="88.0" text="Cập nhật">
+    <JFXButton fx:id="saveButton" layoutX="1063.0" layoutY="423.0" mnemonicParsing="false" onAction="#updateMemberInfo"
+               prefHeight="31.0" prefWidth="100.0" stylesheets="@../../css/button_type_2.css" text="Cập nhật">
         <font>
             <Font size="15.0"/>
         </font>
-    </Button>
+    </JFXButton>
     <Label fx:id="phoneFailed" layoutX="1015.0" layoutY="405.0" text="Số điện thoại không đúng định dạng"
            textFill="#e40c0c" visible="false">
         <font>
@@ -103,11 +110,12 @@
             <Font size="15.0"/>
         </font>
     </Label>
-    <Label fx:id="usernameLabel"  layoutX="972.0" layoutY="140.0" text="Tên đăng nhập">
+    <Label fx:id="usernameLabel" layoutX="972.0" layoutY="140.0" text="Tên đăng nhập">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
-    <TextField fx:id="usernameField"  layoutX="972.0" layoutY="162.0" prefHeight="26.0" prefWidth="282.0"/>
+    <JFXTextField fx:id="usernameField" focusColor="#9f6d1d" layoutX="972.0" layoutY="162.0" prefHeight="26.0"
+                  prefWidth="282.0"/>
 
 </AnchorPane>

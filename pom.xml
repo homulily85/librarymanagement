@@ -48,15 +48,20 @@
             <artifactId>password4j</artifactId>
             <version>1.8.2</version>
         </dependency>
-            <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>javax.mail</artifactId>
-                <version>1.6.2</version>
-            </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>11.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
         </dependency>
 
     </dependencies>
@@ -82,7 +87,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.cozyspace.librarymanagement/com.cozyspace.librarymanagement.Main
+                                com.cozyspace.librarymanagement/com.cozyspace.librarymanagement.EntryPoint
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -7,8 +8,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<DialogPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/"
-            xmlns:fx="http://javafx.com/fxml/"
+<DialogPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.AddNewDocumentController">
     <content>
         <AnchorPane prefWidth="875.0">
@@ -52,27 +53,32 @@
                 </font>
             </Label>
 
-            <TextField fx:id="documentTitleField" layoutX="296.0" layoutY="24.0" prefHeight="26.0" prefWidth="567.0">
+            <JFXTextField fx:id="documentTitleField" layoutX="296.0" layoutY="24.0" prefHeight="26.0" prefWidth="567.0"
+                          focusColor="#9f6d1d">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextField>
-            <TextField fx:id="documentAuthorField" layoutX="296.0" layoutY="81.0" prefHeight="26.0" prefWidth="567.0">
+            </JFXTextField>
+            <JFXTextField fx:id="documentAuthorField" layoutX="296.0" layoutY="81.0" prefHeight="26.0" prefWidth="567.0"
+                          focusColor="#9f6d1d">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextField>
-            <TextField fx:id="documentISBNField" layoutX="296.0" layoutY="136.0" prefWidth="283.0">
+            </JFXTextField>
+            <JFXTextField fx:id="documentISBNField" layoutX="296.0" layoutY="136.0" prefWidth="283.0"
+                          focusColor="#9f6d1d">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextField>
-            <TextField fx:id="documentSubjectField" layoutX="296.0" layoutY="191.0" prefHeight="52.0" prefWidth="567.0">
+            </JFXTextField>
+            <JFXTextField fx:id="documentSubjectField" layoutX="296.0" layoutY="191.0" prefHeight="52.0"
+                          prefWidth="567.0" focusColor="#9f6d1d">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextField>
-            <ComboBox fx:id="documentTypeComboBox" layoutX="296.0" layoutY="251.0" prefHeight="52.0" prefWidth="283.0">
+            </JFXTextField>
+            <JFXComboBox fx:id="documentTypeComboBox" layoutX="296.0" layoutY="251.0" prefHeight="52.0"
+                         prefWidth="283.0" focusColor="#9f6d1d">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Sách"/>
@@ -82,19 +88,21 @@
                         <String fx:value="Khác"/>
                     </FXCollections>
                 </items>
-            </ComboBox>
-            <TextField fx:id="documentQuantityField" layoutX="296.0" layoutY="314.0" prefHeight="52.0"
-                       prefWidth="283.0">
+            </JFXComboBox>
+            <JFXTextField fx:id="documentQuantityField" layoutX="296.0" layoutY="314.0" prefHeight="52.0"
+                          focusColor="#9f6d1d"
+                          prefWidth="283.0">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextField>
-            <TextArea fx:id="documentDescriptionField" layoutX="296.0" layoutY="373.0" prefHeight="137.0"
-                      prefWidth="570.0" wrapText="true">
+            </JFXTextField>
+            <JFXTextArea fx:id="documentDescriptionField" layoutX="296.0" layoutY="373.0" prefHeight="137.0"
+                         focusColor="#9f6d1d"
+                         prefWidth="570.0" wrapText="true">
                 <font>
                     <Font size="20.0"/>
                 </font>
-            </TextArea>
+            </JFXTextArea>
             <Label fx:id="inputPrompt" layoutX="401.0" layoutY="531.0"
                    text="Bạn cần điền thông tin vào trường tên tài liệu, chủ đề, loại, số lượng" textFill="#e40c0c"
                    visible="false">
@@ -104,23 +112,20 @@
             </Label>
 
             <Label fx:id="quantityFailed" layoutX="401.0" layoutY="531.0"
-                   text="Số lượng phải là một số nguyên dương không quá 1000"
-                   textFill="#e40c0c" visible="false">
+                   text="Số lượng phải là một số nguyên dương không quá 1000" textFill="#e40c0c" visible="false">
                 <font>
                     <Font size="12"/>
                 </font>
             </Label>
 
-            <Label fx:id="ISBNFailed" layoutX="500.0" layoutY="531.0"
-                   text="ISBN không hợp lệ"
-                   textFill="#e40c0c" visible="false">
+            <Label fx:id="ISBNFailed" layoutX="500.0" layoutY="531.0" text="ISBN không hợp lệ" textFill="#e40c0c"
+                   visible="false">
                 <font>
                     <Font size="12"/>
                 </font>
             </Label>
 
-            <Label fx:id="imageFailed" layoutX="501.0" layoutY="531.0"
-                   text="Định dạng ảnh phải là .jpg hoặc .png"
+            <Label fx:id="imageFailed" layoutX="501.0" layoutY="531.0" text="Định dạng ảnh phải là .jpg hoặc .png"
                    textFill="#e40c0c" visible="false">
                 <font>
                     <Font size="12"/>
@@ -128,13 +133,13 @@
             </Label>
 
             <Button fx:id="addNewDocument" layoutX="773.0" layoutY="549.0" onAction="#addNewDocument" prefHeight="22.0"
-                    prefWidth="87.0" text="Thêm">
+                    prefWidth="87.0" stylesheets="@../../../css/button_type_2.css" text="Thêm">
                 <font>
                     <Font size="20"/>
                 </font>
             </Button>
-            <Button fx:id="chooseCoverArt" layoutX="39.0" layoutY="199.0" prefHeight="36.0" onAction="#chooseCoverArt"
-                    prefWidth="90.0" text="Chọn ảnh">
+            <Button fx:id="chooseCoverArt" layoutX="28.0" layoutY="204.0" onAction="#chooseCoverArt" prefHeight="37.0"
+                    prefWidth="112.0" stylesheets="@../../../css/button_type_2.css" text="Chọn ảnh">
                 <font>
                     <Font size="15"/>
                 </font>

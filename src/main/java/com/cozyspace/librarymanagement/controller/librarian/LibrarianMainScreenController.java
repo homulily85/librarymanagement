@@ -62,7 +62,7 @@ public class LibrarianMainScreenController {
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (_, _, t1) -> {
-                    if (t1.getText().equals("Trang chủ")){
+                    if (t1.getText().equals("Trang chủ")) {
                         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/home.fxml"));
                         Pane temp = null;
                         try {
@@ -72,37 +72,6 @@ public class LibrarianMainScreenController {
                         }
                         home.setCenter(temp);
                     }
-                    else if (t1.getText().equals("Yêu cầu mượn")) {
-                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/borrow_request_management.fxml"));
-                        Pane temp = null;
-                        try {
-                            temp = loader.load();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        requestManagement.setCenter(temp);
-
-                    } else if (t1.getText().equals("Tài liệu")) {
-                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/document/document_main_screen.fxml"));
-                        Pane temp = null;
-                        try {
-                            temp = loader.load();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        documentMainScreen.setCenter(temp);
-                    } else if (t1.getText().equals("Thành viên")) {
-                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/member_management.fxml"));
-                        Pane temp = null;
-                        try {
-                            temp = loader.load();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        memberManagement.setCenter(temp);
-                    }
-                }
-        );
-
+                });
     }
 }

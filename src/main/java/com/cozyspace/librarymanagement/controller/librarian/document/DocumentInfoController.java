@@ -1,6 +1,5 @@
 package com.cozyspace.librarymanagement.controller.librarian.document;
 
-import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.fxml.FXML;
@@ -31,7 +30,7 @@ public class DocumentInfoController {
         documentAuthor.setText(documentAuthor.getText() + document.getAuthor());
         documentType.setText(documentType.getText() + document.getType());
         documentQuantity.setText(documentQuantity.getText() + document.getQuantity());
-        documentDescription.setText(document.getDescription());
+        documentDescription.setText(documentDescription.getText() + document.getDescription());
         documentSubject.setText(documentSubject.getText() + document.getSubject());
         if (!(document.getCoverPageLocation() == null)) {
             coverPage.setImage(new Image(Objects.requireNonNull(

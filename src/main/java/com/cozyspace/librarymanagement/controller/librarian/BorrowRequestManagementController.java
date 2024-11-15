@@ -6,6 +6,7 @@ import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.Librarian;
 import com.cozyspace.librarymanagement.user.UserManager;
+import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -26,6 +28,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class BorrowRequestManagementController {
+    @FXML
+    private StackPane stackPane;
     @FXML
     private TableColumn<BorrowRequestRecord, String> quantityColumn;
     @FXML
@@ -110,23 +114,6 @@ public class BorrowRequestManagementController {
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
 
-        final String IDLE_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-        final String HOVERED_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #043ea8;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-        createNewRequest.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        createNewRequest.setOnMouseEntered(_ -> createNewRequest.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        createNewRequest.setOnMouseExited(_ -> createNewRequest.setStyle(IDLE_MAIN_BUTTON_STYLE));
     }
 
     public void search() {
@@ -196,10 +183,12 @@ public class BorrowRequestManagementController {
             Notifications.create().title("Lỗi").text("Không thể thay đổi trạng thái cho yêu cầu này.").showError();
             return;
         }
-        ComboBox<String> statusComboBox = new ComboBox<>();
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(table.getScene().getWindow());
-        dialog.setTitle("Thay đổi trạng thái");
+        JFXComboBox<String> statusComboBox = new JFXComboBox<>();
+        statusComboBox.setFocusColor(javafx.scene.paint.Color.valueOf("#9f6d1d"));
+        JFXDialogLayout content = new JFXDialogLayout();
+        var heading = new Label("Thay đổi trạng thái");
+        heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        content.setHeading(heading);
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
@@ -218,13 +207,13 @@ public class BorrowRequestManagementController {
         gridPane.add(statusLabel, 0, 0);
         gridPane.add(statusComboBox, 1, 0);
 
-        dialog.getDialogPane().setContent(gridPane);
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Xác nhận");
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Hủy");
+        content.setBody(gridPane);
+        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
 
-        var result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        JFXButton okButton = new JFXButton("Xác nhận");
+        String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
+        okButton.getStylesheets().add(css);
+        okButton.setOnAction(_ -> {
             ObservableList<Document> document = ((Librarian) UserManager.getUserInstance())
                     .searchDocumentById(table.getSelectionModel().getSelectedItem().getDocumentId());
             BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
@@ -244,7 +233,11 @@ public class BorrowRequestManagementController {
             }
             ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
             table.refresh();
-        }
+            dialog.close();
+        });
+
+        content.setActions(okButton);
+        dialog.show();
     }
 
     public void extendDueDate() {
@@ -256,17 +249,23 @@ public class BorrowRequestManagementController {
             return;
         }
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(table.getScene().getWindow());
-        dialog.setTitle("Gia hạn hạn trả");
+
+//        Dialog<ButtonType> dialog = new Dialog<>();
+//        dialog.initOwner(table.getScene().getWindow());
+//        dialog.setTitle("Gia hạn hạn trả");
+//
+        JFXDialogLayout content = new JFXDialogLayout();
+        var heading = new Label("Thay đổi trạng thái");
+        heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        content.setHeading(heading);
 
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
         Label statusLabel = new Label("Hạn trả mới: ");
-        DatePicker datePicker = new DatePicker();
-
+        JFXDatePicker datePicker = new JFXDatePicker();
+        datePicker.setDefaultColor(javafx.scene.paint.Color.valueOf("#9f6d1d"));
         datePicker.setConverter(new StringConverter<>() {
             final String pattern = "dd-MM-yyyy";
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
@@ -293,15 +292,15 @@ public class BorrowRequestManagementController {
         gridPane.add(statusLabel, 0, 0);
         gridPane.add(datePicker, 1, 0);
 
-        dialog.getDialogPane().setContent(gridPane);
+        content.setBody(gridPane);
 
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.OK)).setText("Xác nhận");
-        ((Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Hủy");
+        JFXButton okButton = new JFXButton("Xác nhận");
+        String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
+        okButton.getStylesheets().add(css);
+        content.setActions(okButton);
+        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
 
-        var result = dialog.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        okButton.setOnAction(_ -> {
             if (datePicker.getValue() == null || datePicker.getValue().isBefore(
                     LocalDate.parse(table.getSelectionModel().getSelectedItem().getDueDate(),
                             DateTimeFormatter.ofPattern("dd-MM-yyyy")))) {
@@ -313,9 +312,8 @@ public class BorrowRequestManagementController {
             record.setDueDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
             table.refresh();
-        }
-
-
+            dialog.close();
+        });
+        dialog.show();
     }
-
 }

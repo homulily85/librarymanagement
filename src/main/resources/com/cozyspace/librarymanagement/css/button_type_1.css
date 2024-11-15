@@ -1,0 +1,19 @@
+.button {
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+    -fx-background-size: 100%;
+}
+
+.button:pressed {
+    -fx-background-color: #9f6d1d;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: #9f6d1d;
+    -fx-border-color: transparent;
+}
+

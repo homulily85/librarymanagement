@@ -4,6 +4,7 @@ module com.cozyspace.librarymanagement {
     requires password4j;
     requires java.mail;
     requires org.controlsfx.controls;
+    requires com.jfoenix;
 
     opens com.cozyspace.librarymanagement to javafx.fxml;
     exports com.cozyspace.librarymanagement;

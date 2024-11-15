@@ -50,36 +50,11 @@ public class EditDocumentInfoController {
     private Label imageFailed;
     @FXML
     private Button addNewDocument;
-    @FXML
-    private Button chooseCoverArt;
 
     private boolean isCoverArtChosen;
 
 
     public void initialize() {
-        final String IDLE_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-        final String HOVERED_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #043ea8;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-
-        addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        addNewDocument.setOnMouseEntered(_ -> addNewDocument.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        addNewDocument.setOnMouseExited(_ -> addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE));
-
-        chooseCoverArt.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        chooseCoverArt.setOnMouseEntered(_ -> chooseCoverArt.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        chooseCoverArt.setOnMouseExited(_ -> chooseCoverArt.setStyle(IDLE_MAIN_BUTTON_STYLE));
-
         documentTypeComboBox.setStyle("-fx-font: 20px \"\";");
 
         documentTypeComboBox.setCellFactory(

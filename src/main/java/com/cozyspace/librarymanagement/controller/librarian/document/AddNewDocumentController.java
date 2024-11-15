@@ -28,8 +28,6 @@ public class AddNewDocumentController {
     @FXML
     private Label imageFailed;
     @FXML
-    private Button chooseCoverArt;
-    @FXML
     private Label ISBNFailed;
     @FXML
     private TextField documentISBNField;
@@ -57,28 +55,6 @@ public class AddNewDocumentController {
 
     public void initialize() {
         isCoverArtChosen = false;
-        final String IDLE_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-        final String HOVERED_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #043ea8;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-
-        addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        addNewDocument.setOnMouseEntered(_ -> addNewDocument.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        addNewDocument.setOnMouseExited(_ -> addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE));
-
-        chooseCoverArt.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        chooseCoverArt.setOnMouseEntered(_ -> chooseCoverArt.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        chooseCoverArt.setOnMouseExited(_ -> chooseCoverArt.setStyle(IDLE_MAIN_BUTTON_STYLE));
 
         documentTypeComboBox.setStyle("-fx-font: 20px \"\";");
 
@@ -150,7 +126,7 @@ public class AddNewDocumentController {
             }
             String sour = coverPage.getImage().getUrl().replace("/", "\\");
             URL url = Main.class.getResource("book_cover/");
-            String des = null;
+            String des;
             try {
                 des = Paths.get(url.toURI()) + "/" + fileName;
                 Files.copy(Path.of(sour), Path.of(des));

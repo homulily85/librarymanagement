@@ -5,6 +5,7 @@ import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
 import com.cozyspace.librarymanagement.user.Librarian;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 
 public class HomeController {
+    @FXML
+    private Label greeting;
     @FXML
     private Label numberOfDocument;
     @FXML
@@ -25,6 +28,8 @@ public class HomeController {
     private PieChart requestPie;
 
     public void initialize() {
+        greeting.setText("Xin chào, " + UserManager.getUserInstance().getInfo().getName());
+        DataTransfer.getInstance().getDataMap().put("searchMode", ((Integer) SearchBook.SEARCH_ALL_DOCUMENT).toString());
         ObservableList<Document> documents = UserManager.getUserInstance().viewDocument(
                 Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         ObservableList<MemberRecord> memberRecords = ((Librarian) UserManager.getUserInstance()).viewAllMember();

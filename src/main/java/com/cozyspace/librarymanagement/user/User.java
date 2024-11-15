@@ -6,10 +6,14 @@ import javafx.collections.ObservableList;
 
 public abstract class User implements SearchBook {
 
-    protected Person person;
+    protected Person info;
 
     User(String name, String address, String email, String phone) {
-        person = new Person(name, address, email, phone);
+        info = new Person(name, address, email, phone);
+    }
+
+    public Person getInfo() {
+        return info;
     }
 
     @Override

@@ -113,25 +113,6 @@ public class MemberManagementController {
 
         searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
 
-        final String IDLE_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-        final String HOVERED_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #043ea8;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
-                """;
-
-        saveButton.setStyle(IDLE_MAIN_BUTTON_STYLE);
-        saveButton.setOnMouseEntered(_ -> saveButton.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-        saveButton.setOnMouseExited(_ -> saveButton.setStyle(IDLE_MAIN_BUTTON_STYLE));
-
     }
 
     public void search() {

@@ -116,27 +116,7 @@ public class SearchScreenController {
         searchButton.disableProperty()
                 .bind(Bindings.isEmpty(searchField.textProperty()));
 
-        if (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode"))
-            == SearchBook.SEARCH_ALL_DOCUMENT) {
-            final String IDLE_MAIN_BUTTON_STYLE = """
-                    -fx-text-fill: #ffffff;
-                    -fx-background-color: #0e4ed5;
-                    -fx-border-radius: 20;
-                    -fx-background-radius: 20;
-                    -fx-padding: 5;
-                    """;
-            final String HOVERED_MAIN_BUTTON_STYLE = """
-                    -fx-text-fill: #ffffff;
-                    -fx-background-color: #043ea8;
-                    -fx-border-radius: 20;
-                    -fx-background-radius: 20;
-                    -fx-padding: 5;
-                    """;
-
-            addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE);
-            addNewDocument.setOnMouseEntered(_ -> addNewDocument.setStyle(HOVERED_MAIN_BUTTON_STYLE));
-            addNewDocument.setOnMouseExited(_ -> addNewDocument.setStyle(IDLE_MAIN_BUTTON_STYLE));
-        } else {
+        if (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")) != SearchBook.SEARCH_ALL_DOCUMENT) {
             addNewDocument.setDisable(true);
             addNewDocument.setVisible(false);
         }
@@ -289,7 +269,7 @@ public class SearchScreenController {
         gridPane.setHgap(10);
 
         ImageView imageView = new ImageView();
-        imageView.setImage(new Image(Objects.requireNonNull(Main.class.getResource("risk-icon.png")).toString()));
+        imageView.setImage(new Image(Objects.requireNonNull(Main.class.getResource("icon/risk-icon.png")).toString()));
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
         gridPane.add(imageView, 0, 0);
