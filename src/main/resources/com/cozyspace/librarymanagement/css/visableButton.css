@@ -5,4 +5,9 @@
     -fx-text-alignment: center;
     -fx-background-color:  #EE9923;
     -fx-background-size: 100%;
+    -fx-background-radius: 10;
+    -fx-width: fit-content;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
 }

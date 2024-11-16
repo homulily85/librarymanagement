@@ -1,0 +1,57 @@
+.text-field {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-border-color: black;
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+    -fx-font-family: Verdana;
+    -fx-font-size: 13;
+}
+
+#button1 {
+    -fx-font-size: 10;
+    -fx-font-family: "Verdana";
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-background-color:  #EE9923;
+    -fx-background-size: 100%;
+    -fx-width: fit-content;
+}
+
+#button2 {
+    -fx-font-size: 10;
+    -fx-font-family: "Verdana";
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-background-color:  #EE9923;
+    -fx-background-size: 100%;
+    -fx-background-radius: 20;
+    -fx-width: fit-content;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+}
+.text {
+    -fx-font-size: 15;
+    -fx-font-family: "Verdana";
+    -fx-text-alignment: left;
+}
+.text-area {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 13;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-border-color: black;
+    -fx-background-radius: 10;
+    -fx-background-color: white;
+}
+#anchorPane1 {
+    -fx-background-color:  #EE9923;
+}
+.image-view {
+    -fx-row-valignment: top;
+    -fx-column-halignment: center;
+}
+.grid-pane {
+    -fx-background-color: ;
+}
