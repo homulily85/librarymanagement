@@ -1,11 +1,15 @@
 package com.cozyspace.librarymanagement.user;
 
+import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
+import com.cozyspace.librarymanagement.datasource.Datasource;
+import javafx.collections.ObservableList;
+
 public final class Member extends User {
 
     private static Member instance = null;
 
-    private Member(String name, String address, String email, String phone) {
-        super(name, address, email, phone);
+    private Member(String name, String address, String email, String phone, String avatar, String username) {
+        super(name, address, email, phone, avatar, username);
     }
 
     /**
@@ -25,9 +29,9 @@ public final class Member extends User {
     /**
      * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Member nào tồn tại.
      */
-    static void createNewInstance(String name, String address, String email, String phone) {
+    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username) {
         if (isInstanceExist()) throw new RuntimeException("Member instance exists");
-        instance = new Member(name, address, email, phone);
+        instance = new Member(name, address, email, phone, avatar, username);
     }
 
     /**
@@ -48,5 +52,9 @@ public final class Member extends User {
      * Trả tài liệu
      */
     public void returnDocument() {
+    }
+
+    public ObservableList<BorrowRequestRecord> getBorrowRequestRecords() {
+        return Datasource.getBorrowRequestByMember(info.getUsername());
     }
 }

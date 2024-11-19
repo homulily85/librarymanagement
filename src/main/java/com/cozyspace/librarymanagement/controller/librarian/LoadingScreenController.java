@@ -36,7 +36,7 @@ public class LoadingScreenController {
 
                     if (UserManager.getUserInstance() instanceof Member) {
                         try {
-                            root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/member_main_screen.fxml")));
+                            root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/member/member_main_screen.fxml")));
                             DataTransfer.getInstance().getDataMap().put("searchMode", Integer.toString(SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT));
                         } catch (IOException e) {
                             e.printStackTrace();
