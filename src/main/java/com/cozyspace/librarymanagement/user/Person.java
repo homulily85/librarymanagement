@@ -5,17 +5,21 @@ public final class Person {
     private String address;
     private String email;
     private String phone;
+    private String avatar;
+    private final String username;
 
     public static int PERSON_NAME_FIELD_INDEX = 0;
     public static int PERSON_ADDRESS_FIELD_INDEX = 1;
     public static int PERSON_EMAIL_FIELD_INDEX = 2;
     public static int PERSON_PHONE_FIELD_INDEX = 3;
 
-    public Person(String name, String address, String email, String phone) {
+    public Person(String name, String address, String email, String phone, String avatar, String username) {
         this.name = name;
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.avatar = avatar;
+        this.username = username;
     }
 
     public String getName() {
@@ -48,5 +52,17 @@ public final class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

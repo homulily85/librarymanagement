@@ -83,10 +83,18 @@ public class BorrowRequestRecord {
         this.borrowDate = borrowDate;
     }
 
+    @Override
+    public String toString() {
+        return "BorrowRequestRecord{" +
+               "documentTittle='" + documentTittle + '\'' +
+               '}';
+    }
+
     public static class BorrowRequestStatus {
         public static final String PENDING = "Đang chờ xử lí";
         public static final String BORROWED = "Đang mượn";
         public static final String RETURNED = "Đã trả";
         public static final String CANCELLED = "Đã hủy";
     }
+
 }

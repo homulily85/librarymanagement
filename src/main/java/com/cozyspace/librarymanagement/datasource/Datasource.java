@@ -1,6 +1,5 @@
 package com.cozyspace.librarymanagement.datasource;
 
-import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.password4j.Hash;
@@ -40,6 +39,8 @@ public final class Datasource {
     public static final int TABLE_ACCOUNT_INDEX_COLUMN_PHONE = 6;
     public static final String TABLE_ACCOUNT_COLUMN_ROLE = "role";
     public static final int TABLE_ACCOUNT_INDEX_COLUMN_ROLE = 7;
+    public static final String TABLE_ACCOUNT_COLUMN_AVATAR = "avatar";
+    public static final int TABLE_ACCOUNT_INDEX_COLUMN_AVATAR = 8;
 
     public static final String TABLE_DOCUMENT = "document";
     public static final String TABLE_DOCUMENT_COLUMN_ID = "id";
@@ -131,6 +132,7 @@ public final class Datasource {
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_PHONE));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ROLE));
+                result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_AVATAR));
             }
             resultSet.close();
             query.close();
@@ -612,6 +614,25 @@ public final class Datasource {
                     .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID));
             preparedStatement.setInt(1, id);
             return getDocuments(preparedStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> getBorrowRequestByMember(String username) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s)
+                    where %s.%s = ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
+                            TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_USERNAME));
+            query.setString(1, username);
+            return getBorrowRequestRecord(query);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
