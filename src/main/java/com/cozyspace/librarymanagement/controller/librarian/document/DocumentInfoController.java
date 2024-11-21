@@ -11,6 +11,8 @@ import java.util.Objects;
 
 public class DocumentInfoController {
     @FXML
+    private Label documentISBN;
+    @FXML
     private ImageView coverPage;
     @FXML
     private Label documentSubject;
@@ -32,6 +34,7 @@ public class DocumentInfoController {
         documentQuantity.setText(documentQuantity.getText() + document.getQuantity());
         documentDescription.setText(documentDescription.getText() + document.getDescription());
         documentSubject.setText(documentSubject.getText() + document.getSubject());
+        documentISBN.setText(documentISBN.getText() + document.getISBN());
         if (!(document.getCoverPageLocation() == null)) {
             coverPage.setImage(new Image(Objects.requireNonNull(
                     Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));

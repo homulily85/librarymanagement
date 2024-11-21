@@ -31,4 +31,15 @@ public class MemberMainScreenController {
         }
         main.setCenter(homeView);
     }
+
+    public void loadDocument(){
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/member/document/document_main_screen.fxml"));
+        Pane documentView = null;
+        try {
+            documentView = loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        main.setCenter(documentView);
+    }
 }

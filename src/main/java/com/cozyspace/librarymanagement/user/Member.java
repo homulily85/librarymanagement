@@ -1,6 +1,7 @@
 package com.cozyspace.librarymanagement.user;
 
 import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
+import com.cozyspace.librarymanagement.datasource.Comment;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import javafx.collections.ObservableList;
 
@@ -48,13 +49,11 @@ public final class Member extends User {
 
     }
 
-    /**
-     * Trả tài liệu
-     */
-    public void returnDocument() {
-    }
-
     public ObservableList<BorrowRequestRecord> getBorrowRequestRecords() {
         return Datasource.getBorrowRequestByMember(info.getUsername());
+    }
+
+    public ObservableList<Comment> getCommentByDocumentID(int documentID) {
+        return Datasource.getCommentByDocumentId(documentID);
     }
 }

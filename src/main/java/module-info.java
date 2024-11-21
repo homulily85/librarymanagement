@@ -22,4 +22,6 @@ module com.cozyspace.librarymanagement {
     opens com.cozyspace.librarymanagement.controller.librarian.document to javafx.fxml;
     exports com.cozyspace.librarymanagement.controller.member;
     opens com.cozyspace.librarymanagement.controller.member to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.member.document;
+    opens com.cozyspace.librarymanagement.controller.member.document to javafx.fxml;
 }

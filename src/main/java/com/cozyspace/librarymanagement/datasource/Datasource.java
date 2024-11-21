@@ -83,6 +83,16 @@ public final class Datasource {
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS = 8;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_QUANTITY = 9;
 
+    public static final String TABLE_COMMENT = "comment";
+    public static final String TABLE_COMMENT_COLUMN_USERNAME = "username";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_USERNAME = 1;
+    public static final String TABLE_COMMENT_COLUMN_DOCUMENT_ID = "document_id";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID = 2;
+    public static final String TABLE_COMMENT_COLUMN_COMMENT = "comment";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_COMMENT = 3;
+    public static final String TABLE_COMMENT_COLUMN_TIME = "time";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_TIME = 4;
+
     private static Connection connection = null;
 
     /**
@@ -638,4 +648,27 @@ public final class Datasource {
             return null;
         }
     }
+
+    public static ObservableList<Comment> getCommentByDocumentId(int documentId) {
+        try {
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s = ?"
+                    .formatted(TABLE_COMMENT, TABLE_COMMENT_COLUMN_DOCUMENT_ID));
+            query.setInt(1, documentId);
+            ResultSet resultSet = query.executeQuery();
+            ObservableList<Comment> result = FXCollections.observableList(new ArrayList<>());
+            while (resultSet.next()) {
+                result.add(new Comment(resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_USERNAME),
+                        resultSet.getInt(TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID),
+                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_COMMENT),
+                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_TIME)));
+            }
+            resultSet.close();
+            query.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

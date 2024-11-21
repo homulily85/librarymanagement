@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<VBox prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cozyspace.librarymanagement.controller.member.document.CommentController">
+    <HBox>
+        <Label fx:id="author" text="Name">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+        <Label fx:id="time" layoutX="10.0" layoutY="10.0" text="date">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
+    </HBox>
+    <Label fx:id="content" text="des">
+        <font>
+            <Font size="16.0"/>
+        </font>
+    </Label>
+    <Line endX="800.0" strokeWidth="3.0"/>
+
+</VBox>

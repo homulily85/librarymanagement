@@ -46,7 +46,7 @@
                 </JFXButton>
                 <JFXButton mnemonicParsing="false" prefHeight="69.0" prefWidth="171.0"
                            stylesheets="@../../css/button_type_1.css" text="Tài liệu" textFill="#fdff9e"
-                           GridPane.rowIndex="1">
+                           GridPane.rowIndex="1" onAction="#loadDocument">
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0">
                             <Image url="@../../icon/bookicon.png"/>

@@ -62,8 +62,8 @@
             <Font name="Verdana" size="35.0"/>
         </font>
     </Text>
-    <Text fill="#ee9923" layoutX="692.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu chưa trả"
-          textAlignment="CENTER">
+    <Text fill="#ee9923" layoutX="692.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Tài liệu đang mượn" textAlignment="CENTER">
         <font>
             <Font name="Verdana" size="25.0"/>
         </font>
@@ -76,7 +76,7 @@
                 <Font name="System Bold" size="30.0"/>
             </font>
         </Label>
-        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="105.0" text="Yêu cầu đang chờ"
+        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="109.0" text="Tài liệu đã yêu cầu"
                textFill="WHITE" wrapText="true">
             <font>
                 <Font size="20.0"/>
@@ -91,7 +91,7 @@
                 <Font name="System Bold" size="30.0"/>
             </font>
         </Label>
-        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="149.0" text="Tài liệu chưa trả"
+        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="109.0" text="Tài liệu đang mượn"
                textFill="WHITE" wrapText="true">
             <font>
                 <Font size="20.0"/>
