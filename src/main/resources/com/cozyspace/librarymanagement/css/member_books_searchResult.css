@@ -46,20 +46,5 @@
     -fx-background-color: white;
 }
 #anchorPane1 {
-    -fx-background-color:  #EE9923;
-}
-.grid-pane {
-    -fx-padding: 10;
-    -fx-hgap: 15;
-    -fx-vgap: 15;
-    -fx-background-color: #ffffff;
-    -fx-border-color: #dddddd;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
-}
-.image-view {
-    -fx-row-valignment: top;
-    -fx-fit-to-width: 140;
-    -fx-fit-to-height: 95;
+    -fx-background-color: #EE9923;
 }
