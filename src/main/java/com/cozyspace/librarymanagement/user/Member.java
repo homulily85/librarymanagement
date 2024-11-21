@@ -5,6 +5,9 @@ import com.cozyspace.librarymanagement.datasource.Comment;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public final class Member extends User {
 
     private static Member instance = null;
@@ -45,8 +48,10 @@ public final class Member extends User {
     /**
      * Mượn tài liệu
      */
-    public void borrowDocument() {
-
+    public void createNewBorrowRequest(int documentID, int quantity, int numberOfDays) {
+        Datasource.createNewBorrowRequest(info.getUsername(), documentID, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                null, null, LocalDate.now().plusDays(numberOfDays).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
+                BorrowRequestRecord.BorrowRequestStatus.PENDING);
     }
 
     public ObservableList<BorrowRequestRecord> getBorrowRequestRecords() {
@@ -56,4 +61,12 @@ public final class Member extends User {
     public ObservableList<Comment> getCommentByDocumentID(int documentID) {
         return Datasource.getCommentByDocumentId(documentID);
     }
+
+    public Comment createNewComment(int documentID, String comment) {
+        new Thread(
+                () -> Datasource.createNewComment(info.getUsername(), documentID, comment,
+                        LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))).start();
+        return new Comment(info.getUsername(), documentID, comment, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+    }
 }
+

@@ -32,9 +32,9 @@
         </ImageView>
     </AnchorPane>
     <JFXTextField layoutX="174.0" layoutY="116.0" prefHeight="26.0" prefWidth="643.0"
-                  text="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ...">
+                  promptText="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ..." focusColor="#9f6d1d">
         <font>
-            <Font name="System Italic" size="12.0"/>
+            <Font name="System" size="12.0"/>
         </font>
     </JFXTextField>
     <Button layoutX="834.0" layoutY="117.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0"/>
@@ -50,11 +50,11 @@
     </Text>
     <Pane fx:id="day1" layoutX="62.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageDay1" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameDay1" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -63,11 +63,11 @@
     </Pane>
     <Pane fx:id="day2" layoutX="258.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageDay2" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameDay2" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -76,11 +76,11 @@
     </Pane>
     <Pane fx:id="day3" layoutX="454.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageDay3" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameDay3" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -89,11 +89,11 @@
     </Pane>
     <Pane fx:id="day4" layoutX="650.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageDay4" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameDay4" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -102,11 +102,11 @@
     </Pane>
     <Pane fx:id="day5" layoutX="846.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageDay5" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameDay5" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -121,11 +121,11 @@
     </Text>
     <Pane fx:id="hot1" layoutX="62.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageHot1" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameHot1" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -134,11 +134,11 @@
     </Pane>
     <Pane fx:id="hot2" layoutX="258.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageHot2" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameHot2" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -147,11 +147,11 @@
     </Pane>
     <Pane fx:id="hot3" layoutX="454.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageHot3" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameHot3" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -160,11 +160,11 @@
     </Pane>
     <Pane fx:id="hot4" layoutX="650.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageHot4" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true" style="-fx-alignment: center">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameHot4" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>
@@ -173,11 +173,11 @@
     </Pane>
     <Pane fx:id="hot5" layoutX="846.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
           stylesheets="@../../../css/pane2.css">
-        <ImageView fx:id="imageHot5" fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+        <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@../../../icon/coverart.png"/>
         </ImageView>
-        <Label fx:id="nameHot5" layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
+        <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" text="Tên" wrapText="true"
                textAlignment="CENTER" style="-fx-alignment: center">
             <font>
                 <Font size="15.0"/>

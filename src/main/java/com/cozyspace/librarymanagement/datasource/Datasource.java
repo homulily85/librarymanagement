@@ -88,8 +88,8 @@ public final class Datasource {
     public static final int TABLE_COMMENT_INDEX_COLUMN_USERNAME = 1;
     public static final String TABLE_COMMENT_COLUMN_DOCUMENT_ID = "document_id";
     public static final int TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID = 2;
-    public static final String TABLE_COMMENT_COLUMN_COMMENT = "comment";
-    public static final int TABLE_COMMENT_INDEX_COLUMN_COMMENT = 3;
+    public static final String TABLE_COMMENT_COLUMN_CONTENT = "content";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_CONTENT = 3;
     public static final String TABLE_COMMENT_COLUMN_TIME = "time";
     public static final int TABLE_COMMENT_INDEX_COLUMN_TIME = 4;
 
@@ -659,7 +659,7 @@ public final class Datasource {
             while (resultSet.next()) {
                 result.add(new Comment(resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_USERNAME),
                         resultSet.getInt(TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID),
-                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_COMMENT),
+                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_CONTENT),
                         resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_TIME)));
             }
             resultSet.close();
@@ -671,4 +671,22 @@ public final class Datasource {
         }
     }
 
+    public static void createNewComment(String username, int documentId, String comment, String time) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    insert into %s (%s, %s, %s, %s)
+                    values (?,? ,? ,?);
+                    """
+                    .formatted(TABLE_COMMENT, TABLE_COMMENT_COLUMN_USERNAME, TABLE_COMMENT_COLUMN_DOCUMENT_ID,
+                            TABLE_COMMENT_COLUMN_CONTENT, TABLE_COMMENT_COLUMN_TIME));
+            query.setString(1, username);
+            query.setInt(2, documentId);
+            query.setString(3, comment);
+            query.setString(4, time);
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

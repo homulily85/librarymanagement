@@ -249,11 +249,6 @@ public class BorrowRequestManagementController {
             return;
         }
 
-
-//        Dialog<ButtonType> dialog = new Dialog<>();
-//        dialog.initOwner(table.getScene().getWindow());
-//        dialog.setTitle("Gia hạn hạn trả");
-//
         JFXDialogLayout content = new JFXDialogLayout();
         var heading = new Label("Thay đổi trạng thái");
         heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
