@@ -24,69 +24,29 @@ import java.util.Random;
 
 public class DocumentMainScreenController {
     @FXML
-    private ImageView imageHot2;
-    @FXML
-    private Label nameDay2;
-    @FXML
     private Text nameLabel;
     @FXML
     private ImageView avatar;
     @FXML
     private Pane day1;
     @FXML
-    private ImageView imageDay1;
-    @FXML
-    private Label nameDay1;
-    @FXML
     private Pane day2;
-    @FXML
-    private ImageView imageDay2;
     @FXML
     private Pane day3;
     @FXML
-    private ImageView imageDay3;
-    @FXML
-    private Label nameDay3;
-    @FXML
     private Pane day4;
-    @FXML
-    private ImageView imageDay4;
-    @FXML
-    private Label nameDay4;
     @FXML
     private Pane day5;
     @FXML
-    private ImageView imageDay5;
-    @FXML
-    private Label nameDay5;
-    @FXML
     private Pane hot1;
-    @FXML
-    private ImageView imageHot1;
-    @FXML
-    private Label nameHot1;
     @FXML
     private Pane hot2;
     @FXML
-    private Label nameHot2;
-    @FXML
     private Pane hot3;
-    @FXML
-    private ImageView imageHot3;
-    @FXML
-    private Label nameHot3;
     @FXML
     private Pane hot4;
     @FXML
-    private ImageView imageHot4;
-    @FXML
-    private Label nameHot4;
-    @FXML
     private Pane hot5;
-    @FXML
-    private ImageView imageHot5;
-    @FXML
-    private Label nameHot5;
 
     public void initialize() {
         Pane[] dayPanes = {day1, day2, day3, day4, day5};
@@ -110,27 +70,13 @@ public class DocumentMainScreenController {
 
         var sortedData = data.stream().sorted((o1, o2) -> o2.getQuantity() - o1.getQuantity()).toList();
 
-//        setDocumentPane(imageDay1, nameDay1, data.get(temp.get(0)));
-//        setDocumentPane(imageDay2, nameDay2, data.get(temp.get(1)));
-//        setDocumentPane(imageDay3, nameDay3, data.get(temp.get(2)));
-//        setDocumentPane(imageDay4, nameDay4, data.get(temp.get(3)));
-//        setDocumentPane(imageDay5, nameDay5, data.get(temp.get(4)));
-//
-//
-//        setDocumentPane(imageHot1, nameHot1, sortedData.get(0));
-//        setDocumentPane(imageHot2, nameHot2, sortedData.get(1));
-//        setDocumentPane(imageHot3, nameHot3, sortedData.get(2));
-//        setDocumentPane(imageHot4, nameHot4, sortedData.get(3));
-//        setDocumentPane(imageHot5, nameHot5, sortedData.get(4));
-
-
         for (int i = 0; i < 5; i++) {
             setDocumentPane((ImageView) dayPanes[i].getChildren().get(0), (Label) dayPanes[i].getChildren().get(1),
                     data.get(temp.get(i)));
 
             int current = i;
 
-            dayPanes[i].setOnMouseClicked(event -> {
+            dayPanes[i].setOnMouseClicked(_ -> {
                 DataTransfer.getInstance().setCurrentDocument(data.get(temp.get(current)));
                 Stage newStage = new Stage();
 
@@ -158,7 +104,7 @@ public class DocumentMainScreenController {
             setDocumentPane((ImageView) hotPanes[i].getChildren().get(0), (Label) hotPanes[i].getChildren().get(1),
                     sortedData.get(i));
 
-            hotPanes[i].setOnMouseClicked(event -> {
+            hotPanes[i].setOnMouseClicked(_ -> {
                 DataTransfer.getInstance().setCurrentDocument(sortedData.get(current));
                 Stage newStage = new Stage();
 
