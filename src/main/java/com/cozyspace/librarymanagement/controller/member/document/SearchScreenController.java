@@ -3,19 +3,26 @@ package com.cozyspace.librarymanagement.controller.member.document;
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
+import com.cozyspace.librarymanagement.datasource.GoogleBooksAPI;
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -26,6 +33,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SearchScreenController {
+    @FXML
+    private StackPane mainStackPane;
     @FXML
     private Button searchButton;
     @FXML
@@ -68,6 +77,14 @@ public class SearchScreenController {
                                     document.getAuthor().toLowerCase().contains(DataTransfer.getInstance().getDataMap().get("keyword").toLowerCase()) ||
                                     (document.getISBN() != null && document.getISBN().equals(DataTransfer.getInstance().getDataMap().get("keyword"))))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        if (result.isEmpty()) {
+            try {
+                result = GoogleBooksAPI.query(DataTransfer.getInstance().getDataMap().get("keyword"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         for (Document document : result) {
             HBox documentCard = new HBox();
@@ -144,7 +161,33 @@ public class SearchScreenController {
 
     public void searchButtonClicked() {
         DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText());
-        search();
+        JFXDialogLayout content = new JFXDialogLayout();
+        var heading = new Label("Đang tìm kiếm...");
+        heading.setStyle("-fx-font-size: 20;-fx-font-weight: bold");
+        content.setHeading(heading);
+
+        JFXDialog dialog = new JFXDialog(mainStackPane, content, JFXDialog.DialogTransition.CENTER);
+        dialog.show();
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+                dialog.close();
+                Platform.runLater(() -> {
+                    DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText());
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/member/document/search_screen.fxml"));
+                    try {
+                        StackPane searchScreen = fxmlLoader.load();
+                        Parent parent = mainStackPane.getParent();
+                        ((BorderPane) parent).setCenter(searchScreen);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
 }

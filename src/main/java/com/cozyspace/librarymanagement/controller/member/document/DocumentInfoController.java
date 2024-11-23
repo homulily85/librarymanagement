@@ -10,6 +10,7 @@ import com.jfoenix.controls.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,6 +23,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class DocumentInfoController {
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -86,10 +89,13 @@ public class DocumentInfoController {
             commentSection.getChildren().add(temp);
         }
 
+        System.out.println(scrollPane.getVvalue());
+        scrollPane.setVvalue(1);
+        System.out.println(scrollPane.getVvalue());
+
     }
 
     public void createNewBorrowRequest() {
-
         ObservableList<BorrowRequestRecord> borrowRequestRecords = ((Member) UserManager.getUserInstance()).getBorrowRequestRecords();
         if (borrowRequestRecords.stream().anyMatch(i -> i.getDocumentId() == DataTransfer.getInstance().getCurrentDocument().getId()
                                                         && i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.PENDING))) {
@@ -100,6 +106,11 @@ public class DocumentInfoController {
         if (borrowRequestRecords.stream().anyMatch(i -> i.getDocumentId() == DataTransfer.getInstance().getCurrentDocument().getId()
                                                         && i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED))) {
             Notifications.create().title("Lỗi").text("Bạn đang mượn tài liệu này!").showError();
+            return;
+        }
+
+        if (DataTransfer.getInstance().getCurrentDocument().getQuantity() == 0) {
+            Notifications.create().title("Lỗi").text("Tài liệu này đã hết!").showError();
             return;
         }
 
@@ -173,6 +184,8 @@ public class DocumentInfoController {
         content.setBody(commentField);
 
         JFXButton submit = new JFXButton("Đăng nhận xét");
+        String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
+        submit.getStylesheets().add(css);
 
         content.setActions(submit);
 
@@ -187,7 +200,6 @@ public class DocumentInfoController {
 
             Comment comment = ((Member) UserManager.getUserInstance()).createNewComment(DataTransfer.getInstance()
                     .getCurrentDocument().getId(), commentField.getText());
-
 
             VBox temp = new VBox();
             Label username = new Label(comment.getUsername());

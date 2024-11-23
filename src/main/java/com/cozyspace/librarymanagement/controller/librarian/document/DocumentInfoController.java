@@ -29,6 +29,7 @@ public class DocumentInfoController {
     private Label documentDescription;
 
     public void setInfo(Document document) {
+        documentTitle.setText(DataTransfer.getInstance().getCurrentDocument().getTitle());
         documentAuthor.setText(documentAuthor.getText() + (DataTransfer.getInstance().getCurrentDocument().getAuthor() == null ?
                 "" : DataTransfer.getInstance().getCurrentDocument().getAuthor()));
         documentISBN.setText(documentISBN.getText() + (DataTransfer.getInstance().getCurrentDocument().getISBN() == null ?
