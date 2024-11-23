@@ -120,6 +120,7 @@ public final class Librarian extends User implements SearchMember {
         return Datasource.getDocumentById(id);
     }
 
+    @Override
     public void createNewBorrowRequest(String username, int documentId, int quantity, String dueDate) {
         Datasource.createNewBorrowRequest(username, documentId, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null, dueDate, BorrowRequestRecord.BorrowRequestStatus.BORROWED);

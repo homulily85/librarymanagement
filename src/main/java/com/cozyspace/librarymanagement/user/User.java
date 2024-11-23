@@ -36,4 +36,9 @@ public abstract class User implements SearchBook {
         return Datasource.viewAllDocument(mode);
     }
 
+    /**
+     * Mượn tài liệu
+     */
+    public abstract void createNewBorrowRequest(String username, int documentID, int quantity, String dueDate);
+
 }

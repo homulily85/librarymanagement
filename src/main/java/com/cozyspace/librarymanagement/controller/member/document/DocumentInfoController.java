@@ -150,8 +150,9 @@ public class DocumentInfoController {
             }
             Notifications.create().title("Thành công").text("Yêu cầu mượn sách đã được gửi").showInformation();
 
-            new Thread(() -> ((Member) UserManager.getUserInstance()).createNewBorrowRequest(DataTransfer.getInstance().getCurrentDocument().getId(),
-                    Integer.parseInt(quantityField.getText()), numberOfBorrowDateField.getValue())).start();
+            new Thread(() -> UserManager.getUserInstance().createNewBorrowRequest(UserManager.getUserInstance().getInfo().getUsername()
+                    , DataTransfer.getInstance().getCurrentDocument().getId(), Integer.parseInt(quantityField.getText()),
+                    LocalDate.now().plusDays(numberOfBorrowDateField.getValue()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))).start();
 
             dialog.close();
         });

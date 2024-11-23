@@ -45,13 +45,10 @@ public final class Member extends User {
         instance = null;
     }
 
-    /**
-     * Mượn tài liệu
-     */
-    public void createNewBorrowRequest(int documentID, int quantity, int numberOfDays) {
+    @Override
+    public void createNewBorrowRequest(String username, int documentID, int quantity, String dueDate) {
         Datasource.createNewBorrowRequest(info.getUsername(), documentID, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-                null, null, LocalDate.now().plusDays(numberOfDays).format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
-                BorrowRequestRecord.BorrowRequestStatus.PENDING);
+                null, null, dueDate, BorrowRequestRecord.BorrowRequestStatus.PENDING);
     }
 
     public ObservableList<BorrowRequestRecord> getBorrowRequestRecords() {

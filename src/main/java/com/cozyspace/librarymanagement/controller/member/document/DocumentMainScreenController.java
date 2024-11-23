@@ -4,13 +4,19 @@ import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.UserManager;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -23,6 +29,14 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DocumentMainScreenController {
+    @FXML
+    private ImageView searchImage;
+    @FXML
+    private AnchorPane mainA;
+    @FXML
+    private Button searchButton;
+    @FXML
+    private JFXTextField searchField;
     @FXML
     private Text nameLabel;
     @FXML
@@ -49,6 +63,9 @@ public class DocumentMainScreenController {
     private Pane hot5;
 
     public void initialize() {
+        searchButton.disableProperty().bind(searchField.textProperty().isEmpty());
+        searchImage.disableProperty().bind(searchField.textProperty().isEmpty());
+
         Pane[] dayPanes = {day1, day2, day3, day4, day5};
         Pane[] hotPanes = {hot1, hot2, hot3, hot4, hot5};
 
@@ -140,5 +157,17 @@ public class DocumentMainScreenController {
                     .getResource("book_cover/" + document.getCoverPageLocation())).toString()));
         }
         label.setText(document.getTitle());
+    }
+
+    public void search() {
+        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText());
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("fxml/member/document/search_screen.fxml"));
+        try {
+            ScrollPane searchScreen = fxmlLoader.load();
+            Parent parent = mainA.getParent();
+            ((BorderPane) parent).setCenter(searchScreen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

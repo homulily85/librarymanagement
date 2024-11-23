@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="720.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/17.0.12"
+<AnchorPane fx:id="mainA" prefHeight="720.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentMainScreenController">
     <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
@@ -31,15 +31,16 @@
             <Image url="@../../../icon/notification.png"/>
         </ImageView>
     </AnchorPane>
-    <JFXTextField layoutX="174.0" layoutY="116.0" prefHeight="26.0" prefWidth="643.0"
+    <JFXTextField fx:id="searchField" layoutX="174.0" layoutY="116.0" prefHeight="26.0" prefWidth="643.0"
                   promptText="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ..." focusColor="#9f6d1d">
         <font>
             <Font name="System" size="12.0"/>
         </font>
     </JFXTextField>
-    <Button layoutX="834.0" layoutY="117.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0"/>
-    <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="840.0" layoutY="119.0" pickOnBounds="true"
-               preserveRatio="true">
+    <Button fx:id="searchButton" layoutX="834.0" layoutY="117.0" mnemonicParsing="false" prefHeight="26.0"
+            prefWidth="33.0" onAction="#search"/>
+    <ImageView fx:id="searchImage" fitHeight="26.0" fitWidth="22.0" layoutX="840.0" layoutY="119.0" pickOnBounds="true"
+               preserveRatio="true" onMouseClicked="#search">
         <Image url="@../../../icon/search_icon.png"/>
     </ImageView>
     <Text fill="#ee9923" layoutX="47.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu của ngày"
