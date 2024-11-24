@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 
 public final class Librarian extends User implements SearchMember {
 
-    private Librarian(String name, String address, String email, String phone) {
-        super(name, address, email, phone);
+    private Librarian(String name, String address, String email, String phone, String avatar, String username) {
+        super(name, address, email, phone, avatar, username);
     }
 
     private static Librarian instance = null;
@@ -34,9 +34,9 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Librarian nào tồn tại.
      */
-    static void createNewInstance(String name, String address, String email, String phone) {
+    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username) {
         if (isInstanceExist()) throw new RuntimeException("Librarian instance exists");
-        instance = new Librarian(name, address, email, phone);
+        instance = new Librarian(name, address, email, phone, avatar, username);
     }
 
     /**
@@ -120,6 +120,7 @@ public final class Librarian extends User implements SearchMember {
         return Datasource.getDocumentById(id);
     }
 
+    @Override
     public void createNewBorrowRequest(String username, int documentId, int quantity, String dueDate) {
         Datasource.createNewBorrowRequest(username, documentId, quantity, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")),
                 LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), null, dueDate, BorrowRequestRecord.BorrowRequestStatus.BORROWED);

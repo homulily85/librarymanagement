@@ -59,7 +59,7 @@ public class LoginPhase2Controller extends AccountRelatedController {
         Stage stage = (Stage) loginButton.getScene().getWindow();
 
         try {
-            root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/librarian/loading_screen.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(Main.class.getResource("fxml/loading_screen.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }

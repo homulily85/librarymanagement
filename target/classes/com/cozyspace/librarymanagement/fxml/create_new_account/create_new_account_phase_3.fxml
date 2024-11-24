@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane fx:id="createNewAccountPhase3" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
+           xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
+           fx:controller="com.cozyspace.librarymanagement.controller.create_new_account.CreateNewAccountPhase3Controller">
+    <AnchorPane minWidth="256">
+        <ImageView fitHeight="80" fitWidth="80" layoutX="25.0" layoutY="130.0">
+            <Image url="@../../icon/program_icon.png"/>
+        </ImageView>
+        <Label layoutX="25.0" layoutY="210.0" text="Thiết lập tài khoản">
+            <font>
+                <Font size="25"/>
+            </font>
+        </Label>
+        <Label layoutX="27.0" layoutY="249.0" prefWidth="175" text="Hãy thiết lập tên đăng nhập và mật khẩu của bạn"
+               wrapText="true">
+            <font>
+                <Font size="15"/>
+            </font>
+        </Label>
+    </AnchorPane>
+    <AnchorPane minWidth="544" prefHeight="493.0" prefWidth="546.0">
+        <Label layoutX="104.0" layoutY="138.0" prefHeight="28.0" prefWidth="108.0" text="Tên đăng nhập">
+            <font>
+                <Font size="15"/>
+            </font>
+        </Label>
+        <TextField fx:id="usernameField" layoutX="104.0" layoutY="166.0" prefHeight="47.0" prefWidth="350.0"/>
+        <Label layoutX="104.0" layoutY="221.0" prefHeight="28.0" prefWidth="108.0" text="Mật khẩu">
+            <font>
+                <Font size="15"/>
+            </font>
+        </Label>
+        <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="249.0" prefHeight="47.0" prefWidth="350.0"/>
+        <Label layoutX="104.0" layoutY="305.0" prefHeight="28.0" prefWidth="132.0" text="Nhập lại mật khẩu">
+            <font>
+                <Font size="15"/>
+            </font>
+        </Label>
+        <PasswordField fx:id="repeatPasswordField" layoutX="104.0" layoutY="333.0" prefHeight="47.0" prefWidth="350.0"/>
+        <Button fx:id="continueButton" defaultButton="true" layoutX="346.0" layoutY="418.0" onAction="#checkAndContinue"
+                prefHeight="36.0" prefWidth="108.0" text="Tiếp theo">
+            <font>
+                <Font size="15"/>
+            </font>
+        </Button>
+        <Label fx:id="inputPrompt" layoutX="158.0" layoutY="389.0" text="Bạn cần điền đầy đủ thông tin vào các trường"
+               textFill="#e40c0c" visible="false">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
+        <Label fx:id="usernameFailPrompt" layoutX="177.0" layoutY="389.0" text="Tên đăng nhập không đúng định dạng"
+               textFill="#e40c0c" visible="false">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
+        <Label fx:id="passwordFailPrompt" layoutX="184.0" layoutY="389.0" text="Mật khẩu không đúng định dạng"
+               textFill="#e40c0c" visible="false">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
+        <Label fx:id="resetPasswordFailPrompt" layoutX="163.0" layoutY="389.0"
+               text="Mật khẩu của hai trường không giống nhau" textFill="#e40c0c" visible="false">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
+        <Label fx:id="usernameExist" layoutX="204.0" layoutY="389.0"
+               text="Tên đăng nhập đã tồn tại" textFill="#e40c0c" visible="false">
+            <font>
+                <Font size="12"/>
+            </font>
+        </Label>
+    </AnchorPane>
+</SplitPane>

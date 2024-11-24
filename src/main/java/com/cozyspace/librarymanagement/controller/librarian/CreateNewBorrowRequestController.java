@@ -146,7 +146,7 @@ public class CreateNewBorrowRequestController {
         DataTransfer.getInstance().getCurrentDocument().setQuantity
                 (DataTransfer.getInstance().getCurrentDocument().getQuantity() - Integer.parseInt(quantityField.getText()));
 
-        ((Librarian) UserManager.getUserInstance()).createNewBorrowRequest(
+        UserManager.getUserInstance().createNewBorrowRequest(
                 memberTable.getSelectionModel().getSelectedItem().getUsername(),
                 documentTable.getSelectionModel().getSelectedItem().getId(),
                 Integer.parseInt(quantityField.getText()),

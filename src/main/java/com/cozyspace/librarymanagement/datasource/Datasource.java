@@ -1,6 +1,5 @@
 package com.cozyspace.librarymanagement.datasource;
 
-import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.password4j.Hash;
@@ -40,6 +39,8 @@ public final class Datasource {
     public static final int TABLE_ACCOUNT_INDEX_COLUMN_PHONE = 6;
     public static final String TABLE_ACCOUNT_COLUMN_ROLE = "role";
     public static final int TABLE_ACCOUNT_INDEX_COLUMN_ROLE = 7;
+    public static final String TABLE_ACCOUNT_COLUMN_AVATAR = "avatar";
+    public static final int TABLE_ACCOUNT_INDEX_COLUMN_AVATAR = 8;
 
     public static final String TABLE_DOCUMENT = "document";
     public static final String TABLE_DOCUMENT_COLUMN_ID = "id";
@@ -81,6 +82,16 @@ public final class Datasource {
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_DUE_DATE = 7;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_STATUS = 8;
     public static final int TABLE_BORROW_REQUEST_INDEX_COLUMN_QUANTITY = 9;
+
+    public static final String TABLE_COMMENT = "comment";
+    public static final String TABLE_COMMENT_COLUMN_USERNAME = "username";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_USERNAME = 1;
+    public static final String TABLE_COMMENT_COLUMN_DOCUMENT_ID = "document_id";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID = 2;
+    public static final String TABLE_COMMENT_COLUMN_CONTENT = "content";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_CONTENT = 3;
+    public static final String TABLE_COMMENT_COLUMN_TIME = "time";
+    public static final int TABLE_COMMENT_INDEX_COLUMN_TIME = 4;
 
     private static Connection connection = null;
 
@@ -131,6 +142,7 @@ public final class Datasource {
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_PHONE));
                 result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ROLE));
+                result.add(resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_AVATAR));
             }
             resultSet.close();
             query.close();
@@ -615,6 +627,66 @@ public final class Datasource {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static ObservableList<BorrowRequestRecord> getBorrowRequestByMember(String username) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    select *
+                    from (%s join %s on %s.%s= %s.%s)
+                             join %s using (%s)
+                    where %s.%s = ?;
+                    """
+                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
+                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
+                            TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_USERNAME));
+            query.setString(1, username);
+            return getBorrowRequestRecord(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ObservableList<Comment> getCommentByDocumentId(int documentId) {
+        try {
+            PreparedStatement query = connection.prepareStatement("select * from %s where %s = ?"
+                    .formatted(TABLE_COMMENT, TABLE_COMMENT_COLUMN_DOCUMENT_ID));
+            query.setInt(1, documentId);
+            ResultSet resultSet = query.executeQuery();
+            ObservableList<Comment> result = FXCollections.observableList(new ArrayList<>());
+            while (resultSet.next()) {
+                result.add(new Comment(resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_USERNAME),
+                        resultSet.getInt(TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID),
+                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_CONTENT),
+                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_TIME)));
+            }
+            resultSet.close();
+            query.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void createNewComment(String username, int documentId, String comment, String time) {
+        try {
+            PreparedStatement query = connection.prepareStatement("""
+                    insert into %s (%s, %s, %s, %s)
+                    values (?,? ,? ,?);
+                    """
+                    .formatted(TABLE_COMMENT, TABLE_COMMENT_COLUMN_USERNAME, TABLE_COMMENT_COLUMN_DOCUMENT_ID,
+                            TABLE_COMMENT_COLUMN_CONTENT, TABLE_COMMENT_COLUMN_TIME));
+            query.setString(1, username);
+            query.setInt(2, documentId);
+            query.setString(3, comment);
+            query.setString(4, time);
+            query.executeUpdate();
+            query.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

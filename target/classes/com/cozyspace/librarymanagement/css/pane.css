@@ -1,0 +1,8 @@
+.pane{
+    -fx-background-color: #f39604;
+    -fx-border-vidth: 2px 2px 2px 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-style: solid;
+    -fx-border-color: #f39604;
+}

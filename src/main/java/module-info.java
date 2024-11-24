@@ -1,10 +1,12 @@
 module com.cozyspace.librarymanagement {
     requires javafx.fxml;
-    requires java.sql;
     requires password4j;
     requires java.mail;
     requires org.controlsfx.controls;
     requires com.jfoenix;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
+    requires java.sql;
 
     opens com.cozyspace.librarymanagement to javafx.fxml;
     exports com.cozyspace.librarymanagement;
@@ -20,4 +22,10 @@ module com.cozyspace.librarymanagement {
     opens com.cozyspace.librarymanagement.controller.librarian to javafx.fxml;
     exports com.cozyspace.librarymanagement.controller.librarian.document;
     opens com.cozyspace.librarymanagement.controller.librarian.document to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.member;
+    opens com.cozyspace.librarymanagement.controller.member to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.member.document;
+    opens com.cozyspace.librarymanagement.controller.member.document to javafx.fxml;
+    exports com.cozyspace.librarymanagement.controller.game;
+    opens com.cozyspace.librarymanagement.controller.game to javafx.fxml;
 }

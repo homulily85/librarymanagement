@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane fx:id="main" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.cozyspace.librarymanagement.controller.game.ChooseGameController">
+    <center>
+        <VBox alignment="CENTER" spacing="10">
+            <Label text="Game Guess Book!" style="-fx-font-size: 36px; -fx-font-weight: bold;" />
+            <Button text="Sẵn sàng" onAction="#loadGameGuessBook" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        </VBox>
+    </center>
+</BorderPane>

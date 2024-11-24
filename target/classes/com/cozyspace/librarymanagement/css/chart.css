@@ -1,0 +1,30 @@
+.chart-title {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 16px;
+    -fx-text-fill: #EE9923;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+    -fx-font-family: "Verdana";
+    -fx-font-size: 16px;
+}
+
+.chart-bar {
+    -fx-bar-fill: lightseagreen;
+}
+
+.chart-bar:hover {
+    -fx-bar-fill: darkseagreen;
+}
+
+.axis-label {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 16px;
+    -fx-text-fill: darkslategray;
+}
+
+.axis {
+    -fx-tick-label-fill: darkslategray;
+    -fx-font-size: 14px;
+}

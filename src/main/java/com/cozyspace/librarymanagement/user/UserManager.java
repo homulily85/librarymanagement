@@ -22,10 +22,11 @@ public final class UserManager {
         String address = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS - 1);
         String email = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1);
         String phone = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1);
+        String avatar = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_AVATAR - 1);
         if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
-            Member.createNewInstance(name, address, email, phone);
+            Member.createNewInstance(name, address, email, phone, avatar, username);
         } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
-            Librarian.createNewInstance(name, address, email, phone);
+            Librarian.createNewInstance(name, address, email, phone, avatar, username);
         }
     }
 

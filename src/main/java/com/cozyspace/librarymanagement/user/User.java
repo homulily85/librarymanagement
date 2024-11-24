@@ -8,8 +8,8 @@ public abstract class User implements SearchBook {
 
     protected Person info;
 
-    User(String name, String address, String email, String phone) {
-        info = new Person(name, address, email, phone);
+    User(String name, String address, String email, String phone, String avatar, String username) {
+        info = new Person(name, address, email, phone, avatar, username);
     }
 
     public Person getInfo() {
@@ -35,5 +35,10 @@ public abstract class User implements SearchBook {
     public ObservableList<Document> viewDocument(int mode) {
         return Datasource.viewAllDocument(mode);
     }
+
+    /**
+     * Mượn tài liệu
+     */
+    public abstract void createNewBorrowRequest(String username, int documentID, int quantity, String dueDate);
 
 }

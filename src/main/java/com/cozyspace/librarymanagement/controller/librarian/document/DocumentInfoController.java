@@ -1,5 +1,6 @@
 package com.cozyspace.librarymanagement.controller.librarian.document;
 
+import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class DocumentInfoController {
+    @FXML
+    private Label documentISBN;
     @FXML
     private ImageView coverPage;
     @FXML
@@ -26,12 +29,18 @@ public class DocumentInfoController {
     private Label documentDescription;
 
     public void setInfo(Document document) {
-        documentTitle.setText(document.getTitle());
-        documentAuthor.setText(documentAuthor.getText() + document.getAuthor());
-        documentType.setText(documentType.getText() + document.getType());
-        documentQuantity.setText(documentQuantity.getText() + document.getQuantity());
-        documentDescription.setText(documentDescription.getText() + document.getDescription());
-        documentSubject.setText(documentSubject.getText() + document.getSubject());
+        documentTitle.setText(DataTransfer.getInstance().getCurrentDocument().getTitle());
+        documentAuthor.setText(documentAuthor.getText() + (DataTransfer.getInstance().getCurrentDocument().getAuthor() == null ?
+                "" : DataTransfer.getInstance().getCurrentDocument().getAuthor()));
+        documentISBN.setText(documentISBN.getText() + (DataTransfer.getInstance().getCurrentDocument().getISBN() == null ?
+                "" : DataTransfer.getInstance().getCurrentDocument().getISBN()));
+        documentSubject.setText(documentSubject.getText() + (DataTransfer.getInstance().getCurrentDocument().getSubject() == null ?
+                "" : DataTransfer.getInstance().getCurrentDocument().getSubject()));
+        documentType.setText(documentType.getText() + (DataTransfer.getInstance().getCurrentDocument().getType() == null ?
+                "" : DataTransfer.getInstance().getCurrentDocument().getType()));
+        documentQuantity.setText(documentQuantity.getText() + (DataTransfer.getInstance().getCurrentDocument().getQuantity()));
+        documentDescription.setText((documentDescription.getText() + (DataTransfer.getInstance().getCurrentDocument().getDescription() == null ?
+                "" : DataTransfer.getInstance().getCurrentDocument().getDescription())));
         if (!(document.getCoverPageLocation() == null)) {
             coverPage.setImage(new Image(Objects.requireNonNull(
                     Main.class.getResource("book_cover/" + document.getCoverPageLocation())).toString()));

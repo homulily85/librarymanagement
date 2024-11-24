@@ -1,0 +1,21 @@
+. table-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-border-color: #f39604;
+    -fx-border-radius: 7px;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f39604;
+    -fx-border-width: 1px;
+    -fx-border-color: transparent transparent #aa7526 transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent
+}
+
+. table-view .column-header-background . label {
+    -fx-text-fill: white;
+}

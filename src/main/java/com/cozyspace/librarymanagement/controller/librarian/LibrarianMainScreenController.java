@@ -21,6 +21,8 @@ public class LibrarianMainScreenController {
     private BorderPane memberManagement;
     @FXML
     private BorderPane documentMainScreen;
+    @FXML
+    private BorderPane gameScreen;
 
     public void initialize() {
 
@@ -59,6 +61,14 @@ public class LibrarianMainScreenController {
             e.printStackTrace();
         }
         home.setCenter(temp4);
+        FXMLLoader loader5 = new FXMLLoader(Main.class.getResource("fxml/game/game_screen.fxml"));
+        Pane temp5 = null;
+        try {
+            temp5 = loader5.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        gameScreen.setCenter(temp5);
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (_, _, t1) -> {
