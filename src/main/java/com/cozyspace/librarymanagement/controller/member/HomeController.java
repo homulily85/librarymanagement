@@ -7,6 +7,7 @@ import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
@@ -21,6 +22,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Objects;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
 public class HomeController {
     @FXML
@@ -45,6 +54,15 @@ public class HomeController {
     private ImageView avatar;
     @FXML
     private Text nameLabel;
+
+    @FXML
+    private Button bellButton;
+
+    @FXML
+    private VBox notificationBox;
+
+    @FXML
+    private ListView<HBox> notificationList;
 
     public void initialize() {
         nameLabel.setText(UserManager.getUserInstance().getInfo().getName());
@@ -100,6 +118,38 @@ public class HomeController {
                 .filter(i -> i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED)).count()));
         numberOfLate.setText(String.valueOf(borrowRequestRecords.stream().filter(i -> i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED))
                 .filter(i -> LocalDate.parse(i.getDueDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")).isBefore(LocalDate.now())).count()));
+
     }
+
+    public void handleBellClick(ActionEvent actionEvent) {
+
+    }
+
+        private void handleBellClick() {
+            boolean isVisible = notificationBox.isVisible();
+            notificationBox.setVisible(!isVisible);
+
+            if (!isVisible) {
+                // Example: Add notification items dynamically
+                notificationList.getItems().clear();
+
+                HBox notificationItem1 = new HBox(10);
+                ImageView imageView1 = new ImageView(new Image("path/to/your/image1.png"));
+                imageView1.setFitWidth(50);
+                imageView1.setFitHeight(50);
+                Label label1 = new Label("Thông báo 1");
+                notificationItem1.getChildren().addAll(imageView1, label1);
+
+                HBox notificationItem2 = new HBox(10);
+                ImageView imageView2 = new ImageView(new Image("path/to/your/image2.png"));
+                imageView2.setFitWidth(50);
+                imageView2.setFitHeight(50);
+                Label label2 = new Label("Thông báo 2");
+                notificationItem2.getChildren().addAll(imageView2, label2);
+
+                notificationList.getItems().addAll(notificationItem1, notificationItem2);
+            }
+        }
+
 }
 

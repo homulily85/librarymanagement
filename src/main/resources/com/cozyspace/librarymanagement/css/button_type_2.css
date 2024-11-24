@@ -1,6 +1,7 @@
 .button {
     -fx-font-size: 16;
     -fx-text-fill: #ffffff;
+    -fx-font-family: "OpenSans";
     -fx-text-alignment: center;
     -fx-background-color: #f39604;
     -fx-background-size: 100%;

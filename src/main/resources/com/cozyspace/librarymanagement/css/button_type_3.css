@@ -1,5 +1,5 @@
 .button {
-    -fx-font-size: 20;
+    -fx-font-size: 15;
     -fx-text-fill: white;
     -fx-font-family: "OpenSans";
     -fx-font-weight: bold;
@@ -17,4 +17,3 @@
     -fx-background-color: #9f6d1d;
     -fx-border-color: transparent;
 }
-

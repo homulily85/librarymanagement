@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentSearchResultController">
+    <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
+          textAlignment="CENTER">
+        <font>
+            <Font name="Verdana" size="35.0"/>
+        </font>
+    </Text>
+    <AnchorPane layoutX="613.0" layoutY="14.0" prefHeight="102.0" prefWidth="442.0"
+                xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+        <Text fx:id="nameLabel" layoutX="90.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"
+              wrappingWidth="228.1830234527588">
+            <font>
+                <Font name="Verdana" size="15.0"/>
+            </font>
+        </Text>
+        <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../../../icon/user.png"/>
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="388.0" layoutY="39.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@../../../icon/notification.png"/>
+        </ImageView>
+    </AnchorPane>
+    <JFXTextField layoutX="174.0" layoutY="116.0" prefHeight="26.0" prefWidth="643.0"
+                  promptText="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ..." focusColor="#9f6d1d">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </JFXTextField>
+    <Button layoutX="834.0" layoutY="117.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="33.0"/>
+    <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="840.0" layoutY="119.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../../../icon/search_icon.png"/>
+    </ImageView>
+</AnchorPane>
