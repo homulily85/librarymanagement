@@ -3,14 +3,12 @@ package com.cozyspace.librarymanagement.controller.member.document;
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.Document;
-import com.cozyspace.librarymanagement.datasource.GoogleBooksAPI;
 import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +28,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class SearchScreenController {
     @FXML
@@ -59,32 +56,18 @@ public class SearchScreenController {
             avatar.setImage(new Image(Objects.requireNonNull(Main.class.getResource
                     ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
         }
-        searchField.setText(DataTransfer.getInstance().getDataMap().get("keyword"));
-
+        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText().trim().toLowerCase());
         search();
 
     }
 
     private void search() {
         searchResult.getChildren().clear();
-        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText());
+        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText().trim().toLowerCase());
         searchField.setText(DataTransfer.getInstance().getDataMap().get("keyword"));
 
-        ObservableList<Document> data = UserManager.getUserInstance().viewDocument(SearchBook.SEARCH_ALL_DOCUMENT);
-
-        ObservableList<Document> result = data.stream()
-                .filter(document -> document.getTitle().toLowerCase().contains(DataTransfer.getInstance().getDataMap().get("keyword").toLowerCase()) ||
-                                    document.getAuthor().toLowerCase().contains(DataTransfer.getInstance().getDataMap().get("keyword").toLowerCase()) ||
-                                    (document.getISBN() != null && document.getISBN().equals(DataTransfer.getInstance().getDataMap().get("keyword"))))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        if (result.isEmpty()) {
-            try {
-                result = GoogleBooksAPI.query(DataTransfer.getInstance().getDataMap().get("keyword"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        ObservableList<Document> result = UserManager.getUserInstance().searchDocument(
+                DataTransfer.getInstance().getDataMap().get("keyword"), SearchBook.SEARCH_ALL_DOCUMENT);
 
         for (Document document : result) {
             HBox documentCard = new HBox();
@@ -160,7 +143,7 @@ public class SearchScreenController {
     }
 
     public void searchButtonClicked() {
-        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText());
+        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText().trim().toLowerCase());
         JFXDialogLayout content = new JFXDialogLayout();
         var heading = new Label("Đang tìm kiếm...");
         heading.setStyle("-fx-font-size: 20;-fx-font-weight: bold");

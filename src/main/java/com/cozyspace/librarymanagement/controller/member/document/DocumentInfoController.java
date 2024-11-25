@@ -96,7 +96,7 @@ public class DocumentInfoController {
     }
 
     public void createNewBorrowRequest() {
-        ObservableList<BorrowRequestRecord> borrowRequestRecords = ((Member) UserManager.getUserInstance()).getBorrowRequestRecords();
+        ObservableList<BorrowRequestRecord> borrowRequestRecords = UserManager.getUserInstance().viewAllBorrowRequestRecords();
         if (borrowRequestRecords.stream().anyMatch(i -> i.getDocumentId() == DataTransfer.getInstance().getCurrentDocument().getId()
                                                         && i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.PENDING))) {
             Notifications.create().title("Lỗi").text("Bạn đã gửi yêu cầu mượn sách cho tài liệu này!").showError();

@@ -43,8 +43,6 @@ public class MemberManagementController {
     @FXML
     private Button saveButton;
     @FXML
-    private ComboBox<String> searchType;
-    @FXML
     private TextField searchField;
     @FXML
     private Button searchButton;
@@ -137,12 +135,7 @@ public class MemberManagementController {
         saveButton.setVisible(false);
         usernameField.setVisible(false);
         usernameLabel.setVisible(false);
-        ObservableList<MemberRecord> result = null;
-        switch (searchType.getSelectionModel().getSelectedIndex()) {
-            case 0 -> result = ((Librarian) UserManager.getUserInstance()).searchMemberByName(searchField.getText());
-            case 1 -> result = ((Librarian) UserManager.getUserInstance()).searchMemberByPhone(searchField.getText());
-            case 2 -> result = ((Librarian) UserManager.getUserInstance()).searchMemberByEmail(searchField.getText());
-        }
+        ObservableList<MemberRecord> result = ((Librarian) UserManager.getUserInstance()).searchMember(searchField.getText().trim().toLowerCase());
         if (result == null || result.isEmpty()) {
             memberNotFound.setVisible(true);
         } else {

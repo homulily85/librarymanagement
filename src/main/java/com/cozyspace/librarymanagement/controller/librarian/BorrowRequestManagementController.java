@@ -5,6 +5,7 @@ import com.cozyspace.librarymanagement.Main;
 import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.Librarian;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import com.jfoenix.controls.*;
 import javafx.beans.binding.Bindings;
@@ -17,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -55,8 +57,6 @@ public class BorrowRequestManagementController {
     @FXML
     private TableColumn<BorrowRequestRecord, String> status;
     @FXML
-    private ComboBox<String> searchType;
-    @FXML
     private TextField searchField;
     @FXML
     private Button createNewRequest;
@@ -85,10 +85,10 @@ public class BorrowRequestManagementController {
             return row;
         });
 
-        ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
+        ObservableList<BorrowRequestRecord> result = UserManager.getUserInstance().viewAllBorrowRequestRecords();
         table.getItems().setAll(result);
         requestIdColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getRequestId()));
-        nameColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getName()));
+        nameColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getMemberName()));
         documentTittleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getDocumentTittle()));
         requestDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getRequestDate()));
         borrowDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getBorrowDate()));
@@ -120,12 +120,8 @@ public class BorrowRequestManagementController {
         requestNotFound.setVisible(false);
         table.setVisible(false);
         String query = searchField.getText();
-        ObservableList<BorrowRequestRecord> result = null;
-        switch (searchType.getSelectionModel().getSelectedIndex()) {
-            case 0 -> result = ((Librarian) UserManager.getUserInstance()).searchBorrowRequestByRequestID(query);
-            case 1 -> result = ((Librarian) UserManager.getUserInstance()).searchBorrowRequestByMemberName(query);
-            case 2 -> result = ((Librarian) UserManager.getUserInstance()).searchBorrowRequestByDocumentTittle(query);
-        }
+        ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance())
+                .searchBorrowRequest(query.trim().toLowerCase());
         if (result == null || result.isEmpty()) {
             requestNotFound.setVisible(true);
             createNewRequest.setVisible(false);
@@ -164,7 +160,7 @@ public class BorrowRequestManagementController {
             return;
         }
 
-        ObservableList<BorrowRequestRecord> result = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
+        ObservableList<BorrowRequestRecord> result = UserManager.getUserInstance().viewAllBorrowRequestRecords();
 
         table.setVisible(true);
         requestNotFound.setVisible(false);
@@ -184,7 +180,7 @@ public class BorrowRequestManagementController {
             return;
         }
         JFXComboBox<String> statusComboBox = new JFXComboBox<>();
-        statusComboBox.setFocusColor(javafx.scene.paint.Color.valueOf("#9f6d1d"));
+        statusComboBox.setFocusColor(Color.valueOf("#9f6d1d"));
         JFXDialogLayout content = new JFXDialogLayout();
         var heading = new Label("Thay đổi trạng thái");
         heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
@@ -214,8 +210,9 @@ public class BorrowRequestManagementController {
         String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
         okButton.getStylesheets().add(css);
         okButton.setOnAction(_ -> {
-            ObservableList<Document> document = ((Librarian) UserManager.getUserInstance())
-                    .searchDocumentById(table.getSelectionModel().getSelectedItem().getDocumentId());
+            ObservableList<Document> document = UserManager.getUserInstance()
+                    .viewDocument(SearchBook.SEARCH_ALL_DOCUMENT).
+                    filtered(i -> i.getId() == table.getSelectionModel().getSelectedItem().getDocumentId());
             BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
             record.setStatus(statusComboBox.getSelectionModel().getSelectedItem());
             if (statusComboBox.getSelectionModel().getSelectedItem().equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED)) {
@@ -231,7 +228,7 @@ public class BorrowRequestManagementController {
                     ((Librarian) UserManager.getUserInstance()).editDocument(document.getFirst());
                 }).start();
             }
-            ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
+            UserManager.getUserInstance().updateBorrowRequest(record);
             table.refresh();
             dialog.close();
         });
@@ -260,7 +257,7 @@ public class BorrowRequestManagementController {
 
         Label statusLabel = new Label("Hạn trả mới: ");
         JFXDatePicker datePicker = new JFXDatePicker();
-        datePicker.setDefaultColor(javafx.scene.paint.Color.valueOf("#9f6d1d"));
+        datePicker.setDefaultColor(Color.valueOf("#9f6d1d"));
         datePicker.setConverter(new StringConverter<>() {
             final String pattern = "dd-MM-yyyy";
             final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
@@ -305,7 +302,7 @@ public class BorrowRequestManagementController {
 
             BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
             record.setDueDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-            ((Librarian) UserManager.getUserInstance()).updateBorrowRequest(record);
+            UserManager.getUserInstance().updateBorrowRequest(record);
             table.refresh();
             dialog.close();
         });

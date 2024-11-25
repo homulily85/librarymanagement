@@ -33,7 +33,7 @@ public class HomeController {
         ObservableList<Document> documents = UserManager.getUserInstance().viewDocument(
                 Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         ObservableList<MemberRecord> memberRecords = ((Librarian) UserManager.getUserInstance()).viewAllMember();
-        ObservableList<BorrowRequestRecord> request = ((Librarian) UserManager.getUserInstance()).viewAllBorrowRequest();
+        ObservableList<BorrowRequestRecord> request = UserManager.getUserInstance().viewAllBorrowRequestRecords();
 
         numberOfDocument.setText(String.valueOf(documents.size()));
         numberOfMember.setText(String.valueOf(memberRecords.size()));

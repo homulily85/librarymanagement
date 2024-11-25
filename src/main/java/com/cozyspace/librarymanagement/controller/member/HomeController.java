@@ -53,7 +53,7 @@ public class HomeController {
                     ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
         }
 
-        ObservableList<BorrowRequestRecord> data = ((Member) UserManager.getUserInstance()).getBorrowRequestRecords();
+        ObservableList<BorrowRequestRecord> data = UserManager.getUserInstance().viewAllBorrowRequestRecords();
 
         XYChart.Series<String, Long> set1 = new XYChart.Series<>();
         set1.getData().add(new XYChart.Data<>("Tháng 1", data.stream().filter(i -> i.getBorrowDate() != null)
@@ -84,9 +84,9 @@ public class HomeController {
         chart.getData().addAll(set1);
         chart.setLegendVisible(false);
 
-        ObservableList<BorrowRequestRecord> borrowRequestRecords = (((Member) UserManager.getUserInstance()).getBorrowRequestRecords());
-        ObservableList<BorrowRequestRecord> borrowedRecord = FXCollections.observableArrayList(((Member) UserManager.getUserInstance())
-                .getBorrowRequestRecords().stream().filter(i -> i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED))
+        ObservableList<BorrowRequestRecord> borrowRequestRecords = (UserManager.getUserInstance().viewAllBorrowRequestRecords());
+        ObservableList<BorrowRequestRecord> borrowedRecord = FXCollections.observableArrayList(UserManager.getUserInstance()
+                .viewAllBorrowRequestRecords().stream().filter(i -> i.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED))
                 .sorted(Comparator.comparing(BorrowRequestRecord::getDueDate)).toList());
         table.getItems().setAll(borrowedRecord);
         title.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getDocumentTittle()));
