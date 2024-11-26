@@ -16,18 +16,25 @@ import java.util.Objects;
 public class AccountRelatedController {
     protected final void modifyMainButtonStyle(Button mainButton) {
         final String IDLE_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #0e4ed5;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
+                -fx-font-size: 15;
+                    -fx-text-fill: #ffffff;
+                    -fx-font-family: "OpenSans";
+                    -fx-text-alignment: center;
+                    -fx-background-color: #f39604;
+                    -fx-background-size: 100%;
+                    -fx-border-radius: 5;
+                    -fx-background-radius: 5;
                 """;
         final String HOVERED_MAIN_BUTTON_STYLE = """
-                -fx-text-fill: #ffffff;
-                -fx-background-color: #043ea8;
-                -fx-border-radius: 20;
-                -fx-background-radius: 20;
-                -fx-padding: 5;
+                -fx-font-size: 15;
+                    -fx-text-fill: #ffffff;
+                    -fx-font-family: "OpenSans";
+                    -fx-text-alignment: center;
+                    -fx-background-color: #9f6d1d;
+                    -fx-background-size: 100%;
+                    -fx-border-radius: 5;
+                    -fx-background-radius: 5;
+                    -fx-border-color: transparent;
                 """;
 
         mainButton.setStyle(IDLE_MAIN_BUTTON_STYLE);
@@ -38,14 +45,14 @@ public class AccountRelatedController {
 
     protected final void modifySubButtonStyle(Button subButton) {
         final String IDLE_SUB_BUTTON_STYLE = """
-                -fx-text-fill: #043ea8;
+                -fx-text-fill: #f39604;
                 -fx-background-color: transparent;
                 -fx-border-radius: 20;
                 -fx-background-radius: 20;
                 -fx-padding: 5;
                 """;
         final String HOVERED_SUB_BUTTON_STYLE = """
-                -fx-text-fill: #043ea8;
+                -fx-text-fill: #f39604;
                 -fx-background-color: #ece9e9;
                 -fx-border-radius: 20;
                 -fx-background-radius: 20;

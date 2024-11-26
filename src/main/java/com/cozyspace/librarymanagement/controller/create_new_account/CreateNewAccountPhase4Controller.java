@@ -47,6 +47,10 @@ public class CreateNewAccountPhase4Controller extends AccountRelatedController {
                 DataTransfer.getInstance().getDataMap().get("newUserEmail"),
                 phoneField.getText(), "Member");
 
-        fadeTransition(createNewAccountPhase4,"fxml/create_new_account/create_new_account_phase_5.fxml",500);
+        fadeTransition(createNewAccountPhase4, "fxml/create_new_account/create_new_account_phase_5.fxml", 500);
+    }
+
+    public void back() {
+        fadeTransition(createNewAccountPhase4, "fxml/create_new_account/create_new_account_phase_3.fxml", 500);
     }
 }

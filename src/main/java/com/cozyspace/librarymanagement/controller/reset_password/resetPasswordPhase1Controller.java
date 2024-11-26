@@ -47,4 +47,7 @@ public class resetPasswordPhase1Controller extends AccountRelatedController {
 
     }
 
+    public void back() {
+        fadeTransition(resetPasswordPhase1, "fxml/login/login_phase_1.fxml", 500);
+    }
 }

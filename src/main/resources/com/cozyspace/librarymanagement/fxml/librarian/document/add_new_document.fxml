@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <DialogPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.AddNewDocumentController">
     <content>
         <AnchorPane prefWidth="875.0">

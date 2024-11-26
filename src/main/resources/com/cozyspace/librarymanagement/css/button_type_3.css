@@ -9,11 +9,11 @@
 }
 
 .button:pressed {
-    -fx-background-color: #9f6d1d;
-    -fx-border-color: transparent;
+    -fx-background-color: #transparent;
+    -fx-border-color: #ece9e9;
 }
 
 .button:hover {
-    -fx-background-color: #9f6d1d;
-    -fx-border-color: transparent;
+    -fx-background-color: #transparent;
+    -fx-border-color: #ece9e9;
 }

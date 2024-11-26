@@ -11,12 +11,16 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
 import java.io.File;
@@ -218,4 +222,28 @@ public class AccountInfoController {
         return name.substring(lastIndexOf);
     }
 
+    public void changePassword() {
+        Stage newStage = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
+                ("fxml/member/change_password.fxml")));
+
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        newStage.setTitle("Thay đổi mật khẩu");
+        newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource("icon/program_icon.png"))));
+
+        newStage.setScene(scene);
+        newStage.setResizable(false);
+        newStage.requestFocus();
+        newStage.initOwner(table.getScene().getWindow());
+        newStage.initModality(Modality.WINDOW_MODAL);
+        newStage.showAndWait();
+
+    }
 }

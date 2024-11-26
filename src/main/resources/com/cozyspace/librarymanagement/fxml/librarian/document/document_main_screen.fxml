@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <BorderPane fx:id="documentMainScreen" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.DocumentMainScreenController">
     <left>
         <AnchorPane style="-fx-background-color:EE9923FF">

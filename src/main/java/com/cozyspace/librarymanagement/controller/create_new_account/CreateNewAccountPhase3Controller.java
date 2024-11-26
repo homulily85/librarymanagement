@@ -90,4 +90,7 @@ public class CreateNewAccountPhase3Controller extends AccountRelatedController {
         fadeTransition(createNewAccountPhase3, "fxml/create_new_account/create_new_account_phase_4.fxml", 500);
     }
 
+    public void back() {
+        fadeTransition(createNewAccountPhase3, "fxml/create_new_account/create_new_account_phase_2.fxml", 500);
+    }
 }

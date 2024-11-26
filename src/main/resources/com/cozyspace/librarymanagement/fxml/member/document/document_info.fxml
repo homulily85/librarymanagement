@@ -9,6 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           style="-fx-background-color: white"
            fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentInfoController">
     <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="900.0">
         <AnchorPane prefWidth="875.0">

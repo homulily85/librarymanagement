@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <ScrollPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.DocumentInfoController">
     <AnchorPane prefWidth="875.0">
         <ImageView fx:id="coverPage" fitHeight="177" fitWidth="140" layoutX="14.0" layoutY="14.0">

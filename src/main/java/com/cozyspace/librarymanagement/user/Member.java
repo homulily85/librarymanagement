@@ -12,8 +12,8 @@ public final class Member extends User implements ManageComment {
 
     private static Member instance = null;
 
-    private Member(String name, String address, String email, String phone, String avatar, String username) {
-        super(name, address, email, phone, avatar, username);
+    private Member(String name, String address, String email, String phone, String avatar, String username, String password) {
+        super(name, address, email, phone, avatar, username, password);
     }
 
     /**
@@ -33,9 +33,9 @@ public final class Member extends User implements ManageComment {
     /**
      * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Member nào tồn tại.
      */
-    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username) {
+    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username, String password) {
         if (isInstanceExist()) throw new RuntimeException("Member instance exists");
-        instance = new Member(name, address, email, phone, avatar, username);
+        instance = new Member(name, address, email, phone, avatar, username, password);
     }
 
     /**

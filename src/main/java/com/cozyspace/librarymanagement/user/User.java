@@ -8,8 +8,8 @@ public abstract class User implements SearchBook, ManageBorrowRequest {
 
     protected Person info;
 
-    User(String name, String address, String email, String phone, String avatar, String username) {
-        info = new Person(name, address, email, phone, avatar, username);
+    User(String name, String address, String email, String phone, String avatar, String username, String password) {
+        info = new Person(name, address, email, phone, avatar, username, password);
     }
 
     public Person getInfo() {

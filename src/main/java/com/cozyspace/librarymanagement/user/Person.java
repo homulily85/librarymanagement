@@ -7,19 +7,21 @@ public final class Person {
     private String phone;
     private String avatar;
     private final String username;
+    private final String password;
 
     public static int PERSON_NAME_FIELD_INDEX = 0;
     public static int PERSON_ADDRESS_FIELD_INDEX = 1;
     public static int PERSON_EMAIL_FIELD_INDEX = 2;
     public static int PERSON_PHONE_FIELD_INDEX = 3;
 
-    public Person(String name, String address, String email, String phone, String avatar, String username) {
+    public Person(String name, String address, String email, String phone, String avatar, String username, String password) {
         this.name = name;
         this.address = address;
         this.email = email;
         this.phone = phone;
         this.avatar = avatar;
         this.username = username;
+        this.password = password;
     }
 
     public String getName() {
@@ -64,5 +66,9 @@ public final class Person {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 public final class Librarian extends User implements SearchMember {
 
-    private Librarian(String name, String address, String email, String phone, String avatar, String username) {
-        super(name, address, email, phone, avatar, username);
+    private Librarian(String name, String address, String email, String phone, String avatar, String username, String password) {
+        super(name, address, email, phone, avatar, username, password);
     }
 
     private static Librarian instance = null;
@@ -36,9 +36,9 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Librarian nào tồn tại.
      */
-    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username) {
+    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username, String password) {
         if (isInstanceExist()) throw new RuntimeException("Librarian instance exists");
-        instance = new Librarian(name, address, email, phone, avatar, username);
+        instance = new Librarian(name, address, email, phone, avatar, username, password);
     }
 
     /**

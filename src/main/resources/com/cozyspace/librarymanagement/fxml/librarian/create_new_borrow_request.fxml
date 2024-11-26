@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 <AnchorPane prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.CreateNewBorrowRequestController">
     <Button layoutX="221.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleMemberSearchButton"
             prefHeight="26.0" prefWidth="29.0"/>

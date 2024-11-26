@@ -45,4 +45,7 @@ public class CreateNewAccountPhase1Controller extends AccountRelatedController {
         fadeTransition(createNewAccountPhase1, "fxml/create_new_account/create_new_account_phase_2.fxml", 500);
     }
 
+    public void back() {
+        fadeTransition(createNewAccountPhase1, "fxml/login/login_phase_1.fxml", 500);
+    }
 }

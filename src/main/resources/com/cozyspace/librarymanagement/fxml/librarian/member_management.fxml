@@ -9,7 +9,8 @@
 <?import javafx.scene.text.*?>
 <AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.cozyspace.librarymanagement.controller.librarian.MemberManagementController">
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.MemberManagementController"
+            style="-fx-background-color: white">
     <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="269.0" layoutY="33.0" prefHeight="26.0"
                   prefWidth="622.0" unFocusColor="#9f6d1d"
                   promptText="Tìm kiếm người dùng theo tên, số điện thoại hoặc email"/>

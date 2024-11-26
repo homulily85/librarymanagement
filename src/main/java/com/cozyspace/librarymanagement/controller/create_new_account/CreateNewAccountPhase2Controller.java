@@ -21,7 +21,7 @@ public class CreateNewAccountPhase2Controller extends AccountRelatedController {
     private Label codeFailedPrompt;
 
     public void initialize() {
-       modifyMainButtonStyle(continueButton);
+        modifyMainButtonStyle(continueButton);
     }
 
     public void checkAndContinue() {
@@ -37,6 +37,10 @@ public class CreateNewAccountPhase2Controller extends AccountRelatedController {
             return;
         }
 
-        fadeTransition(createNewAccountPhase2,"fxml/create_new_account/create_new_account_phase_3.fxml",500);
+        fadeTransition(createNewAccountPhase2, "fxml/create_new_account/create_new_account_phase_3.fxml", 500);
+    }
+
+    public void back() {
+        fadeTransition(createNewAccountPhase2, "fxml/create_new_account/create_new_account_phase_1.fxml", 500);
     }
 }

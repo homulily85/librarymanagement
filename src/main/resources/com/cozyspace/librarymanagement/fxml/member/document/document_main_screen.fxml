@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           style="-fx-background-color: white"
            fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentMainScreenController">
     <AnchorPane prefHeight="720.0" prefWidth="1070.0">
         <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
@@ -25,10 +26,6 @@
             <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../../../icon/account.png"/>
-            </ImageView>
-            <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="388.0" layoutY="39.0" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@../../../icon/notification.png"/>
             </ImageView>
         </AnchorPane>
         <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="174.0" layoutY="116.0" prefHeight="26.0"

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="pane" prefHeight="300.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.librarian.LoadingScreenController">
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="300.0" stroke="DODGERBLUE" strokeType="INSIDE" width="550.0" />
-    <Label layoutX="51.0" layoutY="114.0" text="Hệ thống quản lí thư viện" textFill="WHITE">
+<AnchorPane fx:id="pane" prefHeight="300.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.librarian.LoadingScreenController">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f39604" height="300.0" stroke="DODGERBLUE" strokeType="INSIDE" width="615.0" />
+    <Label layoutX="32.0" layoutY="113.0" text="Hệ thống quản lí thư viện" textFill="WHITE">
         <font>
             <Font name="Open Sans Condensed Medium" size="50.0" />
         </font>
