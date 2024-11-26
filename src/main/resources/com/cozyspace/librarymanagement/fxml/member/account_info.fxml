@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.member.AccountInfoController">
+    <AnchorPane prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane prefHeight="720.0" prefWidth="1070.0">
+            <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài khoản" textAlignment="CENTER">
+                <font>
+                    <Font name="Verdana" size="35.0" />
+                </font>
+            </Text>
+            <AnchorPane layoutX="625.0" layoutY="13.0" prefHeight="102.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+                <Text fx:id="nameLabel" layoutX="90.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="228.1830234527588">
+                    <font>
+                        <Font name="Verdana" size="15.0" />
+                    </font>
+                </Text>
+                <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../icon/account.png" />
+                </ImageView>
+                <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="388.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../icon/notification.png" />
+                </ImageView>
+            </AnchorPane>
+            <ImageView fx:id="avatar2" fitHeight="110.0" fitWidth="105.0" layoutX="47.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../icon/account.png" />
+            </ImageView>
+            <VBox layoutX="167.0" layoutY="120.0" prefHeight="122.0" prefWidth="883.0">
+                <Label fx:id="name" text="Tên">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="address" text="Địa chỉ: ">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="email" text="Email: ">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="phone" text="Số điện thoại: ">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+            </VBox>
+            <JFXButton layoutX="55.0" layoutY="223.0" mnemonicParsing="false" onAction="#chooseAvatar" stylesheets="@../../css/button_type_2.css" text="Chọn ảnh" />
+            <Text fill="#ee9923" layoutX="47.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lịch sử yêu cầu" textAlignment="CENTER">
+                <font>
+                    <Font name="Verdana" size="35.0" />
+                </font>
+            </Text>
+            <TableView fx:id="table" layoutX="46.0" layoutY="332.0" prefHeight="335.0" prefWidth="1004.0" stylesheets="@../../css/table_view.css">
+                <columns>
+                    <TableColumn fx:id="requestIdColumn" prefWidth="33.40000915527344" text="ID" />
+                    <TableColumn fx:id="documentTittleColumn" prefWidth="193.0" text="Tên tài liệu" />
+                    <TableColumn fx:id="quantityColumn" prefWidth="51.20001220703125" text="SL" />
+                    <TableColumn fx:id="requestDateColumn" prefWidth="166.5999755859375" text="Ngày yêu cầu" />
+                    <TableColumn fx:id="borrowDateColumn" prefWidth="151.5999755859375" text="Ngày mượn" />
+                    <TableColumn fx:id="returnDate" prefWidth="141.79998779296875" text="Ngày trả" />
+                    <TableColumn fx:id="dueDateColumn" minWidth="0.39996337890625" prefWidth="141.0" text="Thời hạn mượn" />
+                    <TableColumn fx:id="status" prefWidth="119.199951171875" text="Trạng thái" />
+                </columns>
+            </TableView>
+        </AnchorPane>
+    </AnchorPane>
+</StackPane>

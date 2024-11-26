@@ -350,7 +350,8 @@ public final class Datasource {
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL),
-                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE)));
+                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_AVATAR)));
         }
         resultSet.close();
         query.close();
@@ -374,14 +375,16 @@ public final class Datasource {
     public static void updateMemberInfo(MemberRecord newMemberRecord) {
         try {
             PreparedStatement query = connection.prepareStatement(
-                    "update %s set %s = ?, %s = ?, %s=?, %s=? where %s = ?"
+                    "update %s set %s = ?, %s = ?, %s=?, %s=?, %s=? where %s = ?"
                             .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ADDRESS, TABLE_ACCOUNT_COLUMN_PHONE,
-                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_USERNAME));
+                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_AVATAR,
+                                    TABLE_ACCOUNT_COLUMN_USERNAME));
             query.setString(1, newMemberRecord.getAddress());
             query.setString(2, newMemberRecord.getPhone());
             query.setString(3, newMemberRecord.getEmail());
             query.setString(4, newMemberRecord.getName());
-            query.setString(5, newMemberRecord.getUsername());
+            query.setString(5, newMemberRecord.getAvatar());
+            query.setString(6, newMemberRecord.getUsername());
             query.executeUpdate();
             query.close();
 

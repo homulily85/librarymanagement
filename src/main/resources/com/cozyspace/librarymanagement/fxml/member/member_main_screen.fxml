@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -25,7 +25,7 @@
                 </rowConstraints>
                 <JFXButton mnemonicParsing="false" prefHeight="110.0" prefWidth="166.0"
                            stylesheets="@../../css/button_type_1.css" text="Tài khoản" textFill="#fdff9e"
-                           GridPane.rowIndex="2">
+                           GridPane.rowIndex="2" onAction="#loadAccount">
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0">
                             <Image url="@../../icon/user_icon.png"/>
@@ -53,15 +53,6 @@
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="18.0">
                             <Image url="@../../icon/bookicon.png"/>
-                        </ImageView>
-                    </graphic>
-                </JFXButton>
-                <JFXButton mnemonicParsing="false" prefHeight="69.0" prefWidth="170.0"
-                           stylesheets="@../../css/button_type_1.css" text="Hỗ trợ" textFill="#fdff9e"
-                           GridPane.rowIndex="3">
-                    <graphic>
-                        <ImageView fitHeight="18.0" fitWidth="18.0">
-                            <Image url="@../../icon/question.png"/>
                         </ImageView>
                     </graphic>
                 </JFXButton>

@@ -3,7 +3,6 @@ package com.cozyspace.librarymanagement.controller.member;
 import com.cozyspace.librarymanagement.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -42,6 +41,17 @@ public class MemberMainScreenController {
             e.printStackTrace();
         }
         main.setCenter(documentView);
+    }
+
+    public void loadAccount() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/member/account_info.fxml"));
+        Pane accountView = null;
+        try {
+            accountView = loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        main.setCenter(accountView);
     }
 
 }

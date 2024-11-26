@@ -93,5 +93,11 @@ public final class Member extends User implements ManageComment {
             }
         } else return result;
     }
+
+    public void updateAvatar(String avatar) {
+        this.info.setAvatar(avatar);
+        Datasource.updateMemberInfo(new MemberRecord(info.getUsername(), info.getName(), info.getAddress(),
+                info.getEmail(), info.getPhone(), avatar));
+    }
 }
 

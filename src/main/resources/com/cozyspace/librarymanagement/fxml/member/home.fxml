@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="720.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cozyspace.librarymanagement.controller.member.HomeController">
-    <AnchorPane layoutX="556.0" layoutY="14.0" prefHeight="63.0" prefWidth="442.0">
+    <AnchorPane layoutX="627.0" layoutY="13.0" prefHeight="63.0" prefWidth="442.0">
         <AnchorPane prefHeight="102.0" prefWidth="442.0">
             <Text fx:id="nameLabel" layoutX="90.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"
                   wrappingWidth="228.1830234527588">
@@ -23,7 +23,7 @@
             </Text>
             <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true"
                        preserveRatio="true">
-                <Image url="@../../icon/user.png"/>
+                <Image url="@../../icon/account.png"/>
             </ImageView>
             <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="388.0" layoutY="39.0" pickOnBounds="true"
                        preserveRatio="true">
