@@ -1,12 +1,11 @@
 .button {
     -fx-font-size: 15;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: white;
     -fx-font-family: "OpenSans";
-    -fx-text-alignment: center;
-    -fx-background-color: #f39604;
+    -fx-font-weight: bold;
+    -fx-text-alignment: left;
+    -fx-background-color: transparent;
     -fx-background-size: 100%;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
 }
 
 .button:pressed {
@@ -18,4 +17,3 @@
     -fx-background-color: #9f6d1d;
     -fx-border-color: transparent;
 }
-
