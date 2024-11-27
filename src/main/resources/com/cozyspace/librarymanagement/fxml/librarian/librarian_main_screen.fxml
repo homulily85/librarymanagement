@@ -7,6 +7,7 @@
             tabClosingPolicy="UNAVAILABLE" tabDragPolicy="FIXED" xmlns="http://javafx.com/javafx/"
             xmlns:fx="http://javafx.com/fxml/" style="-fx-background-color: white"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.LibrarianMainScreenController">
+
     <Tab text="Trang chủ">
         <BorderPane fx:id="home">
 
@@ -25,6 +26,11 @@
     <Tab text="Yêu cầu">
         <BorderPane fx:id="requestManagement">
 
+        </BorderPane>
+    </Tab>
+    <Tab text="Game">
+        <BorderPane fx:id="gameScreen">
+            <!-- Nội dung của tab Game sẽ được thêm ở đây -->
         </BorderPane>
     </Tab>
     <!--    <Tab text="Thông báo">-->
