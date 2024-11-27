@@ -66,9 +66,7 @@ public class ChangePasswordController {
         }
 
 
-        new Thread(() -> {
-            UserManager.updatePassword(UserManager.getUserInstance().getInfo().getUsername(), newPasswordField.getText());
-        }).start();
+        new Thread(() -> UserManager.updatePassword(UserManager.getUserInstance().getInfo().getUsername(), newPasswordField.getText())).start();
 
         Stage stage = (Stage) oldPasswordField.getScene().getWindow();
         stage.close();

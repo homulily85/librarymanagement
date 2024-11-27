@@ -4,27 +4,25 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<BorderPane fx:id="documentMainScreen" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
+<BorderPane fx:id="documentMainScreen" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.DocumentMainScreenController">
     <left>
-        <AnchorPane style="-fx-background-color:EE9923FF">
-            <JFXButton layoutY="15.0" onAction="#showAllDocument" prefHeight="45.0"
-                       prefWidth="160" stylesheets="@../../../css/button_type_1.css" text="Tất cả tài liệu">
+        <AnchorPane prefHeight="400.0" prefWidth="153.0" style="-fx-background-color:EE9923FF">
+            <JFXButton layoutY="15.0" onAction="#showAllDocument" prefHeight="46.0" prefWidth="174.0"
+                       stylesheets="@../../../css/button_type_1.css" text="Tất cả tài liệu">
                 <font>
                     <Font size="20"/>
                 </font>
             </JFXButton>
-            <JFXButton layoutY="60.0" onAction="#showAllAvailableDocument"
-                       prefHeight="45.0" prefWidth="160" stylesheets="@../../../css/button_type_1.css"
-                       text="Tài liệu hiện có">
+            <JFXButton layoutY="60.0" onAction="#showAllAvailableDocument" prefHeight="46.0" prefWidth="173.0"
+                       stylesheets="@../../../css/button_type_1.css" text="Tài liệu hiện có">
                 <font>
                     <Font size="20"/>
                 </font>
             </JFXButton>
-            <JFXButton layoutY="105.0" onAction="#showAllUnavailableDocument"
-                       prefHeight="45.0" prefWidth="160" stylesheets="@../../../css/button_type_1.css"
-                       text="Tài liệu đã hết">
+            <JFXButton layoutY="105.0" onAction="#showAllUnavailableDocument" prefHeight="46.0" prefWidth="175.0"
+                       stylesheets="@../../../css/button_type_1.css" text="Tài liệu đã hết">
                 <font>
                     <Font size="20"/>
                 </font>

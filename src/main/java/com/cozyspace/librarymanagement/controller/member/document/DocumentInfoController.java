@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.controlsfx.control.Notifications;
 
 import java.time.LocalDate;
@@ -127,10 +128,12 @@ public class DocumentInfoController {
         gridPane.add(quantity, 0, 0);
         JFXTextField quantityField = new JFXTextField();
         quantityField.setPromptText("Nhập số lượng");
+        quantityField.setFocusColor(Color.valueOf("#9f6d1d"));
         gridPane.add(quantityField, 1, 0);
         var numberOfBorrowDate = new Label("Số ngày mượn:");
         gridPane.add(numberOfBorrowDate, 0, 1);
         JFXComboBox<Integer> numberOfBorrowDateField = new JFXComboBox<>();
+        numberOfBorrowDateField.setFocusColor(Color.valueOf("#9f6d1d"));
         numberOfBorrowDateField.getItems().addAll(7, 14, 21, 28);
         numberOfBorrowDateField.setPromptText("Chọn số ngày mượn");
         gridPane.add(numberOfBorrowDateField, 1, 1);
@@ -181,6 +184,7 @@ public class DocumentInfoController {
         commentField.setPromptText("Nhập nhận xét của bạn");
         commentField.setWrapText(true);
         commentField.setPrefHeight(100);
+        commentField.setFocusColor(Color.valueOf("#9f6d1d"));
         content.setBody(commentField);
 
         JFXButton submit = new JFXButton("Đăng nhận xét");
