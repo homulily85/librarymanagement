@@ -72,3 +72,7 @@ javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
 
 ## Biểu đồ UML
 ![alt text](https://github.com/homulily85/librarymanagement/blob/master/uml.png)
+
+## Cải tiến trong tương lai
+- Cho phép người quản lí thư viện gửi thông báo tới tất cả các thành viên hoặc (một số) thành viên cụ thể.
+- Tối ưu hóa trải nghiệm người dùng.
