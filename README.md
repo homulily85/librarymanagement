@@ -71,3 +71,4 @@ javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix
 - Google Books API: Lấy thông tin sách từ Google Books API
 
 ## Biểu đồ UML
+![alt text](https://github.com/homulily85/librarymanagement/blob/master/uml.png)
