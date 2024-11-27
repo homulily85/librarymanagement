@@ -4,11 +4,7 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 
 import java.util.List;
 
-public final class UserManager {
-
-    private UserManager() {
-
-    }
+public abstract class UserManager {
 
     /**
      * Tạo một đối tượng User mới khi không có đối tượng nào thuộc kiểu User tồn tại
