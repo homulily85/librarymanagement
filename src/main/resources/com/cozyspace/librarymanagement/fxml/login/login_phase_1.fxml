@@ -74,9 +74,6 @@
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>
-                                            <padding>
-                                                <Insets top="10.0" />
-                                            </padding>
                                         </TextField>
                                     </children>
                                     <padding>
