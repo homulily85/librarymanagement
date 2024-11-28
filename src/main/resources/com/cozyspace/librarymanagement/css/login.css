@@ -1,0 +1,61 @@
+#pane {
+    -fx-background-color: #fdffe0;
+}
+/* Phần bên phải */
+#rightSection {
+    -fx-background-color: #393e41;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-effect: s;
+}
+
+#title {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-border-color: white;
+    -fx-background-radius: 5;
+    -fx-background-color: #424242;
+    -fx-font-family: "OpenSans";
+    -fx-font-size: 15;
+    -fx-text-fill: white;
+}
+#signInButton {
+    -fx-background-color: #fdffe0;
+    -fx-text-fill: #393e41;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+#forgotButton {
+    -fx-background-color: #424242;
+    -fx-text-fill: white;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+/* Phần bên trái */
+#leftSection {
+    -fx-background-color: #fdffe0;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+}
+
+#wel_title {
+    -fx-font-size: 40px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-family: "OpenSans";
+}
+
+#wel_subTitle {
+    -fx-font-size: 20px;
+    -fx-text-fill: black;
+    -fx-text-alignment: left;
+    -fx-font-family: "OpenSans";
+}
