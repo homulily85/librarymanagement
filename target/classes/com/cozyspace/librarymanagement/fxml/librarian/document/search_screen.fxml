@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<<<<<<< Updated upstream
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.collections.FXCollections?>
+=======
+<?import com.jfoenix.controls.JFXTextField?>
+>>>>>>> Stashed changes
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
+<<<<<<< Updated upstream
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 <AnchorPane prefHeight="650" prefWidth="1111.0" xmlns="http://javafx.com/javafx/17.0.12"
@@ -31,6 +36,17 @@
     <Button fx:id="searchButton" defaultButton="true" layoutX="924.0" layoutY="32.0" onAction="#search"
             prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
     <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="525.0" prefWidth="1028.0"
+=======
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="650" prefWidth="1111.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.document.SearchScreenController">
+    <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="219.0" layoutY="57.0" prefHeight="26.0"
+                  prefWidth="671.0" promptText="Tìm kiếm tài liệu theo tên, tác giả hoặc ISBN" unFocusColor="#9f6d1d"/>
+    <Button fx:id="searchButton" defaultButton="true" layoutX="912.0" layoutY="57.0" onAction="#search"
+            prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
+    <TableView fx:id="table" layoutX="41.0" layoutY="91.0" prefHeight="525.0" prefWidth="1028.0"
+>>>>>>> Stashed changes
                stylesheets="@../../../css/table_view.css">
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="50" text="ID"/>
@@ -47,7 +63,11 @@
             <Font size="30"/>
         </font>
     </Label>
+<<<<<<< Updated upstream
     <ImageView fitHeight="20" fitWidth="20" layoutX="938.0" layoutY="36.0">
+=======
+    <ImageView fitHeight="20" fitWidth="20" layoutX="926.0" layoutY="60.0">
+>>>>>>> Stashed changes
         <Image url="@../../../icon/search_icon.png"/>
     </ImageView>
     <JFXButton fx:id="addNewDocument" layoutX="905.0" layoutY="625.0" onAction="#addNewDocument" prefHeight="38.0"
@@ -56,11 +76,25 @@
             <Font size="15"/>
         </font>
     </JFXButton>
+<<<<<<< Updated upstream
     <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="886.0" layoutY="35.0" prefHeight="22.0" prefWidth="10.0"
+=======
+    <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="885.0" layoutY="59.0" prefHeight="22.0" prefWidth="10.0"
+>>>>>>> Stashed changes
            text="x">
         <font>
             <Font size="15.0"/>
         </font>
     </Label>
+<<<<<<< Updated upstream
+=======
+    <Text fx:id="title" fill="#ee9923" layoutX="41.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu đã hết"
+          textAlignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+        <font>
+            <Font name="Verdana" size="30.0"/>
+        </font>
+    </Text>
+
+>>>>>>> Stashed changes
 
 </AnchorPane>

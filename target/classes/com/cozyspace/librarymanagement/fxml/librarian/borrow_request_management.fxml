@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<<<<<<< Updated upstream
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.collections.FXCollections?>
+=======
+<?import com.jfoenix.controls.JFXTextField?>
+>>>>>>> Stashed changes
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
+<<<<<<< Updated upstream
 <?import java.lang.String?>
 <StackPane fx:id="stackPane" prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.cozyspace.librarymanagement.controller.librarian.BorrowRequestManagementController">
     <AnchorPane prefHeight="650" prefWidth="1280.0">
         <Button fx:id="searchButton" defaultButton="true" layoutX="1042.0" layoutY="22.0" onAction="#search"
+=======
+<StackPane fx:id="stackPane" prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: white"
+           fx:controller="com.cozyspace.librarymanagement.controller.librarian.BorrowRequestManagementController">
+    <AnchorPane prefHeight="650" prefWidth="1280.0">
+        <Button fx:id="searchButton" defaultButton="true" layoutX="928.0" layoutY="22.0" onAction="#search"
+>>>>>>> Stashed changes
                 prefHeight="26.0" prefWidth="47.0"/>
         <TableView fx:id="table" layoutX="40.0" layoutY="63.0" prefHeight="547.0" prefWidth="1175.0"
                    stylesheets="@../../css/table_view.css">
@@ -32,6 +44,7 @@
             </columns>
         </TableView>
 
+<<<<<<< Updated upstream
         <ImageView fitHeight="20" fitWidth="20" layoutX="1056.0" layoutY="25.0">
             <Image url="@../../icon/search_icon.png"/>
         </ImageView>
@@ -51,6 +64,15 @@
 
         <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="437.0" layoutY="22.0" prefHeight="26.0"
                       prefWidth="576.0"/>
+=======
+        <ImageView fitHeight="20" fitWidth="20" layoutX="942.0" layoutY="25.0">
+            <Image url="@../../icon/search_icon.png"/>
+        </ImageView>
+
+        <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="340.0" layoutY="22.0" prefHeight="26.0"
+                      prefWidth="576.0" unFocusColor="#9f6d1d"
+                      promptText="Tìm kiếm yêu cầu theo mã yêu cầu, tên thành viên hoặc tên tài liệu"/>
+>>>>>>> Stashed changes
 
         <JFXButton fx:id="createNewRequest" layoutX="1063.0" layoutY="620.0" onAction="#createNewRequest"
                    prefHeight="43.0" prefWidth="155.0" stylesheets="@../../css/button_type_2.css"
@@ -60,7 +82,11 @@
             </font>
         </JFXButton>
 
+<<<<<<< Updated upstream
         <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="995.0" layoutY="24.0" prefHeight="22.0"
+=======
+        <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="911.0" layoutY="24.0" prefHeight="22.0"
+>>>>>>> Stashed changes
                prefWidth="10.0" text="x">
             <font>
                 <Font size="15.0"/>

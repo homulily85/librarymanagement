@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<<<<<<< Updated upstream
 <?import javafx.collections.FXCollections?>
+=======
+>>>>>>> Stashed changes
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
+<<<<<<< Updated upstream
 <?import java.lang.String?>
 <AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -27,6 +31,16 @@
     <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="463.0" layoutY="33.0" prefHeight="26.0"
                   prefWidth="476.0"/>
     <Button fx:id="searchButton" defaultButton="true" layoutX="972.0" layoutY="32.0" onAction="#search"
+=======
+<AnchorPane prefHeight="650" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cozyspace.librarymanagement.controller.librarian.MemberManagementController"
+            style="-fx-background-color: white">
+    <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="269.0" layoutY="33.0" prefHeight="26.0"
+                  prefWidth="622.0" unFocusColor="#9f6d1d"
+                  promptText="Tìm kiếm người dùng theo tên, số điện thoại hoặc email"/>
+    <Button fx:id="searchButton" defaultButton="true" layoutX="903.0" layoutY="33.0" onAction="#search"
+>>>>>>> Stashed changes
             prefHeight="26.0" prefWidth="47.0" GridPane.columnIndex="3"/>
     <TableView fx:id="table" layoutX="40.0" layoutY="84.0" prefHeight="526.0" prefWidth="899.0"
                stylesheets="@../../css/table_view.css">
@@ -42,7 +56,11 @@
             <Font size="30"/>
         </font>
     </Label>
+<<<<<<< Updated upstream
     <ImageView fitHeight="20" fitWidth="20" layoutX="986.0" layoutY="36.0">
+=======
+    <ImageView fitHeight="20" fitWidth="20" layoutX="917.0" layoutY="36.0">
+>>>>>>> Stashed changes
         <Image url="@../../icon/search_icon.png"/>
     </ImageView>
     <Label fx:id="titleLabel" layoutX="972.0" layoutY="84.0" prefHeight="30.0" prefWidth="282.0"
@@ -104,7 +122,11 @@
         </font>
     </Label>
 
+<<<<<<< Updated upstream
     <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="915.0" layoutY="34.0" prefHeight="22.0" prefWidth="10.0"
+=======
+    <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="886.0" layoutY="34.0" prefHeight="22.0" prefWidth="10.0"
+>>>>>>> Stashed changes
            text="x">
         <font>
             <Font size="15.0"/>

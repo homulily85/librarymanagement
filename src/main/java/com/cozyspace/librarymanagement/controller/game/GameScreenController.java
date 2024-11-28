@@ -1,6 +1,6 @@
 package com.cozyspace.librarymanagement.controller.game;
 
-import com.cozyspace.librarymanagement.DataTransfer;
+import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -95,21 +95,10 @@ public class GameScreenController {
     }
 
     private List<Document> loadDocuments() {
-        List<Document> documents = new ArrayList<>();
-        HashMap<String, String> dataMap = DataTransfer.getInstance().getDataMap();
-        String documentsData = dataMap.get("documents");
-
-        if (documentsData != null && !documentsData.isEmpty()) {
-            documents = parseStringToDocuments(documentsData);
-        }
-
-        if (documents.isEmpty()) {
-            System.out.println("Không tìm thấy tài liệu nào, tạo danh sách dự phòng.");
-            documents = createFallbackDocuments();
-        }
-
+        List<Document> documents = Datasource.loadDocumentsFromDatabase();
         return documents;
     }
+
 
     private List<Document> createFallbackDocuments() {
         List<Document> fallbackDocuments = new ArrayList<>();

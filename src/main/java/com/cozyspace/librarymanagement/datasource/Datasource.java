@@ -337,7 +337,7 @@ public final class Datasource {
     public static void addNewDocument(Document newDoc) {
         try {
             PreparedStatement query = connection.prepareStatement(("insert into %s " +
-                                                                   "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
+                    "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
                     formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_AUTHOR,
                             TABLE_DOCUMENT_COLUMN_DESCRIPTION, TABLE_DOCUMENT_COLUMN_TYPE,
                             TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN, TABLE_DOCUMENT_COLUMN_SUBJECT,
@@ -688,5 +688,32 @@ public final class Datasource {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<Document> loadDocumentsFromDatabase() {
+        List<Document> documents = new ArrayList<>();
+        String sql = "SELECT * FROM document";
+
+        try (Connection connection = DriverManager.getConnection(CONNECTION_NAME);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                String isbn = resultSet.getString("isbn");
+                String title = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                String description = resultSet.getString("description");
+                String type = resultSet.getString("type");
+                int quantity = resultSet.getInt("quantity");
+                String subject = resultSet.getString("subject");
+                String coverPageLocation = resultSet.getString("coverPageLocation");
+
+                Document document = new Document(isbn, title, author, description, type, quantity, subject, coverPageLocation);
+                documents.add(document);
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi truy vấn cơ sở dữ liệu: " + e.getMessage());
+        }
+        return documents;
     }
 }

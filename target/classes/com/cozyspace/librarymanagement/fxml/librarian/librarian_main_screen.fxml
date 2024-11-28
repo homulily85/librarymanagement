@@ -5,7 +5,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <JFXTabPane fx:id="tabPane" prefHeight="720.0" prefWidth="1280" stylesheets="@../../css/tabpane.css"
             tabClosingPolicy="UNAVAILABLE" tabDragPolicy="FIXED" xmlns="http://javafx.com/javafx/"
+<<<<<<< Updated upstream
             xmlns:fx="http://javafx.com/fxml/"
+=======
+            xmlns:fx="http://javafx.com/fxml/" style="-fx-background-color: white"
+>>>>>>> Stashed changes
             fx:controller="com.cozyspace.librarymanagement.controller.librarian.LibrarianMainScreenController">
 
     <Tab text="Trang chủ">
