@@ -1,10 +1,8 @@
 package com.cozyspace.librarymanagement.controller.member;
 
 import com.cozyspace.librarymanagement.Main;
-import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.user.Member;
 import com.cozyspace.librarymanagement.user.UserManager;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,44 +37,8 @@ public class AccountInfoController {
     private Label email;
     @FXML
     private Label phone;
-//    @FXML
-//    private TableView<BorrowRequestRecord> table;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> requestIdColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> documentTittleColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> quantityColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> requestDateColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> borrowDateColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> returnDate;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> dueDateColumn;
-//    @FXML
-//    private TableColumn<BorrowRequestRecord, String> status;
 
     public void initialize() {
-//        table.setRowFactory(_ -> {
-//            TableRow<BorrowRequestRecord> row = new TableRow<>();
-//            ContextMenu contextMenu = new ContextMenu();
-//            MenuItem cancel = new MenuItem("Hủy yêu cầu");
-//            contextMenu.getItems().addAll(cancel);
-//
-//            ContextMenu contextMenu2 = new ContextMenu();
-//            table.setContextMenu(contextMenu);
-//
-//            cancel.setOnAction(_ -> cancelRequest());
-//
-//            row.contextMenuProperty().bind(
-//                    Bindings.when(row.emptyProperty())
-//                            .then(contextMenu2)
-//                            .otherwise(contextMenu));
-//            return row;
-//        });
-
         if (UserManager.getUserInstance().getInfo().getAvatar() != null) {
             avatar2.setImage(new Image(Objects.requireNonNull(Main.class.getResource
                     ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
@@ -87,59 +49,6 @@ public class AccountInfoController {
         email.setText(email.getText() + UserManager.getUserInstance().getInfo().getEmail());
         phone.setText(phone.getText() + UserManager.getUserInstance().getInfo().getPhone());
 
-        ObservableList<BorrowRequestRecord> data = UserManager.getUserInstance().viewAllBorrowRequestRecords()
-                .sorted((o1, o2) -> {
-                    if (o1.getRequestDate() == null || o2.getRequestDate() == null) {
-                        return 0;
-                    }
-                    return o2.getRequestDate().compareTo(o1.getRequestDate());
-                });
-//        table.getItems().addAll(data);
-//
-//        requestIdColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getRequestId()));
-//        documentTittleColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getDocumentTittle()));
-//        requestDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getRequestDate()));
-//        borrowDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getBorrowDate()));
-//        returnDate.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getReturnDate()));
-//        dueDateColumn.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getDueDate()));
-//        status.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getStatus()));
-//        quantityColumn.setCellValueFactory(i -> new SimpleStringProperty(((Integer) i.getValue().getQuantity()).toString()));
-//    }
-
-//    private void cancelRequest() {
-//        var currentStatus = table.getSelectionModel().getSelectedItem().getStatus();
-//        if (!currentStatus.equals(BorrowRequestRecord.BorrowRequestStatus.PENDING)) {
-//            Notifications.create().title("Lỗi").text("Không thể hủy yêu cầu này").showError();
-//            return;
-//        }
-
-//        JFXDialogLayout content = new JFXDialogLayout();
-//        var heading = new Label("Thay đổi trạng thái");
-//        heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-//        content.setHeading(heading);
-//        content.setBody(new Label("Bạn có chắc chắn muốn hủy yêu cầu này?"));
-//        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-//
-//        JFXButton okButton = new JFXButton("Xác nhận");
-//        String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
-//        okButton.getStylesheets().add(css);
-//
-//        JFXButton cancelButton = new JFXButton("Hủy");
-//        cancelButton.getStylesheets().add(css);
-//
-//        cancelButton.setOnAction(_ -> dialog.close());
-
-//        okButton.setOnAction(_ -> {
-//            BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
-//            record.setStatus(BorrowRequestRecord.BorrowRequestStatus.CANCELLED);
-//            UserManager.getUserInstance().updateBorrowRequest(record);
-//            table.refresh();
-//            Notifications.create().title("Thành công").text("Yêu cầu đã được hủy").showInformation();
-//            dialog.close();
-//        });
-//
-//        content.setActions(okButton, cancelButton);
-//        dialog.show();
     }
 
     public void chooseAvatar() {
