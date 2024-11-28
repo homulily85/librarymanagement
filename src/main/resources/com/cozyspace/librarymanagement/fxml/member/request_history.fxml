@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.cozyspace.librarymanagement.controller.member.RequestHistoryController">
+    <AnchorPane prefHeight="720.0" prefWidth="1070.0">
+        <Button fx:id="searchButton" defaultButton="true" layoutX="836.0" layoutY="111.0" onAction="#search"
+                prefHeight="26.0" prefWidth="47.0"/>
+
+        <Text fill="#f39604" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yêu cầu đã tạo"
+              textAlignment="CENTER">
+            <font>
+                <Font name="Verdana" size="35.0"/>
+            </font>
+        </Text>
+
+        <TableView fx:id="table" layoutX="53.0" layoutY="173.0" prefHeight="507.0" prefWidth="963.0"
+                   stylesheets="@../../css/table_view.css">
+            <columns>
+                <TableColumn fx:id="documentTittleColumn" prefWidth="214.99998474121094" text="Tên tài liệu"/>
+                <TableColumn fx:id="quantityColumn" prefWidth="56.20001220703125" text="SL"/>
+                <TableColumn fx:id="requestDateColumn" prefWidth="157.5999755859375" text="Ngày yêu cầu"/>
+                <TableColumn fx:id="borrowDateColumn" prefWidth="146.60003662109375" text="Ngày mượn"/>
+                <TableColumn fx:id="returnDate" prefWidth="137.79998779296875" text="Ngày trả"/>
+                <TableColumn fx:id="dueDateColumn" prefWidth="137.199951171875" text="Thời hạn mượn"/>
+                <TableColumn fx:id="status" prefWidth="114.39990234375" text="Trạng thái"/>
+            </columns>
+        </TableView>
+
+        <ImageView fitHeight="20" fitWidth="20" layoutX="850.0" layoutY="114.0">
+            <Image url="@../../icon/search_icon.png"/>
+        </ImageView>
+
+        <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="247.0" layoutY="108.0" prefHeight="26.0"
+                      prefWidth="576.0" promptText="Tìm kiếm yêu cầu tên tài liệu"
+                      unFocusColor="#9f6d1d"/>
+
+        <Label fx:id="removeQuery" contentDisplay="CENTER" layoutX="812.0" layoutY="113.0" prefHeight="22.0"
+               prefWidth="10.0" text="x">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+
+        <Label fx:id="requestNotFound" layoutX="401.0" layoutY="331.0" text="Không tìm thấy yêu cầu!" visible="false">
+            <font>
+                <Font size="30"/>
+            </font>
+        </Label>
+
+    </AnchorPane>
+</StackPane>
