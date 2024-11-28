@@ -1,12 +1,28 @@
 package com.cozyspace.librarymanagement.controller.member;
 
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.user.UserManager;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class MemberMainScreenController {
+    @FXML
+    private StackPane stackPane;
     @FXML
     private BorderPane main;
 
@@ -42,19 +58,18 @@ public class MemberMainScreenController {
         }
         main.setCenter(documentView);
     }
-    public void chooseGame() {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/game/choose_game.fxml"));
-        Pane gameView = null;
+
+    public void loadAccount() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/member/account_info.fxml"));
+        Pane accountView = null;
         try {
-            gameView = loader.load();
+            accountView = loader.load();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        main.setCenter(gameView);
+        main.setCenter(accountView);
     }
 
-<<<<<<< Updated upstream
-=======
     public void logout() {
         JFXDialogLayout content = new JFXDialogLayout();
         var heading = new Label("Đăng xuất");
@@ -96,7 +111,6 @@ public class MemberMainScreenController {
         content.setActions(okButton, cancelButton);
         dialog.show();
     }
-
     public void chooseGame() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/game/choose_game.fxml"));
         Pane gameView = null;
@@ -107,5 +121,4 @@ public class MemberMainScreenController {
         }
         main.setCenter(gameView);
     }
->>>>>>> Stashed changes
 }

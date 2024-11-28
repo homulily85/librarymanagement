@@ -25,11 +25,16 @@ public class LoginPhase2Controller extends AccountRelatedController {
     @FXML
     private SplitPane loginPhase2;
     private String lastPasswordNameInput;
-    public PasswordField passwordField;
-    public Button loginButton;
-    public Button passwordResetButton;
-    public Label inputPrompt;
-    public Label loginFailedPrompt;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Button passwordResetButton;
+    @FXML
+    private Label inputPrompt;
+    @FXML
+    private Label loginFailedPrompt;
 
     public void initialize() {
         modifyMainButtonStyle(loginButton);
@@ -84,6 +89,11 @@ public class LoginPhase2Controller extends AccountRelatedController {
         new Thread(() -> Email.sendResetPasswordConfirmationEmail(email)).start();
 
         fadeTransition(loginPhase2, "fxml/reset_password/reset_password_phase_1.fxml", 500);
+
+    }
+
+    public void back() {
+        fadeTransition(loginPhase2, "fxml/login/login_phase_1.fxml", 500);
 
     }
 }

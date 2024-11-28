@@ -4,31 +4,16 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
 import javafx.collections.ObservableList;
 
-public abstract class User implements SearchBook {
+public abstract class User implements SearchBook, ManageBorrowRequest {
 
     protected Person info;
 
-    User(String name, String address, String email, String phone, String avatar, String username) {
-        info = new Person(name, address, email, phone, avatar, username);
+    User(String name, String address, String email, String phone, String avatar, String username, String password) {
+        info = new Person(name, address, email, phone, avatar, username, password);
     }
 
     public Person getInfo() {
         return info;
-    }
-
-    @Override
-    public ObservableList<Document> searchDocumentByTitle(String title, int mode) {
-        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_TITLE, title, mode);
-    }
-
-    @Override
-    public ObservableList<Document> searchDocumentByAuthor(String author, int mode) {
-        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_AUTHOR, author, mode);
-    }
-
-    @Override
-    public ObservableList<Document> searchDocumentByISBN(String ISBN, int mode) {
-        return Datasource.queryDocument(Datasource.TABLE_DOCUMENT_COLUMN_ISBN, ISBN, mode);
     }
 
     @Override

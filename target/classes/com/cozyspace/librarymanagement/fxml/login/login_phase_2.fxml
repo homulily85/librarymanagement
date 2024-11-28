@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<<<<<<< Updated upstream
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <SplitPane fx:id="loginPhase2" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
            xmlns:fx="http://javafx.com/fxml/"
-=======
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<SplitPane fx:id="loginPhase2" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
-           style="-fx-background-color: white" xmlns:fx="http://javafx.com/fxml/1"
-           xmlns="http://javafx.com/javafx/17.0.12"
->>>>>>> Stashed changes
            fx:controller="com.cozyspace.librarymanagement.controller.login.LoginPhase2Controller">
     <AnchorPane minWidth="256">
         <ImageView fitHeight="80" fitWidth="80" layoutX="25.0" layoutY="130.0">
@@ -28,12 +18,8 @@
             </font>
         </Label>
         <Label layoutX="25.0" layoutY="268.0" prefWidth="175"
-<<<<<<< Updated upstream
                text="Hãy nhập mật khẩu để tiếp tục để truy cập vào tài khoản của bạn"
                wrapText="true">
-=======
-               text="Hãy nhập mật khẩu để tiếp tục để truy cập vào tài khoản của bạn" wrapText="true">
->>>>>>> Stashed changes
             <font>
                 <Font size="15"/>
             </font>
@@ -46,35 +32,20 @@
             </font>
         </Label>
         <PasswordField fx:id="passwordField" layoutX="104.0" layoutY="225.0" prefHeight="47.0" prefWidth="350.0"/>
-<<<<<<< Updated upstream
         <Button fx:id="loginButton" layoutX="346.0" layoutY="346.0" prefHeight="36.0" prefWidth="108.0"
                 text="Đăng nhập" onAction="#login" defaultButton="true">
-=======
-        <Button fx:id="loginButton" defaultButton="true" layoutX="346.0" layoutY="346.0" onAction="#login"
-                prefHeight="36.0" prefWidth="108.0" text="Đăng nhập">
->>>>>>> Stashed changes
             <font>
                 <Font size="15"/>
             </font>
         </Button>
-<<<<<<< Updated upstream
         <Button fx:id="passwordResetButton" text="Quên mật khẩu" layoutX="195.0" layoutY="346.0" prefHeight="36.0"
                 onAction="#resetPassword">
-=======
-        <Button fx:id="passwordResetButton" layoutX="195.0" layoutY="346.0" onAction="#resetPassword" prefHeight="36.0"
-                text="Quên mật khẩu">
->>>>>>> Stashed changes
             <font>
                 <Font size="15"/>
             </font>
         </Button>
-<<<<<<< Updated upstream
         <Label fx:id="inputPrompt" layoutX="205.0" layoutY="296.0" text="Hãy nhập mật khẩu của bạn"
                textFill="#e40c0c" visible="false">
-=======
-        <Label fx:id="inputPrompt" layoutX="205.0" layoutY="296.0" text="Hãy nhập mật khẩu của bạn" textFill="#e40c0c"
-               visible="false">
->>>>>>> Stashed changes
             <font>
                 <Font size="12"/>
             </font>
@@ -85,14 +56,5 @@
                 <Font size="12"/>
             </font>
         </Label>
-<<<<<<< Updated upstream
-=======
-        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0"
-                stylesheets="@../../css/button_type_3.css" onAction="#back"/>
-        <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
-                   preserveRatio="true" onMouseClicked="#back">
-            <Image url="@../../icon/arrow-left.png"/>
-        </ImageView>
->>>>>>> Stashed changes
     </AnchorPane>
 </SplitPane>

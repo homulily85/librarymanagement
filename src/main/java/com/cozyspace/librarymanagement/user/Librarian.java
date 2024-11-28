@@ -4,15 +4,17 @@ import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Datasource;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 public final class Librarian extends User implements SearchMember {
 
-    private Librarian(String name, String address, String email, String phone, String avatar, String username) {
-        super(name, address, email, phone, avatar, username);
+    private Librarian(String name, String address, String email, String phone, String avatar, String username, String password) {
+        super(name, address, email, phone, avatar, username, password);
     }
 
     private static Librarian instance = null;
@@ -34,9 +36,9 @@ public final class Librarian extends User implements SearchMember {
     /**
      * Tạo một đối tượng Member khi chưa có đối tượng thuộc kiểu Librarian nào tồn tại.
      */
-    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username) {
+    static void createNewInstance(String name, String address, String email, String phone, String avatar, String username, String password) {
         if (isInstanceExist()) throw new RuntimeException("Librarian instance exists");
-        instance = new Librarian(name, address, email, phone, avatar, username);
+        instance = new Librarian(name, address, email, phone, avatar, username, password);
     }
 
     /**
@@ -82,42 +84,29 @@ public final class Librarian extends User implements SearchMember {
     }
 
     @Override
-    public ObservableList<MemberRecord> searchMemberByName(String name) {
-        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_NAME, name);
+    public ObservableList<MemberRecord> searchMember(String query) {
+        ObservableList<MemberRecord> data = Datasource.viewAllMember();
+        if (data == null || data.isEmpty()) return null;
+        else return data.stream()
+                .filter(member -> member.getName().toLowerCase().contains(query) ||
+                                  member.getEmail().toLowerCase().contains(query) ||
+                                  member.getPhone().toLowerCase().contains(query))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
     @Override
-    public ObservableList<MemberRecord> searchMemberByEmail(String email) {
-        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_EMAIL, email);
-    }
-
-    @Override
-    public ObservableList<MemberRecord> searchMemberByPhone(String phone) {
-        return Datasource.queryMember(Datasource.TABLE_ACCOUNT_COLUMN_PHONE, phone);
-    }
-
-    public ObservableList<BorrowRequestRecord> viewAllBorrowRequest() {
+    public ObservableList<BorrowRequestRecord> viewAllBorrowRequestRecords() {
         return Datasource.viewAllBorrowRequest();
     }
 
-    public ObservableList<BorrowRequestRecord> searchBorrowRequestByRequestID(String id) {
-        return Datasource.searchBorrowRequestByRequestID(id);
-    }
-
-    public ObservableList<BorrowRequestRecord> searchBorrowRequestByMemberName(String memberName) {
-        return Datasource.searchBorrowRequestByMemberName(memberName);
-    }
-
-    public ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
-        return Datasource.searchBorrowRequestByDocumentTittle(documentTittle);
-    }
-
-    public ObservableList<Document> searchDocumentByIdOrTitle(String idOrTitle) {
-        return Datasource.getDocumentByIdOrTittle(idOrTitle);
-    }
-
-    public ObservableList<Document> searchDocumentById(int id) {
-        return Datasource.getDocumentById(id);
+    public ObservableList<BorrowRequestRecord> searchBorrowRequest(String keyword) {
+        ObservableList<BorrowRequestRecord> data = Datasource.viewAllBorrowRequest();
+        if (data == null || data.isEmpty()) return null;
+        else return data.stream()
+                .filter(record -> record.getRequestId().toLowerCase().contains(keyword) ||
+                                  record.getDocumentTittle().toLowerCase().contains(keyword) ||
+                                  record.getMemberName().toLowerCase().contains(keyword))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
     @Override
@@ -128,5 +117,16 @@ public final class Librarian extends User implements SearchMember {
 
     public void updateBorrowRequest(BorrowRequestRecord record) {
         Datasource.updateBorrowRequest(record);
+    }
+
+    @Override
+    public ObservableList<Document> searchDocument(String keyword, int mode) {
+        ObservableList<Document> data = Datasource.viewAllDocument(mode);
+        if (data == null || data.isEmpty()) return null;
+        else return data.stream()
+                .filter(document -> document.getTitle().toLowerCase().contains(keyword) ||
+                                    (document.getAuthor() != null && document.getAuthor().toLowerCase().contains(keyword) ||
+                                     (document.getISBN() != null && document.getISBN().equals(keyword))))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 }

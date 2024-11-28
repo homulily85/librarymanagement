@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-<<<<<<< Updated upstream
-=======
-           style="-fx-background-color: white"
->>>>>>> Stashed changes
            fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentMainScreenController">
     <AnchorPane prefHeight="720.0" prefWidth="1070.0">
         <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
@@ -22,11 +15,7 @@
                 <Font name="Verdana" size="35.0"/>
             </font>
         </Text>
-<<<<<<< Updated upstream
         <AnchorPane layoutX="613.0" layoutY="14.0" prefHeight="102.0" prefWidth="442.0"
-=======
-        <AnchorPane layoutX="625.0" layoutY="13.0" prefHeight="102.0" prefWidth="442.0"
->>>>>>> Stashed changes
                     xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
             <Text fx:id="nameLabel" layoutX="90.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"
                   wrappingWidth="228.1830234527588">
@@ -34,7 +23,6 @@
                     <Font name="Verdana" size="15.0"/>
                 </font>
             </Text>
-<<<<<<< Updated upstream
             <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0"
                        pickOnBounds="true" preserveRatio="true">
                 <Image url="@../../../icon/user.png"/>
@@ -42,11 +30,6 @@
             <ImageView fitHeight="26.0" fitWidth="22.0" layoutX="388.0" layoutY="39.0" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@../../../icon/notification.png"/>
-=======
-            <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="17.0" layoutY="18.0" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@../../../icon/account.png"/>
->>>>>>> Stashed changes
             </ImageView>
         </AnchorPane>
         <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="174.0" layoutY="116.0" prefHeight="26.0"

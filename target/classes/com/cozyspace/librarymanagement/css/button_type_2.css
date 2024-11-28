@@ -1,5 +1,4 @@
 .button {
-<<<<<<< Updated upstream
     -fx-font-size: 16;
     -fx-text-fill: #ffffff;
     -fx-text-alignment: center;
@@ -7,25 +6,11 @@
     -fx-background-size: 100%;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-=======
-    -fx-font-size: 15;
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "OpenSans";
-    -fx-text-alignment: center;
-    -fx-background-color: #f39604;
-    -fx-background-size: 100%;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
->>>>>>> Stashed changes
 }
 
 .button:pressed {
     -fx-background-color: #9f6d1d;
-<<<<<<< Updated upstream
     -fx-border-color: transparent;
-=======
-        -fx-border-color: transparent;
->>>>>>> Stashed changes
 }
 
 .button:hover {

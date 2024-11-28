@@ -153,34 +153,6 @@ public final class Datasource {
         }
     }
 
-    public static ObservableList<Document> queryDocument(String searchType, String value, int mode) {
-        StringBuilder sb = new StringBuilder(value);
-        sb.append("%");
-        sb.insert(0, "%");
-
-        PreparedStatement query = null;
-        try {
-            switch (mode) {
-                case SearchBook.SEARCH_ALL_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ? order by %s"
-                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_ID));
-                case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ? and %s>0 order by %s"
-                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
-                case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT ->
-                        query = connection.prepareStatement("select * from %s where %s like ? and %s=0 order by %s"
-                                .formatted(TABLE_DOCUMENT, searchType, TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ID));
-            }
-
-            query.setString(1, sb.toString());
-
-            return getDocuments(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static ObservableList<Document> viewAllDocument(int mode) {
         try {
             PreparedStatement query = connection.prepareStatement("select * from %s where %s > 0 order by %s"
@@ -221,19 +193,6 @@ public final class Datasource {
         resultSet.close();
         query.close();
         return result;
-    }
-
-    public static ObservableList<Document> getDocumentByIdOrTittle(String query) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from %s where %s like ? or %s = ? order by %s"
-                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_ID, TABLE_DOCUMENT_COLUMN_ID));
-            preparedStatement.setString(1, "%" + query + "%");
-            preparedStatement.setString(2, query);
-            return getDocuments(preparedStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     /**
@@ -337,7 +296,7 @@ public final class Datasource {
     public static void addNewDocument(Document newDoc) {
         try {
             PreparedStatement query = connection.prepareStatement(("insert into %s " +
-                    "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
+                                                                   "(%s, %s, %s, %s, %s, %s, %s, %s) values (?,?,?,?,?,?,?,?)").
                     formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE, TABLE_DOCUMENT_COLUMN_AUTHOR,
                             TABLE_DOCUMENT_COLUMN_DESCRIPTION, TABLE_DOCUMENT_COLUMN_TYPE,
                             TABLE_DOCUMENT_COLUMN_QUANTITY, TABLE_DOCUMENT_COLUMN_ISBN, TABLE_DOCUMENT_COLUMN_SUBJECT,
@@ -383,30 +342,6 @@ public final class Datasource {
         }
     }
 
-    public static ObservableList<MemberRecord> queryMember(String searchType, String value) {
-        PreparedStatement query;
-        try {
-            if (!searchType.equals(TABLE_ACCOUNT_COLUMN_NAME)) {
-                query = connection.prepareStatement("select * from %s where %s = ? and %s =?"
-                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
-                query.setString(1, value);
-                query.setString(2, "Member");
-
-            } else {
-                query = connection.prepareStatement("select * from %s where %s like ? and %s =?"
-                        .formatted(TABLE_ACCOUNT, searchType, TABLE_ACCOUNT_COLUMN_ROLE));
-                query.setString(1, "%" + value + "%");
-                query.setString(2, "Member");
-
-            }
-
-            return getMemberRecord(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     private static ObservableList<MemberRecord> getMemberRecord(PreparedStatement query) throws SQLException {
         ResultSet resultSet = query.executeQuery();
         ObservableList<MemberRecord> result = FXCollections.observableList(new ArrayList<>());
@@ -415,7 +350,8 @@ public final class Datasource {
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_NAME),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_ADDRESS),
                     resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_EMAIL),
-                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE)));
+                    resultSet.getString(TABLE_ACCOUNT_COLUMN_PHONE),
+                    resultSet.getString(TABLE_ACCOUNT_INDEX_COLUMN_AVATAR)));
         }
         resultSet.close();
         query.close();
@@ -439,14 +375,16 @@ public final class Datasource {
     public static void updateMemberInfo(MemberRecord newMemberRecord) {
         try {
             PreparedStatement query = connection.prepareStatement(
-                    "update %s set %s = ?, %s = ?, %s=?, %s=? where %s = ?"
+                    "update %s set %s = ?, %s = ?, %s=?, %s=?, %s=? where %s = ?"
                             .formatted(TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_ADDRESS, TABLE_ACCOUNT_COLUMN_PHONE,
-                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_USERNAME));
+                                    TABLE_ACCOUNT_COLUMN_EMAIL, TABLE_ACCOUNT_COLUMN_NAME, TABLE_ACCOUNT_COLUMN_AVATAR,
+                                    TABLE_ACCOUNT_COLUMN_USERNAME));
             query.setString(1, newMemberRecord.getAddress());
             query.setString(2, newMemberRecord.getPhone());
             query.setString(3, newMemberRecord.getEmail());
             query.setString(4, newMemberRecord.getName());
-            query.setString(5, newMemberRecord.getUsername());
+            query.setString(5, newMemberRecord.getAvatar());
+            query.setString(6, newMemberRecord.getUsername());
             query.executeUpdate();
             query.close();
 
@@ -490,63 +428,6 @@ public final class Datasource {
             resultSet.close();
             query.close();
             return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByRequestID(String id) {
-        try {
-            PreparedStatement query = connection.prepareStatement("""
-                    select *
-                    from (%s join %s on %s.%s= %s.%s)
-                             join %s using (%s)
-                    where %s.%s = ?;
-                    """
-                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
-                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
-                            TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_ID));
-            query.setString(1, id);
-            return getBorrowRequestRecord(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByMemberName(String memberName) {
-        try {
-            PreparedStatement query = connection.prepareStatement("""
-                    select *
-                    from (%s join %s on %s.%s= %s.%s)
-                             join %s using (%s)
-                    where %s.%s like ?;
-                    """
-                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
-                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
-                            TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_NAME));
-            query.setString(1, "%" + memberName + "%");
-            return getBorrowRequestRecord(query);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static ObservableList<BorrowRequestRecord> searchBorrowRequestByDocumentTittle(String documentTittle) {
-        try {
-            PreparedStatement query = connection.prepareStatement("""
-                    select *
-                    from (%s join %s on %s.%s= %s.%s)
-                             join %s using (%s)
-                    where %s.%s like ?;
-                    """
-                    .formatted(TABLE_BORROW_REQUEST, TABLE_DOCUMENT, TABLE_BORROW_REQUEST, TABLE_BORROW_REQUEST_COLUMN_DOCUMENT_ID,
-                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME,
-                            TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_TITLE));
-            query.setString(1, "%" + documentTittle + "%");
-            return getBorrowRequestRecord(query);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -615,18 +496,6 @@ public final class Datasource {
             query.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static ObservableList<Document> getDocumentById(int id) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from %s where %s = ?"
-                    .formatted(TABLE_DOCUMENT, TABLE_DOCUMENT_COLUMN_ID));
-            preparedStatement.setInt(1, id);
-            return getDocuments(preparedStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
@@ -705,8 +574,8 @@ public final class Datasource {
                 String description = resultSet.getString("description");
                 String type = resultSet.getString("type");
                 int quantity = resultSet.getInt("quantity");
-                String subject = resultSet.getString("subject");
-                String coverPageLocation = resultSet.getString("coverPageLocation");
+                String subject = resultSet.getString("subject");  // Cập nhật tên trường chính xác từ cơ sở dữ liệu
+                String coverPageLocation = resultSet.getString("coverPageLocation");  // Đảm bảo tên trường chính xác
 
                 Document document = new Document(isbn, title, author, description, type, quantity, subject, coverPageLocation);
                 documents.add(document);

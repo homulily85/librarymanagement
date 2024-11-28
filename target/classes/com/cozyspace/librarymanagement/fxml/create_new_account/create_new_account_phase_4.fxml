@@ -6,11 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <SplitPane fx:id="createNewAccountPhase4" dividerPositions="0.32" prefHeight="500.0" prefWidth="800.0"
-<<<<<<< Updated upstream
            xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
-=======
-           xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" style="-fx-background-color: white"
->>>>>>> Stashed changes
            fx:controller="com.cozyspace.librarymanagement.controller.create_new_account.CreateNewAccountPhase4Controller">
     <AnchorPane minWidth="256">
         <ImageView fitHeight="80" fitWidth="80" layoutX="25.0" layoutY="130.0">
@@ -65,15 +61,6 @@
             <font>
                 <Font size="12"/>
             </font>
-<<<<<<< Updated upstream
-=======
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="40.0"
-                    stylesheets="@../../css/button_type_3.css" onAction="#back"/>
-            <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true"
-                       preserveRatio="true" onMouseClicked="#back">
-                <Image url="@../../icon/arrow-left.png"/>
-            </ImageView>
->>>>>>> Stashed changes
         </Label>
     </AnchorPane>
 </SplitPane>

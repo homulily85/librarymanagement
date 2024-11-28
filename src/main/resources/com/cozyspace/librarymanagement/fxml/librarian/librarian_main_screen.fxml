@@ -28,11 +28,6 @@
 
         </BorderPane>
     </Tab>
-    <Tab text="Game">
-        <BorderPane fx:id="gameScreen">
-            <!-- Nội dung của tab Game sẽ được thêm ở đây -->
-        </BorderPane>
-    </Tab>
     <!--    <Tab text="Thông báo">-->
     <!--        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>-->
     <!--    </Tab>-->

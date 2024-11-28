@@ -1,11 +1,7 @@
 .chart-title {
     -fx-font-family: "Verdana";
     -fx-font-size: 16px;
-<<<<<<< Updated upstream
     -fx-text-fill: #EE9923;
-=======
-    -fx-text-fill: #00000;
->>>>>>> Stashed changes
 }
 
 .chart-legend {

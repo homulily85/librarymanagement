@@ -2,25 +2,15 @@
     -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-border-color: black;
-<<<<<<< Updated upstream
     -fx-background-radius: 10;
     -fx-background-color: white;
     -fx-font-family: Verdana;
-=======
-    -fx-background-radius: 5;
-    -fx-background-color: white;
-    -fx-font-family: "OpenSans";
->>>>>>> Stashed changes
     -fx-font-size: 13;
 }
 
 #button1 {
     -fx-font-size: 10;
-<<<<<<< Updated upstream
     -fx-font-family: "Verdana";
-=======
-    -fx-font-family: "OpenSans";
->>>>>>> Stashed changes
     -fx-text-fill: white;
     -fx-text-alignment: center;
     -fx-background-color:  #EE9923;
@@ -41,7 +31,6 @@
     -fx-border-radius: 20;
     -fx-border-color: black;
 }
-<<<<<<< Updated upstream
 .text {
     -fx-font-size: 15;
     -fx-font-family: "Verdana";
@@ -49,22 +38,6 @@
 }
 .text-area {
     -fx-font-family: "Verdana";
-=======
-
-#textTitle {
-    -fx-font-size: 40px;
-    -fx-font-family: "OpenSans";
-    -fx-text-alignment: center;
-    -fx-font-weight: bold;
-}
-#text1 {
-    -fx-font-size: 15px;
-    -fx-font-family: "OpenSans";
-    -fx-text-alignment: center;
-}
-.text-area {
-    -fx-font-family: "OpenSans";
->>>>>>> Stashed changes
     -fx-font-size: 13;
     -fx-border-width: 1;
     -fx-border-radius: 10;
@@ -72,9 +45,6 @@
     -fx-background-radius: 10;
     -fx-background-color: white;
 }
-<<<<<<< Updated upstream
 #anchorPane1 {
     -fx-background-color: #EE9923;
 }
-=======
->>>>>>> Stashed changes

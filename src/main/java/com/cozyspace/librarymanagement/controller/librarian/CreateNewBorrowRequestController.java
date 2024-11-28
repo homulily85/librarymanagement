@@ -4,6 +4,7 @@ import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.datasource.MemberRecord;
 import com.cozyspace.librarymanagement.user.Librarian;
+import com.cozyspace.librarymanagement.user.SearchBook;
 import com.cozyspace.librarymanagement.user.UserManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -80,7 +81,7 @@ public class CreateNewBorrowRequestController {
 
     public void handleDocumentSearchButton() {
         ObservableList<Document> documents = ((Librarian) UserManager.getUserInstance())
-                .searchDocumentByIdOrTitle(documentSearchField.getText());
+                .searchDocument(documentSearchField.getText().trim().toLowerCase(), SearchBook.SEARCH_ALL_DOCUMENT);
 
         documentTable.getItems().setAll(documents);
         documentId.setCellValueFactory(i -> new SimpleStringProperty(String.valueOf(i.getValue().getId())));
@@ -91,7 +92,7 @@ public class CreateNewBorrowRequestController {
 
     public void handleMemberSearchButton() {
         ObservableList<MemberRecord> members = ((Librarian) UserManager.getUserInstance())
-                .searchMemberByName(memberSearchField.getText());
+                .searchMember(memberSearchField.getText().trim().toLowerCase());
 
         memberTable.getItems().setAll(members);
         memberName.setCellValueFactory(i -> new SimpleStringProperty(i.getValue().getName()));

@@ -1,12 +1,6 @@
 .button {
-<<<<<<< Updated upstream
     -fx-font-size: 18;
     -fx-text-fill: white;
-=======
-    -fx-font-size: 20;
-    -fx-text-fill: white;
-    -fx-font-family: "OpenSans";
->>>>>>> Stashed changes
     -fx-font-weight: bold;
     -fx-text-alignment: left;
     -fx-background-color: transparent;

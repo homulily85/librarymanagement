@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
@@ -24,6 +25,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class SearchScreenController {
+    @FXML
+    private Text title;
     @FXML
     private TableColumn<Document, String> idColumn;
     @FXML
@@ -47,13 +50,18 @@ public class SearchScreenController {
     @FXML
     private Button searchButton;
     @FXML
-    private ComboBox<String> searchType;
-    @FXML
     private Label documentNotFound;
     @FXML
     private TableView<Document> table;
 
     public void initialize() {
+
+        title.setText(switch (Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode"))) {
+            case SearchBook.SEARCH_ALL_DOCUMENT -> "Tất cả tài liệu";
+            case SearchBook.SEARCH_ALL_AVAILABLE_DOCUMENT -> "Tài liệu hiện có";
+            case SearchBook.SEARCH_ALL_UNAVAILABLE_DOCUMENT -> "Tài liệu đã hết";
+            default -> "";
+        });
 
         table.setRowFactory(_ -> {
             TableRow<Document> row = new TableRow<>();
@@ -127,15 +135,8 @@ public class SearchScreenController {
         table.setVisible(false);
         String query = searchField.getText();
         addNewDocument.setVisible(false);
-        ObservableList<Document> result = null;
-        switch (searchType.getSelectionModel().getSelectedIndex()) {
-            case 0 -> result = UserManager.getUserInstance().searchDocumentByTitle(query,
-                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
-            case 1 -> result = UserManager.getUserInstance().searchDocumentByAuthor(query,
-                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
-            case 2 -> result = UserManager.getUserInstance().searchDocumentByISBN(query,
-                    Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
-        }
+        ObservableList<Document> result = UserManager.getUserInstance().searchDocument(query.trim().toLowerCase(),
+                Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         if (result == null || result.isEmpty()) {
             documentNotFound.setVisible(true);
         } else {

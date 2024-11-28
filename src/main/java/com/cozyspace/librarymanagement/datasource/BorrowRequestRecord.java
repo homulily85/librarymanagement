@@ -3,7 +3,7 @@ package com.cozyspace.librarymanagement.datasource;
 public class BorrowRequestRecord {
     private final String requestId;
     private final int documentId;
-    private final String name;
+    private final String memberName;
     private final String documentTittle;
     private final String requestDate;
     private String borrowDate;
@@ -16,7 +16,7 @@ public class BorrowRequestRecord {
                                String returnDate, String dueDate, String status, int quantity) {
         this.requestId = requestId;
         this.documentId = documentId;
-        this.name = name;
+        this.memberName = name;
         this.documentTittle = documentTittle;
         this.requestDate = requestDate;
         this.borrowDate = borrowDate;
@@ -31,8 +31,8 @@ public class BorrowRequestRecord {
         return requestId;
     }
 
-    public String getName() {
-        return name;
+    public String getMemberName() {
+        return memberName;
     }
 
     public String getDocumentTittle() {

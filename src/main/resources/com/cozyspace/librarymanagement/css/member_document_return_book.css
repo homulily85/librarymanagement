@@ -1,0 +1,29 @@
+#pane {
+    -fx-background-color: #fdffe0;
+}
+#text1 {
+    -fx-font-size: 15px;
+    -fx-font-family: "OpenSans";
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
+.button {
+    -fx-font-size: 15;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "OpenSans";
+    -fx-text-alignment: center;
+    -fx-background-color: #f39604;
+    -fx-background-size: 100%;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.button:pressed {
+    -fx-background-color: #9f6d1d;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: #9f6d1d;
+    -fx-border-color: transparent;
+}

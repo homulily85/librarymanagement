@@ -4,11 +4,7 @@ import com.cozyspace.librarymanagement.datasource.Datasource;
 
 import java.util.List;
 
-public final class UserManager {
-
-    private UserManager() {
-
-    }
+public abstract class UserManager {
 
     /**
      * Tạo một đối tượng User mới khi không có đối tượng nào thuộc kiểu User tồn tại
@@ -23,10 +19,11 @@ public final class UserManager {
         String email = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_EMAIL - 1);
         String phone = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PHONE - 1);
         String avatar = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_AVATAR - 1);
+        String password = userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_PASSWORD - 1);
         if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Member")) {
-            Member.createNewInstance(name, address, email, phone, avatar, username);
+            Member.createNewInstance(name, address, email, phone, avatar, username, password);
         } else if (userInfo.get(Datasource.TABLE_ACCOUNT_INDEX_COLUMN_ROLE - 1).equals("Librarian")) {
-            Librarian.createNewInstance(name, address, email, phone, avatar, username);
+            Librarian.createNewInstance(name, address, email, phone, avatar, username, password);
         }
     }
 

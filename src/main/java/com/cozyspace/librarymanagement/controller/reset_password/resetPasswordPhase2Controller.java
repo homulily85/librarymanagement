@@ -25,11 +25,12 @@ public class resetPasswordPhase2Controller extends AccountRelatedController {
 
     public void initialize() {
         modifyMainButtonStyle(continueButton);
+        Tooltip passwordTooltip = new Tooltip();
+        passwordTooltip.setText("Mật khẩu có tối thiểu 6 kí tự, chứa ít nhất một chữ cái in hoa và chứa ít nhất một chữ số");
+        newPasswordField.setTooltip(passwordTooltip);
     }
 
-
-    @FXML
-    private void checkAndContinue() {
+    public void checkAndContinue() {
         if (newPasswordField.getText().isEmpty() || repeatPasswordField.getText().isEmpty()) {
             inputFail.setVisible(false);
             inputPrompt.setVisible(true);
@@ -55,6 +56,10 @@ public class resetPasswordPhase2Controller extends AccountRelatedController {
 
         fadeTransition(resetPasswordPhase2, "fxml/reset_password/reset_password_phase_3.fxml", 500);
 
+    }
+
+    public void back() {
+        fadeTransition(resetPasswordPhase2, "fxml/reset_password/reset_password_phase_1.fxml", 500);
     }
 }
 
