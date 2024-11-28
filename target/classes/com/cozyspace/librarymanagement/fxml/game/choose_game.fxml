@@ -5,11 +5,26 @@
 <?import javafx.scene.control.Label?>
 
 <BorderPane fx:id="main" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.cozyspace.librarymanagement.controller.game.ChooseGameController">
+            fx:controller="com.cozyspace.librarymanagement.controller.game.ChooseGameController"
+            style="-fx-background-color: #ff0000;">
     <center>
-        <VBox alignment="CENTER" spacing="10">
-            <Label text="Game Guess Book!" style="-fx-font-size: 36px; -fx-font-weight: bold;" />
-            <Button text="Sẵn sàng" onAction="#loadGameGuessBook" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <VBox alignment="CENTER" spacing="30" style="-fx-padding: 50;">
+            <!-- Tiêu đề -->
+            <Label text="Game Guess Book!"
+                   style="-fx-font-size: 48px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: orange;" />
+
+            <Button text="Sẵn sàng"
+                    onAction="#loadGameGuessBook"
+                    style="-fx-font-size: 24px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: black;
+                           -fx-background-color: white;
+                           -fx-border-color: white;
+                           -fx-border-radius: 10;
+                           -fx-background-radius: 10;
+                           -fx-padding: 10 20;" />
         </VBox>
     </center>
 </BorderPane>

@@ -114,7 +114,7 @@ public class GameScreenController {
         int index = random.nextInt(remainingDocuments.size());
         correctAnswer = remainingDocuments.get(index);
         remainingDocuments.remove(index);
-        String hint = String.format("Tác giả: %s\nMô tả: %s\nLoại tài liệu: %s", correctAnswer.getAuthor(), correctAnswer.getDescription(), correctAnswer.getType());
+        String hint = String.format("Tác giả: %s\nMô tả: %s\nThể loại: %s", correctAnswer.getAuthor(), correctAnswer.getDescription(), correctAnswer.getSubject());
         descriptionLabel.setText(hint);
         guessTextField.clear();
         submitButton.setDisable(false);
@@ -230,17 +230,25 @@ public class GameScreenController {
     }
 
     /**
-     * Hiển thị thông báo
      *
-     * @param title     Tiêu đề
-     * @param message   Nội dung
-     * @param alertType Loại thông báo
+     * @param title tiêu đề
+     * @param message nội dung
+     * @param alertType loại thông báo
      */
     private void showAlert(String title, String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
+
+        alert.getDialogPane().setStyle("-fx-font-size: 14px; -fx-background-color: red;");
+        alert.getDialogPane().setPrefSize(300, 150);
+
+        ButtonType buttonType = alert.getButtonTypes().get(0);
+        Button button = (Button) alert.getDialogPane().lookupButton(buttonType);
+        button.setStyle("-fx-background-color: #007bff; -fx-text-fill: green;");
+
         alert.showAndWait();
     }
+
 }
