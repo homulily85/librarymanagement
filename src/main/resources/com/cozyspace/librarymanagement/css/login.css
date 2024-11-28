@@ -31,13 +31,24 @@
     -fx-cursor: hand;
 }
 
+#signUpButton {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-strikethrough: true;
+    -fx-font-family: "OpenSans";
+}
 #forgotButton {
     -fx-background-color: #424242;
     -fx-text-fill: white;
     -fx-padding: 10 20;
     -fx-cursor: hand;
 }
-
+#subTitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+    -fx-font-family: "OpenSans";
+}
 /* Phần bên trái */
 #leftSection {
     -fx-background-color: #fdffe0;
