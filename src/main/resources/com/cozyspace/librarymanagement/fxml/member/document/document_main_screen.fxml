@@ -5,173 +5,246 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-           style="-fx-background-color: white"
+<StackPane fx:id="mainStackPane" style="-fx-background-color: white" xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.cozyspace.librarymanagement.controller.member.document.DocumentMainScreenController">
-    <AnchorPane prefHeight="720.0" prefWidth="1070.0">
-        <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
-              textAlignment="CENTER">
-            <font>
-                <Font name="Verdana" size="35.0"/>
-            </font>
-        </Text>
-        <AnchorPane layoutX="639.0" layoutY="13.0" prefHeight="102.0" prefWidth="366.0">
-            <Text fx:id="nameLabel" layoutX="221.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name"
-                  wrappingWidth="208.1830234527588">
+    <ScrollPane>
+        <AnchorPane prefHeight="934.0" prefWidth="1070.0">
+            <Text fill="#ee9923" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu"
+                  textAlignment="CENTER">
                 <font>
-                    <Font name="Verdana" size="15.0"/>
+                    <Font name="Verdana" size="35.0"/>
                 </font>
             </Text>
-            <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="144.0" layoutY="17.0" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@../../../icon/account.png"/>
-            </ImageView>
-        </AnchorPane>
-        <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="174.0" layoutY="116.0" prefHeight="26.0"
-                      prefWidth="643.0" promptText="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ...">
-            <font>
-                <Font name="System" size="12.0"/>
-            </font>
-        </JFXTextField>
-        <Button fx:id="searchButton" layoutX="834.0" layoutY="117.0" mnemonicParsing="false" onAction="#search"
-                prefHeight="26.0" prefWidth="33.0"/>
-        <ImageView fx:id="searchImage" fitHeight="26.0" fitWidth="22.0" layoutX="840.0" layoutY="119.0"
-                   onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../../../icon/search_icon.png"/>
-        </ImageView>
-        <Text fill="#ee9923" layoutX="47.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Tài liệu của ngày" textAlignment="CENTER">
-            <font>
-                <Font name="Verdana" size="25.0"/>
-            </font>
-        </Text>
-        <Pane fx:id="day1" layoutX="62.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
+            <AnchorPane layoutX="639.0" layoutY="13.0" prefHeight="102.0" prefWidth="366.0">
+                <Text fx:id="nameLabel" layoutX="221.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Name" wrappingWidth="208.1830234527588">
+                    <font>
+                        <Font name="Verdana" size="15.0"/>
+                    </font>
+                </Text>
+                <ImageView fx:id="avatar" fitHeight="66.0" fitWidth="73.0" layoutX="144.0" layoutY="17.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/account.png"/>
+                </ImageView>
+            </AnchorPane>
+            <JFXTextField fx:id="searchField" focusColor="#9f6d1d" layoutX="174.0" layoutY="116.0" prefHeight="26.0"
+                          prefWidth="643.0" promptText="Tìm kiếm tài liệu theo tên, tác giả, ISBN, ...">
                 <font>
-                    <Font size="15.0"/>
+                    <Font name="System" size="12.0"/>
                 </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="day2" layoutX="258.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
+            </JFXTextField>
+            <Button fx:id="searchButton" layoutX="834.0" layoutY="117.0" mnemonicParsing="false" onAction="#search"
+                    prefHeight="26.0" prefWidth="33.0"/>
+            <ImageView fx:id="searchImage" fitHeight="26.0" fitWidth="22.0" layoutX="840.0" layoutY="119.0"
+                       onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../../icon/search_icon.png"/>
             </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
+            <Text fill="#ee9923" layoutX="47.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Tài liệu của ngày" textAlignment="CENTER">
                 <font>
-                    <Font size="15.0"/>
+                    <Font name="Verdana" size="25.0"/>
                 </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="day3" layoutX="454.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
+            </Text>
+            <Pane fx:id="day1" layoutX="62.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="day2" layoutX="258.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="day3" layoutX="454.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="day4" layoutX="650.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="day5" layoutX="846.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Text fill="#ee9923" layoutX="47.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Tài liệu đang được quan tâm" textAlignment="CENTER">
                 <font>
-                    <Font size="15.0"/>
+                    <Font name="Verdana" size="25.0"/>
                 </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="day4" layoutX="650.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
+            </Text>
+            <Pane fx:id="hot1" layoutX="62.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="hot2" layoutX="258.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="hot3" layoutX="454.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="hot4" layoutX="650.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true"
+                           style="-fx-alignment: center">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="hot5" layoutX="846.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Text fill="#ee9923" layoutX="48.0" layoutY="703.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Có thể bạn thích" textAlignment="CENTER">
                 <font>
-                    <Font size="15.0"/>
+                    <Font name="Verdana" size="25.0"/>
                 </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="day5" layoutX="846.0" layoutY="225.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Text fill="#ee9923" layoutX="47.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0"
-              text="Tài liệu đang được quan tâm" textAlignment="CENTER">
-            <font>
-                <Font name="Verdana" size="25.0"/>
-            </font>
-        </Text>
-        <Pane fx:id="hot1" layoutX="62.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="hot2" layoutX="258.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="hot3" layoutX="454.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="hot4" layoutX="650.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true"
-                       style="-fx-alignment: center">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="hot5" layoutX="846.0" layoutY="478.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
-              stylesheets="@../../../css/pane2.css">
-            <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../../../icon/coverart.png"/>
-            </ImageView>
-            <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
-                   textAlignment="CENTER" wrapText="true">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Label>
-        </Pane>
+            </Text>
+            <Pane fx:id="rec1" layoutX="62.0" layoutY="717.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="rec2" layoutX="258.0" layoutY="717.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="rec3" layoutX="452.0" layoutY="717.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="rec4" layoutX="650.0" layoutY="717.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
+            <Pane fx:id="rec5" layoutX="846.0" layoutY="717.0" prefHeight="200.0" prefWidth="166.0" styleClass="pane"
+                  stylesheets="@../../../css/pane2.css">
+                <ImageView fitHeight="150.0" fitWidth="166.0" layoutX="22.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <Image url="@../../../icon/coverart.png"/>
+                </ImageView>
+                <Label layoutY="150.0" prefHeight="52.0" prefWidth="166.0" style="-fx-alignment: center" text="Tên"
+                       textAlignment="CENTER" wrapText="true">
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Label>
+            </Pane>
 
-    </AnchorPane>
+        </AnchorPane>
+    </ScrollPane>
 </StackPane>

@@ -2,6 +2,7 @@ package com.cozyspace.librarymanagement.controller.member.document;
 
 import com.cozyspace.librarymanagement.DataTransfer;
 import com.cozyspace.librarymanagement.Main;
+import com.cozyspace.librarymanagement.datasource.BorrowRequestRecord;
 import com.cozyspace.librarymanagement.datasource.Document;
 import com.cozyspace.librarymanagement.user.UserManager;
 import com.jfoenix.controls.JFXDialog;
@@ -31,6 +32,16 @@ import java.util.Objects;
 import java.util.Random;
 
 public class DocumentMainScreenController {
+    @FXML
+    private Pane rec1;
+    @FXML
+    private Pane rec2;
+    @FXML
+    private Pane rec3;
+    @FXML
+    private Pane rec4;
+    @FXML
+    private Pane rec5;
     @FXML
     private StackPane mainStackPane;
     @FXML
@@ -70,6 +81,7 @@ public class DocumentMainScreenController {
 
         Pane[] dayPanes = {day1, day2, day3, day4, day5};
         Pane[] hotPanes = {hot1, hot2, hot3, hot4, hot5};
+        Pane[] recPanes = {rec1, rec2, rec3, rec4, rec5};
 
         nameLabel.setText(UserManager.getUserInstance().getInfo().getName());
         if (UserManager.getUserInstance().getInfo().getAvatar() != null) {
@@ -81,22 +93,57 @@ public class DocumentMainScreenController {
                 viewDocument(Integer.parseInt(DataTransfer.getInstance().getDataMap().get("searchMode")));
         Random random = new Random(LocalDate.now().toEpochDay());
 
-        ArrayList<Integer> temp = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        ArrayList<Integer> randomData = new ArrayList<>();
+        for (int i = 0; i < dayPanes.length; i++) {
             int randomIndex = random.nextInt(data.size());
-            temp.add(randomIndex);
+            randomData.add(randomIndex);
+        }
+
+        ArrayList<Document> recData = new ArrayList<>();
+
+        ObservableList<BorrowRequestRecord> temp = UserManager.getUserInstance().viewAllBorrowRequestRecords();
+
+        if (temp.isEmpty()) {
+            random.setSeed(LocalDate.now().toEpochDay() - 1000);
+            for (int i = 0; i < recPanes.length; i++) {
+                int randomIndex = random.nextInt(data.size());
+                recData.add(data.get(randomIndex));
+            }
+        } else {
+            int randomBorrowRequest = random.nextInt(temp.size());
+            ObservableList<Document> recDataTemp = data.filtered(document -> document.getSubject().equals(
+                    data.stream().filter(document1 -> document1.getId() == temp.get(randomBorrowRequest).getDocumentId())
+                            .toList().getFirst().getSubject()));
+
+
+            if (recDataTemp.size() <= recPanes.length) {
+                recData.addAll(recDataTemp);
+
+                while (recData.size() < recPanes.length) {
+                    int randomIndex = random.nextInt(data.size());
+                    if (!recData.contains(data.get(randomIndex))) {
+                        recData.add(data.get(randomIndex));
+                    }
+                }
+            } else {
+                for (int i = 0; i < recPanes.length; i++) {
+                    int randomIndex = random.nextInt(recDataTemp.size());
+                    recData.add(recDataTemp.get(randomIndex));
+                }
+
+            }
         }
 
         var sortedData = data.stream().sorted((o1, o2) -> o2.getQuantity() - o1.getQuantity()).toList();
 
         for (int i = 0; i < 5; i++) {
             setDocumentPane((ImageView) dayPanes[i].getChildren().get(0), (Label) dayPanes[i].getChildren().get(1),
-                    data.get(temp.get(i)));
+                    data.get(randomData.get(i)));
 
             int current = i;
 
             dayPanes[i].setOnMouseClicked(_ -> {
-                DataTransfer.getInstance().setCurrentDocument(data.get(temp.get(current)));
+                DataTransfer.getInstance().setCurrentDocument(data.get(randomData.get(current)));
                 Stage newStage = new Stage();
 
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -148,6 +195,35 @@ public class DocumentMainScreenController {
                 newStage.showAndWait();
             });
 
+            setDocumentPane((ImageView) recPanes[i].getChildren().get(0), (Label) recPanes[i].getChildren().get(1),
+                    recData.get(i));
+
+            recPanes[i].setOnMouseClicked(_ -> {
+                DataTransfer.getInstance().setCurrentDocument(recData.get(current));
+                Stage newStage = new Stage();
+
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(Objects.requireNonNull(Main.class.getResource
+                        ("fxml/member/document/document_info.fxml")));
+
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load(), 900, 600);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                newStage.setTitle("Thông tin tài liệu");
+
+                newStage.getIcons().add(new Image(String.valueOf(Main.class.getResource
+                        ("icon/program_icon.png"))));
+
+                newStage.setScene(scene);
+                newStage.setResizable(false);
+                newStage.requestFocus();
+                newStage.initOwner(day1.getScene().getWindow());
+                newStage.initModality(Modality.WINDOW_MODAL);
+                newStage.showAndWait();
+            });
         }
 
     }

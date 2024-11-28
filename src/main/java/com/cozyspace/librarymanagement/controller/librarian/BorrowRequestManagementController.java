@@ -69,7 +69,7 @@ public class BorrowRequestManagementController {
             TableRow<BorrowRequestRecord> row = new TableRow<>();
             ContextMenu contextMenu = new ContextMenu();
             MenuItem changeStatus = new MenuItem("Thay đổi trạng thái");
-            MenuItem extendDueDate = new MenuItem("Gia hạn hạn trả");
+            MenuItem extendDueDate = new MenuItem("Thay đổi hạn trả");
             contextMenu.getItems().addAll(changeStatus, extendDueDate);
 
             ContextMenu contextMenu2 = new ContextMenu();
@@ -236,6 +236,7 @@ public class BorrowRequestManagementController {
             }
             UserManager.getUserInstance().updateBorrowRequest(record);
             table.refresh();
+            Notifications.create().text("Trạng thái đã được thay đổi thành công!").showInformation();
             dialog.close();
         });
 
@@ -255,7 +256,7 @@ public class BorrowRequestManagementController {
         }
 
         JFXDialogLayout content = new JFXDialogLayout();
-        var heading = new Label("Thay đổi trạng thái");
+        var heading = new Label("Thay đổi hạn trả");
         heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         content.setHeading(heading);
 
@@ -306,7 +307,7 @@ public class BorrowRequestManagementController {
 
         okButton.setOnAction(_ -> {
             if (datePicker.getValue() == null || datePicker.getValue().isBefore(
-                    LocalDate.parse(table.getSelectionModel().getSelectedItem().getDueDate(),
+                    LocalDate.parse(table.getSelectionModel().getSelectedItem().getBorrowDate(),
                             DateTimeFormatter.ofPattern("dd-MM-yyyy")))) {
                 Notifications.create().title("Lỗi").text("Hạn trả không hợp lệ.").showError();
                 return;
@@ -315,6 +316,7 @@ public class BorrowRequestManagementController {
             BorrowRequestRecord record = table.getSelectionModel().getSelectedItem();
             record.setDueDate(datePicker.getValue().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             UserManager.getUserInstance().updateBorrowRequest(record);
+            Notifications.create().text("Hạn trả đã được thay đổi thành công!").showInformation();
             table.refresh();
             dialog.close();
         });
