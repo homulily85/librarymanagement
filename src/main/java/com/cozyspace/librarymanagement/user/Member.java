@@ -99,31 +99,5 @@ public final class Member extends User implements ManageComment {
         Datasource.updateMemberInfo(new MemberRecord(info.getUsername(), info.getName(), info.getAddress(),
                 info.getEmail(), info.getPhone(), avatar));
     }
-
-    @Override
-    public ObservableList<Document> searchDocument(String keyword, int mode) {
-        ObservableList<Document> data = UserManager.getUserInstance().viewDocument(mode);
-
-        ObservableList<Document> result = data.stream()
-                .filter(document -> document.getTitle().toLowerCase().contains(keyword) ||
-                                    (document.getAuthor() != null && document.getAuthor().toLowerCase().contains(keyword)) ||
-                                    (document.getISBN() != null && document.getISBN().equals(keyword)))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        if (result.isEmpty()) {
-            try {
-                return GoogleBooksAPI.query(keyword);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else return result;
-    }
-
-    public void updateAvatar(String avatar) {
-        this.info.setAvatar(avatar);
-        Datasource.updateMemberInfo(new MemberRecord(info.getUsername(), info.getName(), info.getAddress(),
-                info.getEmail(), info.getPhone(), avatar));
-    }
 }
 

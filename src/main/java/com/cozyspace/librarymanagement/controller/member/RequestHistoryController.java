@@ -11,10 +11,19 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import org.controlsfx.control.Notifications;
 
+import java.util.Objects;
+
 public class RequestHistoryController {
+    @FXML
+    private Text nameLabel;
+    @FXML
+    private ImageView avatar;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -43,6 +52,11 @@ public class RequestHistoryController {
     private Label removeQuery;
 
     public void initialize() {
+        nameLabel.setText(UserManager.getUserInstance().getInfo().getName());
+        if (UserManager.getUserInstance().getInfo().getAvatar() != null) {
+            avatar.setImage(new Image(Objects.requireNonNull(Main.class.getResource
+                    ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
+        }
 
         table.setRowFactory(_ -> {
             TableRow<BorrowRequestRecord> row = new TableRow<>();

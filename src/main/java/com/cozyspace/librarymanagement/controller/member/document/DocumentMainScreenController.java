@@ -101,7 +101,9 @@ public class DocumentMainScreenController {
 
         ArrayList<Document> recData = new ArrayList<>();
 
-        ObservableList<BorrowRequestRecord> temp = UserManager.getUserInstance().viewAllBorrowRequestRecords();
+        ObservableList<BorrowRequestRecord> temp = UserManager.getUserInstance().viewAllBorrowRequestRecords().filtered(
+                borrowRequestRecord -> borrowRequestRecord.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.BORROWED)||
+                        borrowRequestRecord.getStatus().equals(BorrowRequestRecord.BorrowRequestStatus.RETURNED));
 
         if (temp.isEmpty()) {
             random.setSeed(LocalDate.now().toEpochDay() - 1000);

@@ -161,7 +161,7 @@ public class MemberManagementController {
     public void updateMemberInfo() {
 
         if (!phoneField.getText().matches("\\d{10}")) {
-
+            success.setVisible(false);
             emailFailed.setVisible(false);
             phoneFailed.setVisible(true);
             return;
@@ -170,6 +170,7 @@ public class MemberManagementController {
         if (!emailField.getText().matches("^(.+)@(.+)$")) {
             phoneFailed.setVisible(false);
             emailFailed.setVisible(true);
+            success.setVisible(false);
             return;
         }
 
