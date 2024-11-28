@@ -80,17 +80,17 @@
                                         <Insets top="10.0" />
                                     </padding>
                         </Pane>
-                                <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập" textAlignment="CENTER" GridPane.columnIndex="1">
+                                <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập:" textAlignment="CENTER" GridPane.columnIndex="1">
                                     <font>
                                         <Font size="15" />
                                     </font>
                                 </Label>
-                        <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Mật khẩu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Mật khẩu:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="15" />
                            </font>
                         </Label>
-                        <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Nhập lại mật khẩu" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Nhập lại mật khẩu:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="15" />
                            </font>
@@ -131,5 +131,36 @@
             </VBox>
             </children>
         </HBox>
+      <Label fx:id="inputPrompt" layoutX="168.0" layoutY="399.0" text="Bạn cần điền đầy đủ thông tin vào các trường" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="usernameFailPrompt" layoutX="187.0" layoutY="399.0" text="Tên đăng nhập không đúng định dạng" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="passwordFailPrompt" layoutX="194.0" layoutY="399.0" text="Mật khẩu không đúng định dạng" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="resetPasswordFailPrompt" layoutX="173.0" layoutY="399.0" text="Mật khẩu của hai trường không giống nhau" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="usernameExist" layoutX="214.0" layoutY="399.0" text="Tên đăng nhập đã tồn tại" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="40.0" stylesheets="@../../css/button_type_3.css" />
+      <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="24.0" layoutY="24.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icon/arrow-left.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

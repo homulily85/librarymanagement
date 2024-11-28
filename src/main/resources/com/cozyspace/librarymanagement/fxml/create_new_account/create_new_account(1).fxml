@@ -106,5 +106,21 @@
                 </VBox>
             </children>
         </HBox>
+      <Label fx:id="inputPrompt" layoutX="194.0" layoutY="306.0" text="Hãy nhập địa chi email của bạn" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="emailFailedPrompt" layoutX="192.0" layoutY="306.0" text="Địa chỉ email không đúng định dạng" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Button layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="40.0" stylesheets="@../../css/button_type_3.css" />
+      <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="24.0" layoutY="24.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icon/arrow-left.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
