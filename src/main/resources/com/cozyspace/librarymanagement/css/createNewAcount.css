@@ -24,31 +24,32 @@
     -fx-font-size: 15;
     -fx-text-fill: white;
 }
-#signInButton {
+
+.text-area {
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-border-color: white;
+    -fx-background-radius: 5;
+    -fx-background-color: #424242;
+    -fx-font-family: "OpenSans";
+    -fx-font-size: 15;
+    -fx-text-fill: black;
+}
+
+#nextButton {
     -fx-background-color: #fdffe0;
     -fx-text-fill: #393e41;
     -fx-padding: 10 20;
     -fx-cursor: hand;
 }
 
-#signUpButton {
-    -fx-background-color: transparent;
-    -fx-text-fill: black;
-    -fx-strikethrough: true;
-    -fx-font-family: "OpenSans";
-}
-#forgotButton {
-    -fx-background-color: #424242;
-    -fx-text-fill: white;
-    -fx-padding: 10 20;
-    -fx-cursor: hand;
-}
 #subTitle {
-    -fx-font-size: 13px;
+    -fx-font-size: 25px;
     -fx-text-fill: white;
     -fx-text-alignment: left;
     -fx-font-family: "OpenSans";
 }
+
 /* Phần bên trái */
 #leftSection {
     -fx-background-color: #fdffe0;
@@ -59,7 +60,7 @@
 #wel_title {
     -fx-font-size: 40px;
     -fx-text-fill: black;
-    -fx-text-alignment: center;
+    -fx-text-alignment: left;
     -fx-font-weight: bold;
     -fx-font-family: "OpenSans";
 }

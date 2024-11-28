@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="1100.0" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.login.LoginPhase1Controller">
     <children>
@@ -53,7 +54,7 @@
                 </VBox>
                 <VBox fx:id="rightSection" alignment="CENTER" prefHeight="500.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <GridPane alignment="CENTER" prefHeight="166.0" prefWidth="469.0">
+                        <GridPane alignment="CENTER" prefHeight="338.0" prefWidth="494.0" vgap="15.0">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,7 +64,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label id="title" fx:id="nameAccount" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập" textAlignment="CENTER">
+                                <Label id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập:" textAlignment="CENTER">
                                     <font>
                                         <Font size="15" />
                                     </font>
@@ -74,15 +75,12 @@
                                             <opaqueInsets>
                                                 <Insets />
                                             </opaqueInsets>
-                                            <padding>
-                                                <Insets top="10.0" />
-                                            </padding>
                                         </TextField>
                                     </children>
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding></Pane>
-                                <Label id="title" fx:id="passwordAccount" alignment="CENTER" prefHeight="28.0" prefWidth="356.0" text="Mật khẩu" GridPane.rowIndex="1">
+                                <Label id="title" alignment="CENTER" prefHeight="28.0" prefWidth="356.0" text="Mật khẩu:" GridPane.rowIndex="1">
                                     <font>
                                         <Font size="15" />
                                     </font>
@@ -109,12 +107,12 @@
                         </Label>
                         <HBox alignment="CENTER" prefHeight="87.0" prefWidth="500.0" spacing="80.0">
                             <children>
-                                <Button fx:id="forgotButton" onAction="#changeToCreateNewAccount" prefHeight="46.0" prefWidth="146.0" text="Quên mật khẩu">
+                                <Button id="forgotButton" fx:id="passwordResetButton" onAction="#resetPassword" prefHeight="46.0" prefWidth="146.0" text="Quên mật khẩu">
                                     <font>
                                         <Font size="15" />
                                     </font>
                                 </Button>
-                                <Button fx:id="signInButton" defaultButton="true" lineSpacing="30.0" onAction="#checkAndContinue" prefHeight="42.0" prefWidth="126.0" text="Đăng nhập">
+                                <Button id="signInButton" fx:id="loginButton" defaultButton="true" lineSpacing="30.0" onAction="#login" prefHeight="42.0" prefWidth="126.0" text="Đăng nhập">
                                     <font>
                                         <Font size="15" />
                                     </font>
@@ -124,6 +122,16 @@
                                 <Insets bottom="35.0" />
                             </VBox.margin>
                         </HBox>
+                  <HBox prefHeight="26.0" prefWidth="409.0" spacing="100.0">
+                     <children>
+                        <Text id="subTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Bạn chưa có tài khoản?">
+                           <HBox.margin>
+                              <Insets left="70.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Button id="signUpButton" fx:id="createNewAccountButton" mnemonicParsing="false" onAction="#changeToCreateNewAccount" text="Đăng ký ngay" />
+                     </children>
+                  </HBox>
                     </children>
                     <HBox.margin>
                         <Insets />
@@ -137,5 +145,15 @@
                 </VBox>
             </children>
         </HBox>
+      <Label fx:id="inputPrompt1" layoutX="194.0" layoutY="306.0" text="Hãy nhập tên đăng nhập của bạn" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
+      <Label fx:id="loginFailedPrompt1" layoutX="205.0" layoutY="306.0" text="Tên đăng nhập không tồn tại" textFill="#e40c0c" visible="false">
+         <font>
+            <Font size="12" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

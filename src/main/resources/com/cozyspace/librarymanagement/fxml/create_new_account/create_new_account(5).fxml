@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1100.0" stylesheets="@../../css/createNewAcount.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.create_new_account.CreateNewAccountPhase5Controller">
+    <children>
+        <Pane layoutX="550.0" prefHeight="601.0" prefWidth="550.0" style="-fx-background-color: #393e41;" />
+        <Pane prefHeight="600.0" prefWidth="550.0" style="-fx-background-color: #fdffe0;" />
+        <HBox layoutX="107.0" layoutY="69.0" prefHeight="468.0" prefWidth="898.0">
+            <children>
+                <VBox id="leftSection" alignment="CENTER" prefHeight="468.0" prefWidth="443.0">
+                    <children>
+                        <ImageView fitHeight="134.0" fitWidth="111.0">
+                            <Image url="@../../icon/program_icon.png" />
+                            <VBox.margin>
+                                <Insets bottom="50.0" right="250.0" top="-130.0" />
+                            </VBox.margin>
+                        </ImageView>
+                        <Label id="wel_title" prefHeight="122.0" prefWidth="332.0" text="Tạo tài khoản thành công" wrapText="true">
+                            <font>
+                                <Font size="40" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="-35.0" top="-35.0" />
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </VBox>
+                <VBox id="rightSection" prefHeight="468.0" prefWidth="459.0">
+                    <children>
+                  <Text id="subTitle" fill="#fdffe0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài khoản của bạn đã được tạo thành công. Hãy đăng nhập sử dụng tài khoản này." wrappingWidth="371.2808208465576">
+                     <VBox.margin>
+                        <Insets bottom="90.0" left="30.0" top="190.0" />
+                     </VBox.margin>
+                  </Text>
+                        <Button id="nextButton" fx:id="continueButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" lineSpacing="30.0" onAction="#next" prefHeight="42.0" prefWidth="122.0" text="Tiếp tục" textAlignment="CENTER">
+                            <font>
+                                <Font size="15" />
+                            </font>
+                            <VBox.margin>
+                                <Insets left="250.0" top="-30.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
