@@ -18,7 +18,7 @@
 
 <AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="1100.0" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cozyspace.librarymanagement.controller.login.LoginPhase1Controller">
     <children>
-        <Pane layoutX="550.0" prefHeight="601.0" prefWidth="550.0" style="-fx-background-color: #393e41;" />
+        <Pane layoutX="550.0" prefHeight="602.0" prefWidth="550.0" style="-fx-background-color: #393e41;" />
         <Pane prefHeight="600.0" prefWidth="550.0" style="-fx-background-color: #fdffe0;" />
         <HBox layoutX="50.0" layoutY="50.0" prefHeight="500.0" prefWidth="1000.0">
             <children>
@@ -63,7 +63,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <Label fx:id="title" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập" textAlignment="CENTER">
+                                <Label id="title" fx:id="nameAccount" alignment="CENTER" prefHeight="42.0" prefWidth="299.0" text="Tên đăng nhập" textAlignment="CENTER">
                                     <font>
                                         <Font size="15" />
                                     </font>
@@ -82,7 +82,7 @@
                                     <padding>
                                         <Insets top="10.0" />
                                     </padding></Pane>
-                                <Label fx:id="title" alignment="CENTER" prefHeight="28.0" prefWidth="356.0" text="Mật khẩu" GridPane.rowIndex="1">
+                                <Label id="title" fx:id="passwordAccount" alignment="CENTER" prefHeight="28.0" prefWidth="356.0" text="Mật khẩu" GridPane.rowIndex="1">
                                     <font>
                                         <Font size="15" />
                                     </font>

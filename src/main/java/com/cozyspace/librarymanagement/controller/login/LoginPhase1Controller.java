@@ -8,12 +8,12 @@ import javafx.scene.control.*;
 
 public class LoginPhase1Controller extends AccountRelatedController {
     @FXML
-    private Button createNewAccountButton;
+    private Button forgotButton;
     @FXML
     private SplitPane loginPhase1Screen;
     private String lastUserNameInput;
     @FXML
-    public Button continueButton;
+    public Button signInButton;
     @FXML
     private Label loginFailedPrompt;
     @FXML
@@ -22,8 +22,8 @@ public class LoginPhase1Controller extends AccountRelatedController {
     private TextField usernameField;
 
     public void initialize() {
-        modifyMainButtonStyle(continueButton);
-        modifySubButtonStyle(createNewAccountButton);
+        modifyMainButtonStyle(signInButton);
+        modifySubButtonStyle(forgotButton);
     }
 
     public void checkAndContinue() {
