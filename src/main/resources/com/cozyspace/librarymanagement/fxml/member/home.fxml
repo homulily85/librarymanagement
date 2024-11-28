@@ -32,26 +32,24 @@
             <TableColumn fx:id="dueDate" prefWidth="111.20004882812498" text="Thời hạn"/>
         </columns>
     </TableView>
-    <BarChart fx:id="chart" barGap="5.0" categoryGap="5.0" layoutX="14.0" layoutY="360.0" legendSide="LEFT"
-              prefHeight="304.0" prefWidth="490.0" style="-fx-vertical-grid-lines-visible: green;"
-              stylesheets="@../../css/chart.css" title="Tài liệu đã mượn theo tháng">
+    <BarChart fx:id="chart" barGap="5.0" categoryGap="5.0" layoutX="14.0" layoutY="360.0" legendSide="LEFT" prefHeight="304.0" prefWidth="490.0" style="-fx-vertical-grid-lines-visible: green;" stylesheets="@../../css/chart.css" title="Tài liệu đã mượn theo tháng">
         <xAxis>
-            <CategoryAxis side="BOTTOM"/>
+            <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
-            <NumberAxis label="Số lượng" prefHeight="156.0" prefWidth="53.0" side="LEFT"/>
+            <NumberAxis label="Số lượng" prefHeight="156.0" prefWidth="53.0" side="LEFT" />
         </yAxis>
         <cursor>
-            <Cursor fx:constant="DEFAULT"/>
+            <Cursor fx:constant="DEFAULT" />
         </cursor>
         <effect>
-            <ColorAdjust/>
+            <ColorAdjust />
         </effect>
     </BarChart>
     <Text fill="#f39604" layoutX="47.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trang chủ"
           textAlignment="CENTER">
         <font>
-            <Font name="Verdana" size="35.0"/>
+            <Font name="Verdana" size="35.0" />
         </font>
     </Text>
     <Text layoutX="704.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tài liệu đang mượn"
@@ -60,48 +58,40 @@
             <Font name="Verdana" size="20.0"/>
         </font>
     </Text>
-    <Pane layoutX="135.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane"
-          stylesheets="@../../css/pane.css">
-        <Label fx:id="numberOfPending" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888"
-               textFill="WHITE" wrapText="true">
+    <Pane layoutX="135.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane" stylesheets="@../../css/pane.css">
+        <Label fx:id="numberOfPending" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888" textFill="WHITE" wrapText="true">
             <font>
-                <Font name="System Bold" size="30.0"/>
+                <Font name="System Bold" size="30.0" />
             </font>
         </Label>
         <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="149.0" text="Yêu cầu đang chờ xử lí"
                textFill="WHITE" wrapText="true">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
     </Pane>
-    <Pane layoutX="449.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane"
-          stylesheets="@../../css/pane.css">
-        <Label fx:id="numberOfBorrowed" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888"
-               textFill="WHITE" wrapText="true">
+    <Pane layoutX="449.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane" stylesheets="@../../css/pane.css">
+        <Label fx:id="numberOfBorrowed" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888" textFill="WHITE" wrapText="true">
             <font>
-                <Font name="System Bold" size="30.0"/>
+                <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="109.0" text="Tài liệu đang mượn"
-               textFill="WHITE" wrapText="true">
+        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="109.0" text="Tài liệu đang mượn" textFill="WHITE" wrapText="true">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
     </Pane>
-    <Pane layoutX="755.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane"
-          stylesheets="@../../css/pane.css">
-        <Label fx:id="numberOfLate" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888"
-               textFill="WHITE" wrapText="true">
+    <Pane layoutX="755.0" layoutY="138.0" prefHeight="167.0" prefWidth="166.0" styleClass="pane" stylesheets="@../../css/pane.css">
+        <Label fx:id="numberOfLate" layoutX="14.0" layoutY="38.0" prefHeight="46.0" prefWidth="76.0" text="8888" textFill="WHITE" wrapText="true">
             <font>
-                <Font name="System Bold" size="30.0"/>
+                <Font name="System Bold" size="30.0" />
             </font>
         </Label>
-        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="149.0" text="Tài liệu quá hạn"
-               textFill="WHITE" wrapText="true">
+        <Label layoutX="11.0" layoutY="84.0" prefHeight="80.0" prefWidth="149.0" text="Tài liệu quá hạn" textFill="WHITE" wrapText="true">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
         </Label>
     </Pane>

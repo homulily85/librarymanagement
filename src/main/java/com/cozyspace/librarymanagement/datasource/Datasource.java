@@ -558,4 +558,31 @@ public final class Datasource {
             e.printStackTrace();
         }
     }
+
+    public static List<Document> loadDocumentsFromDatabase() {
+        List<Document> documents = new ArrayList<>();
+        String sql = "SELECT * FROM document";
+
+        try (Connection connection = DriverManager.getConnection(CONNECTION_NAME);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+
+            while (resultSet.next()) {
+                String isbn = resultSet.getString("isbn");
+                String title = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                String description = resultSet.getString("description");
+                String type = resultSet.getString("type");
+                int quantity = resultSet.getInt("quantity");
+                String subject = resultSet.getString("subject");  // Cập nhật tên trường chính xác từ cơ sở dữ liệu
+                String coverPageLocation = resultSet.getString("coverPageLocation");  // Đảm bảo tên trường chính xác
+
+                Document document = new Document(isbn, title, author, description, type, quantity, subject, coverPageLocation);
+                documents.add(document);
+            }
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi truy vấn cơ sở dữ liệu: " + e.getMessage());
+        }
+        return documents;
+    }
 }
