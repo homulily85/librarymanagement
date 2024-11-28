@@ -5,6 +5,7 @@ import com.cozyspace.librarymanagement.user.UserManager;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -110,5 +111,17 @@ public class MemberMainScreenController {
 
         content.setActions(okButton, cancelButton);
         dialog.show();
+    }
+
+    public void loadHistory() {
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource
+                ("fxml/member/request_history.fxml"));
+        Pane requestHistoryView = null;
+        try {
+            requestHistoryView = loader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        main.setCenter(requestHistoryView);
     }
 }
