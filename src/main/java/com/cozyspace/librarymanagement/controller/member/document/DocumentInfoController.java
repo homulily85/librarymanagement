@@ -69,6 +69,7 @@ public class DocumentInfoController {
 
         ObservableList<Comment> comments = ((Member) UserManager.getUserInstance())
                 .getCommentByDocumentID(DataTransfer.getInstance().getCurrentDocument().getId());
+        System.out.println(comments.size());
         ObservableList<Comment> sortedComments = comments.sorted((o1, o2) -> {
             LocalDate date1 = LocalDate.parse(o1.getTime(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             LocalDate date2 = LocalDate.parse(o2.getTime(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -77,15 +78,15 @@ public class DocumentInfoController {
         commentSection.setSpacing(15);
         for (Comment comment : sortedComments) {
             VBox temp = new VBox();
-            Label username = new Label(comment.getUsername());
-            username.setStyle("-fx-font-size: 20;-fx-font-weight: bold");
+            Label name = new Label(comment.getName());
+            name.setStyle("-fx-font-size: 20;-fx-font-weight: bold");
             Label time = new Label("Đã đăng ngày: " + comment.getTime());
             time.setStyle("-fx-font-size: 18");
             Label commentLabel = new Label(comment.getComment());
             commentLabel.setWrapText(true);
             commentLabel.setStyle("-fx-font-size: 18");
 
-            temp.getChildren().setAll(username, time, commentLabel);
+            temp.getChildren().setAll(name, time, commentLabel);
 
             commentSection.getChildren().add(temp);
         }
@@ -143,7 +144,10 @@ public class DocumentInfoController {
         JFXButton submit = new JFXButton("Gửi yêu cầu");
         String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
         submit.getStylesheets().add(css);
-        content.setActions(submit);
+
+        JFXButton cancel = new JFXButton("Hủy");
+        cancel.getStylesheets().add(css);
+        content.setActions(submit, cancel);
 
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
 
@@ -162,6 +166,7 @@ public class DocumentInfoController {
                 Notifications.create().title("Lỗi").text("Bạn chưa chọn số ngày mượn!").showError();
                 return;
             }
+
             Notifications.create().title("Thành công").text("Yêu cầu mượn sách đã được gửi").showInformation();
 
             new Thread(() -> UserManager.getUserInstance().createNewBorrowRequest(UserManager.getUserInstance().getInfo().getUsername()
@@ -170,6 +175,8 @@ public class DocumentInfoController {
 
             dialog.close();
         });
+
+        cancel.setOnAction(_ -> dialog.close());
 
         dialog.show();
     }
@@ -191,7 +198,10 @@ public class DocumentInfoController {
         String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
         submit.getStylesheets().add(css);
 
-        content.setActions(submit);
+        JFXButton cancel = new JFXButton("Hủy");
+        cancel.getStylesheets().add(css);
+
+        content.setActions(submit, cancel);
 
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
 
@@ -200,7 +210,6 @@ public class DocumentInfoController {
                 Notifications.create().title("Lỗi").text("Bạn chưa nhập nhận xét!").showError();
                 return;
             }
-
 
             Comment comment = ((Member) UserManager.getUserInstance()).createNewComment(DataTransfer.getInstance()
                     .getCurrentDocument().getId(), commentField.getText());
@@ -220,6 +229,8 @@ public class DocumentInfoController {
             Notifications.create().title("Thành công").text("Nhận xét của bạn đã được đăng").showInformation();
             dialog.close();
         });
+
+        cancel.setOnAction(_ -> dialog.close());
 
         dialog.show();
     }

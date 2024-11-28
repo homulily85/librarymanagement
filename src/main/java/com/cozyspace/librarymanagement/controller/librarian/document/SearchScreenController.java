@@ -193,6 +193,7 @@ public class SearchScreenController {
     }
 
     public void showDocumentInfo() {
+        DataTransfer.getInstance().setCurrentDocument(table.getSelectionModel().getSelectedItem());
         Stage newStage = new Stage();
 
         FXMLLoader fxmlLoader = new FXMLLoader();

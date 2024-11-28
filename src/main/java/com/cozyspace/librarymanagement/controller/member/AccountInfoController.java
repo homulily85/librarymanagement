@@ -17,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,10 +36,6 @@ public class AccountInfoController {
     private ImageView avatar2;
     @FXML
     private StackPane root;
-    @FXML
-    private Text nameLabel;
-    @FXML
-    private ImageView avatar;
     @FXML
     private Label name;
     @FXML
@@ -87,10 +82,7 @@ public class AccountInfoController {
             return row;
         });
 
-        nameLabel.setText(UserManager.getUserInstance().getInfo().getName());
         if (UserManager.getUserInstance().getInfo().getAvatar() != null) {
-            avatar.setImage(new Image(Objects.requireNonNull(Main.class.getResource
-                    ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
             avatar2.setImage(new Image(Objects.requireNonNull(Main.class.getResource
                     ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
         }
@@ -169,13 +161,12 @@ public class AccountInfoController {
             Notifications.create().title("Lỗi").text("Định dạng ảnh là .png hoặc .jpg").showError();
             return;
         }
-        avatar.setImage(new Image(file.toString()));
         avatar2.setImage(new Image(file.toString()));
 
-        String fileName = System.currentTimeMillis() + getFileExtension(avatar.getImage().getUrl());
+        String fileName = System.currentTimeMillis() + getFileExtension(avatar2.getImage().getUrl());
 
         new Thread(() -> {
-            String sour = avatar.getImage().getUrl().replace("/", "\\");
+            String sour = avatar2.getImage().getUrl().replace("/", "\\");
             URL url = Main.class.getResource("avatar/");
             String des;
             try {

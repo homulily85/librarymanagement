@@ -1,6 +1,6 @@
 .button {
     -fx-font-size: 15;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-font-family: "OpenSans";
     -fx-font-weight: bold;
     -fx-text-alignment: left;

@@ -31,6 +31,8 @@ import java.util.Objects;
 
 public class SearchScreenController {
     @FXML
+    private Label documentNotFound;
+    @FXML
     private StackPane mainStackPane;
     @FXML
     private Button searchButton;
@@ -56,9 +58,8 @@ public class SearchScreenController {
             avatar.setImage(new Image(Objects.requireNonNull(Main.class.getResource
                     ("avatar/" + UserManager.getUserInstance().getInfo().getAvatar())).toString()));
         }
-        DataTransfer.getInstance().getDataMap().put("keyword", searchField.getText().trim().toLowerCase());
+        searchField.setText(DataTransfer.getInstance().getDataMap().get("keyword"));
         search();
-
     }
 
     private void search() {
@@ -68,6 +69,13 @@ public class SearchScreenController {
 
         ObservableList<Document> result = UserManager.getUserInstance().searchDocument(
                 DataTransfer.getInstance().getDataMap().get("keyword"), SearchBook.SEARCH_ALL_DOCUMENT);
+
+        if (result.isEmpty()) {
+            documentNotFound.setVisible(true);
+            return;
+        } else {
+            documentNotFound.setVisible(false);
+        }
 
         for (Document document : result) {
             HBox documentCard = new HBox();

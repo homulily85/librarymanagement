@@ -21,8 +21,6 @@ public class LibrarianMainScreenController {
     private BorderPane memberManagement;
     @FXML
     private BorderPane documentMainScreen;
-    @FXML
-    private BorderPane gameScreen;
 
     public void initialize() {
 
@@ -61,14 +59,6 @@ public class LibrarianMainScreenController {
             e.printStackTrace();
         }
         home.setCenter(temp4);
-        FXMLLoader loader5 = new FXMLLoader(Main.class.getResource("fxml/game/game_screen.fxml"));
-        Pane temp5 = null;
-        try {
-            temp5 = loader5.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        gameScreen.setCenter(temp5);
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (_, _, t1) -> {
@@ -81,6 +71,33 @@ public class LibrarianMainScreenController {
                             e.printStackTrace();
                         }
                         home.setCenter(temp);
+                    } else if (t1.getText().equals("Yêu cầu")) {
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/borrow_request_management.fxml"));
+                        Pane temp = null;
+                        try {
+                            temp = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        requestManagement.setCenter(temp);
+                    } else if (t1.getText().equals("Quản lý thành viên")) {
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/member_management.fxml"));
+                        Pane temp = null;
+                        try {
+                            temp = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        memberManagement.setCenter(temp);
+                    } else if (t1.getText().equals("Quản lý tài liệu")) {
+                        FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/librarian/document/document_main_screen.fxml"));
+                        Pane temp = null;
+                        try {
+                            temp = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        documentMainScreen.setCenter(temp);
                     }
                 });
     }

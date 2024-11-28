@@ -71,7 +71,7 @@ public final class Member extends User implements ManageComment {
         new Thread(
                 () -> Datasource.createNewComment(info.getUsername(), documentID, comment,
                         LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))).start();
-        return new Comment(info.getUsername(), documentID, comment, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        return new Comment(info.getUsername(), comment, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), info.getName());
     }
 
     @Override

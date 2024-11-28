@@ -102,11 +102,13 @@ public class BorrowRequestManagementController {
         removeQuery.disableProperty().bind(Bindings.isEmpty(searchField.textProperty()));
 
         removeQuery.setOnMouseClicked(_ -> {
+            ObservableList<BorrowRequestRecord> t = UserManager.getUserInstance().viewAllBorrowRequestRecords();
             searchField.clear();
-            table.getItems().setAll(result);
+            table.getItems().setAll(t);
             requestNotFound.setVisible(false);
             table.setVisible(true);
             createNewRequest.setVisible(true);
+
         });
 
         searchButton.defaultButtonProperty().bind(searchButton.focusedProperty());
@@ -209,6 +211,10 @@ public class BorrowRequestManagementController {
         JFXButton okButton = new JFXButton("Xác nhận");
         String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
         okButton.getStylesheets().add(css);
+
+        JFXButton cancelButton = new JFXButton("Hủy");
+        cancelButton.getStylesheets().add(css);
+
         okButton.setOnAction(_ -> {
             ObservableList<Document> document = UserManager.getUserInstance()
                     .viewDocument(SearchBook.SEARCH_ALL_DOCUMENT).
@@ -233,7 +239,9 @@ public class BorrowRequestManagementController {
             dialog.close();
         });
 
-        content.setActions(okButton);
+        cancelButton.setOnAction(_ -> dialog.close());
+
+        content.setActions(okButton, cancelButton);
         dialog.show();
     }
 
@@ -289,7 +297,11 @@ public class BorrowRequestManagementController {
         JFXButton okButton = new JFXButton("Xác nhận");
         String css = Main.class.getResource("css/button_type_2.css").toExternalForm();
         okButton.getStylesheets().add(css);
-        content.setActions(okButton);
+
+        JFXButton cancelButton = new JFXButton("Hủy");
+        cancelButton.getStylesheets().add(css);
+
+        content.setActions(okButton, cancelButton);
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
 
         okButton.setOnAction(_ -> {
@@ -306,6 +318,9 @@ public class BorrowRequestManagementController {
             table.refresh();
             dialog.close();
         });
+
+        cancelButton.setOnAction(_ -> dialog.close());
+
         dialog.show();
     }
 }

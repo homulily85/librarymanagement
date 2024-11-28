@@ -125,6 +125,7 @@ public final class Librarian extends User implements SearchMember {
         if (data == null || data.isEmpty()) return null;
         else return data.stream()
                 .filter(document -> document.getTitle().toLowerCase().contains(keyword) ||
+                                    (((Integer) document.getId()).toString().equals(keyword)) ||
                                     (document.getAuthor() != null && document.getAuthor().toLowerCase().contains(keyword) ||
                                      (document.getISBN() != null && document.getISBN().equals(keyword))))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));

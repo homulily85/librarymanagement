@@ -520,16 +520,16 @@ public final class Datasource {
 
     public static ObservableList<Comment> getCommentByDocumentId(int documentId) {
         try {
-            PreparedStatement query = connection.prepareStatement("select * from %s where %s = ?"
-                    .formatted(TABLE_COMMENT, TABLE_COMMENT_COLUMN_DOCUMENT_ID));
+            PreparedStatement query = connection.prepareStatement("select * from %s join %s using (%s) where %s = ?"
+                    .formatted(TABLE_COMMENT, TABLE_ACCOUNT, TABLE_ACCOUNT_COLUMN_USERNAME, TABLE_COMMENT_COLUMN_DOCUMENT_ID));
             query.setInt(1, documentId);
             ResultSet resultSet = query.executeQuery();
             ObservableList<Comment> result = FXCollections.observableList(new ArrayList<>());
             while (resultSet.next()) {
-                result.add(new Comment(resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_USERNAME),
-                        resultSet.getInt(TABLE_COMMENT_INDEX_COLUMN_DOCUMENT_ID),
-                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_CONTENT),
-                        resultSet.getString(TABLE_COMMENT_INDEX_COLUMN_TIME)));
+                result.add(new Comment(resultSet.getString(TABLE_COMMENT_COLUMN_USERNAME),
+                        resultSet.getString(TABLE_COMMENT_COLUMN_CONTENT),
+                        resultSet.getString(TABLE_COMMENT_COLUMN_TIME),
+                        resultSet.getString(TABLE_ACCOUNT_COLUMN_NAME)));
             }
             resultSet.close();
             query.close();

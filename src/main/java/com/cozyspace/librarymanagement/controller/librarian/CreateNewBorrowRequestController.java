@@ -80,7 +80,7 @@ public class CreateNewBorrowRequestController {
     }
 
     public void handleDocumentSearchButton() {
-        ObservableList<Document> documents = ((Librarian) UserManager.getUserInstance())
+        ObservableList<Document> documents = UserManager.getUserInstance()
                 .searchDocument(documentSearchField.getText().trim().toLowerCase(), SearchBook.SEARCH_ALL_DOCUMENT);
 
         documentTable.getItems().setAll(documents);
